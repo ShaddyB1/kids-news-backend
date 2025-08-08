@@ -426,8 +426,8 @@ def serve_podcast_feed():
             base.mkdir(parents=True, exist_ok=True)
 
             site_url = os.getenv('PODCAST_SITE_URL', request.host_url.rstrip('/'))
-            title = getattr(backend.config, 'NEWSLETTER_TITLE', 'Kids Daily News')
-            description = (
+            title = os.getenv('PODCAST_TITLE') or getattr(backend.config, 'NEWSLETTER_TITLE', 'Kids Daily News')
+            description = os.getenv('PODCAST_DESCRIPTION') or (
                 'Junior News Digest is a kid‑safe news show with short, positive stories '
                 'about science, animals, space, technology, sports, and kindness.'
             )
