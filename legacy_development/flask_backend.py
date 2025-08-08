@@ -404,6 +404,18 @@ def serve_audio(week: str, filename: str):
     base = Path('kids_news_content') / week / 'generated_audio'
     return send_from_directory(base, filename)
 
+@app.route('/sample-audio/<label>/<path:filename>')
+def serve_sample_audio(label: str, filename: str):
+    """Serve fallback sample audio files used when weekly audio isn't present."""
+    base_map = {
+        'current_batch': Path('legacy_development/fully_automatic_videos/current_batch/audio'),
+        'current_week': Path('legacy_development/story_based_videos/current_week/audio'),
+    }
+    base = base_map.get(label)
+    if not base:
+        return jsonify({'error': 'unknown label'}), 404
+    return send_from_directory(base, filename)
+
 @app.route('/podcast/feed.xml')
 def serve_podcast_feed():
     """Serve the podcast RSS feed. If missing, generate a minimal feed on the fly."""
@@ -446,6 +458,30 @@ def serve_podcast_feed():
                 </item>
                 """
                 items_xml.append(item)
+
+            # Fallback to sample audio paths in repo if no weekly audio exists
+            if not items_xml:
+                sample_map = {
+                    'current_batch': Path('legacy_development/fully_automatic_videos/current_batch/audio'),
+                    'current_week': Path('legacy_development/story_based_videos/current_week/audio'),
+                }
+                for label, dir_path in sample_map.items():
+                    if dir_path.exists():
+                        for mp3 in sorted(dir_path.glob('*.mp3'), key=lambda p: p.stat().st_mtime, reverse=True)[:3]:
+                            pub_ts = mp3.stat().st_mtime
+                            pub_date = datetime.utcfromtimestamp(pub_ts).strftime('%a, %d %b %Y %H:%M:%S GMT')
+                            # Expose via static file server using send_from_directory route below
+                            audio_url = f"{site_url}/sample-audio/{label}/{mp3.name}"
+                            item = f"""
+                            <item>
+                              <title>{mp3.stem}</title>
+                              <description>Sample episode</description>
+                              <enclosure url=\"{audio_url}\" type=\"audio/mpeg\"/>
+                              <guid isPermaLink=\"false\">sample-{label}-{mp3.name}</guid>
+                              <pubDate>{pub_date}</pubDate>
+                            </item>
+                            """
+                            items_xml.append(item)
 
             rss_xml = f"""<?xml version="1.0" encoding="UTF-8"?>
             <rss version="2.0">
