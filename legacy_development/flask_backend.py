@@ -431,6 +431,8 @@ def serve_podcast_feed():
                 'Junior News Digest is a kid‑safe news show with short, positive stories '
                 'about science, animals, space, technology, sports, and kindness.'
             )
+            author = os.getenv('PODCAST_AUTHOR', 'Junior News Digest')
+            contact_email = os.getenv('PODCAST_CONTACT_EMAIL', os.getenv('EMAIL_USER', 'podcast@example.com'))
 
             # Discover recent audio files under kids_news_content/*_week/generated_audio/*.mp3
             items_xml = []
@@ -479,17 +481,28 @@ def serve_podcast_feed():
                               <enclosure url=\"{audio_url}\" type=\"audio/mpeg\"/>
                               <guid isPermaLink=\"false\">sample-{label}-{mp3.name}</guid>
                               <pubDate>{pub_date}</pubDate>
+                              <itunes:explicit>false</itunes:explicit>
                             </item>
                             """
                             items_xml.append(item)
 
-            rss_xml = f"""<?xml version="1.0" encoding="UTF-8"?>
-            <rss version="2.0">
+            # iTunes/Apple tags for Spotify validation
+            rss_xml = f"""<?xml version=\"1.0\" encoding=\"UTF-8\"?>
+            <rss version=\"2.0\" xmlns:itunes=\"http://www.itunes.com/dtds/podcast-1.0.dtd\" xmlns:atom=\"http://www.w3.org/2005/Atom\">
               <channel>
                 <title>{title}</title>
                 <link>{site_url}</link>
                 <description>{description}</description>
                 <language>en</language>
+                <atom:link href=\"{site_url}/podcast/feed.xml\" rel=\"self\" type=\"application/rss+xml\" />
+                <itunes:author>{author}</itunes:author>
+                <itunes:owner>
+                  <itunes:name>{author}</itunes:name>
+                  <itunes:email>{contact_email}</itunes:email>
+                </itunes:owner>
+                <itunes:explicit>false</itunes:explicit>
+                <itunes:image href=\"{site_url}/podcast/cover.png\" />
+                <itunes:category text=\"Kids &amp; Family\" />
                 {''.join(items_xml)}
               </channel>
             </rss>"""
@@ -504,6 +517,20 @@ def serve_podcast_feed():
     except Exception as e:
         logger.error(f"Podcast feed error: {e}")
         return jsonify({'error': 'Podcast feed unavailable'}), 500
+
+@app.route('/podcast/cover.png')
+def serve_podcast_cover():
+    """Serve podcast cover art. Looks in content folder first, then falls back to app icon."""
+    # Preferred location users can replace in deployment
+    preferred = Path('kids_news_content') / 'podcast' / 'cover.png'
+    if preferred.exists():
+        return send_from_directory(preferred.parent, preferred.name)
+    # Fallback to app icon if present
+    fallback = Path('app_development') / 'kids_news_app_fixed' / 'assets' / 'icon.png'
+    if fallback.exists():
+        return send_from_directory(fallback.parent, fallback.name)
+    # Not found
+    return jsonify({'error': 'cover art not found'}), 404
 
 @app.route('/api/subscribers', methods=['GET'])
 def get_subscribers():
