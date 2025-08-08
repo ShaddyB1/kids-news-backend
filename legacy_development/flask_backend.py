@@ -4,7 +4,7 @@ Flask Backend for Kids Newsletter
 Handles email subscriptions and automatic newsletter sending
 """
 
-from flask import Flask, request, jsonify, render_template_string, send_from_directory
+from flask import Flask, request, jsonify, render_template_string, send_from_directory, make_response
 from flask_cors import CORS
 import sqlite3
 import smtplib
@@ -406,8 +406,68 @@ def serve_audio(week: str, filename: str):
 
 @app.route('/podcast/feed.xml')
 def serve_podcast_feed():
+    """Serve the podcast RSS feed. If missing, generate a minimal feed on the fly."""
     base = Path('kids_news_content') / 'podcast'
-    return send_from_directory(base, 'feed.xml')
+    feed_path = base / 'feed.xml'
+    try:
+        if not feed_path.exists():
+            base.mkdir(parents=True, exist_ok=True)
+
+            site_url = os.getenv('PODCAST_SITE_URL', request.host_url.rstrip('/'))
+            title = getattr(backend.config, 'NEWSLETTER_TITLE', 'Kids Daily News')
+            description = (
+                'Junior News Digest is a kid‑safe news show with short, positive stories '
+                'about science, animals, space, technology, sports, and kindness.'
+            )
+
+            # Discover recent audio files under kids_news_content/*_week/generated_audio/*.mp3
+            items_xml = []
+            root = Path('kids_news_content')
+            audio_files = []
+            for week_dir in sorted(root.glob('*_week'), reverse=True):
+                audio_dir = week_dir / 'generated_audio'
+                if audio_dir.exists():
+                    for mp3 in sorted(audio_dir.glob('*.mp3'), key=lambda p: p.stat().st_mtime, reverse=True):
+                        audio_files.append((week_dir.name, mp3))
+                if len(audio_files) >= 12:
+                    break
+
+            for week_name, mp3 in audio_files[:12]:
+                pub_ts = mp3.stat().st_mtime
+                pub_date = datetime.utcfromtimestamp(pub_ts).strftime('%a, %d %b %Y %H:%M:%S GMT')
+                audio_url = f"{site_url}/audio/{week_name}/{mp3.name}"
+                item = f"""
+                <item>
+                  <title>{mp3.stem}</title>
+                  <description>Kids Daily News episode</description>
+                  <enclosure url="{audio_url}" type="audio/mpeg"/>
+                  <guid isPermaLink="false">{week_name}-{mp3.name}</guid>
+                  <pubDate>{pub_date}</pubDate>
+                </item>
+                """
+                items_xml.append(item)
+
+            rss_xml = f"""<?xml version="1.0" encoding="UTF-8"?>
+            <rss version="2.0">
+              <channel>
+                <title>{title}</title>
+                <link>{site_url}</link>
+                <description>{description}</description>
+                <language>en</language>
+                {''.join(items_xml)}
+              </channel>
+            </rss>"""
+
+            feed_path.write_text(rss_xml, encoding='utf-8')
+
+        # Serve the (now existing) file
+        with open(feed_path, 'rb') as f:
+            resp = make_response(f.read())
+            resp.headers['Content-Type'] = 'application/rss+xml; charset=utf-8'
+            return resp
+    except Exception as e:
+        logger.error(f"Podcast feed error: {e}")
+        return jsonify({'error': 'Podcast feed unavailable'}), 500
 
 @app.route('/api/subscribers', methods=['GET'])
 def get_subscribers():
