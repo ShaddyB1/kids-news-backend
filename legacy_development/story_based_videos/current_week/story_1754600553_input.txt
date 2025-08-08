@@ -1,0 +1,15 @@
+file '/Users/shadrackaddo/Desktop/junior graphic/story_based_videos/current_week/images/story_specific/story_1754600553_scene_00_bus_introduction.png'
+duration 3
+file '/Users/shadrackaddo/Desktop/junior graphic/story_based_videos/current_week/images/story_specific/story_1754600553_scene_01_kids_amazed.png'
+duration 4
+file '/Users/shadrackaddo/Desktop/junior graphic/story_based_videos/current_week/images/story_specific/story_1754600553_scene_02_solar_magic.png'
+duration 4
+file '/Users/shadrackaddo/Desktop/junior graphic/story_based_videos/current_week/images/story_specific/story_1754600553_scene_03_peaceful_journey.png'
+duration 4
+file '/Users/shadrackaddo/Desktop/junior graphic/story_based_videos/current_week/images/story_specific/story_1754600553_scene_04_clean_vs_dirty.png'
+duration 4
+file '/Users/shadrackaddo/Desktop/junior graphic/story_based_videos/current_week/images/story_specific/story_1754600553_scene_05_learning_circle.png'
+duration 4
+file '/Users/shadrackaddo/Desktop/junior graphic/story_based_videos/current_week/images/story_specific/story_1754600553_scene_06_future_heroes.png'
+duration 3
+file '/Users/shadrackaddo/Desktop/junior graphic/story_based_videos/current_week/images/story_specific/story_1754600553_scene_06_future_heroes.png'

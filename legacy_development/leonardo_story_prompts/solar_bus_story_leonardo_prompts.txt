@@ -1,0 +1,104 @@
+LEONARDO.AI PROMPTS FOR SOLAR BUS STORY
+============================================================
+
+Go to: https://leonardo.ai
+Settings: Leonardo Diffusion XL, Alchemy ON, Prompt Magic ON, 16:9 ratio
+
+SCENE 1: title_scene
+----------------------------------------
+Description: Title introduction with solar bus
+Duration: 3 seconds
+
+PROMPT TO COPY:
+A bright yellow school bus with solar panels on the roof, parked in front of a modern California elementary school on a sunny morning. The bus has a friendly face painted on the front and is called 'Sunny'. Children with backpacks are walking toward the bus excitedly. Beautiful blue sky with fluffy white clouds, palm trees, and sunshine rays. children's book illustration, pixar animation style, bright vibrant colors, soft lighting, detailed, high quality, 4k
+                
+                Negative prompt: text, words, letters, scary, dark, violent, realistic photo, gloomy, sad, adult themes
+
+SAVE AS: solar_bus_story_scene_01_title_scene.png
+
+============================================================
+
+SCENE 2: kids_discovering_bus
+----------------------------------------
+Description: Children seeing the solar bus for the first time
+Duration: 4 seconds
+
+PROMPT TO COPY:
+Diverse group of elementary school children (ages 6-10) looking amazed and excited as they discover the new solar-powered school bus. One child is pointing at the solar panels on the roof, another is touching the side of the bus. The children have expressions of wonder and curiosity. The bus driver, a friendly woman, is smiling and explaining about the bus. Bright morning sunlight, school playground in background. children's book illustration, pixar animation style, bright vibrant colors, soft lighting, detailed, high quality, 4k
+                
+                Negative prompt: text, words, letters, scary, dark, violent, realistic photo, gloomy, sad, adult themes
+
+SAVE AS: solar_bus_story_scene_02_kids_discovering_bus.png
+
+============================================================
+
+SCENE 3: solar_panels_working
+----------------------------------------
+Description: Close-up of solar panels converting sunlight
+Duration: 4 seconds
+
+PROMPT TO COPY:
+Close-up view of shiny blue solar panels on the school bus roof, with animated sparkles and energy lines showing the panels absorbing bright sunshine and converting it to electricity. Small animated energy bolts or glowing particles flowing from the panels toward the bus engine. The sun is bright and cheerful with a smiling face. Clear blue sky background. Scientific but kid-friendly visualization of clean energy. children's book illustration, pixar animation style, bright vibrant colors, soft lighting, detailed, high quality, 4k
+                
+                Negative prompt: text, words, letters, scary, dark, violent, realistic photo, gloomy, sad, adult themes
+
+SAVE AS: solar_bus_story_scene_03_solar_panels_working.png
+
+============================================================
+
+SCENE 4: peaceful_ride
+----------------------------------------
+Description: Kids enjoying the quiet, clean ride
+Duration: 4 seconds
+
+PROMPT TO COPY:
+Interior view of the school bus with happy children sitting in their seats, looking out windows at beautiful scenery passing by. The atmosphere is peaceful and quiet (show this with calm expressions and maybe some sleeping children). One child is reading a book about renewable energy, another is looking at the digital display showing 'Solar Power: 100%'. Soft, natural lighting from windows. Clean, modern bus interior. children's book illustration, pixar animation style, bright vibrant colors, soft lighting, detailed, high quality, 4k
+                
+                Negative prompt: text, words, letters, scary, dark, violent, realistic photo, gloomy, sad, adult themes
+
+SAVE AS: solar_bus_story_scene_04_peaceful_ride.png
+
+============================================================
+
+SCENE 5: environmental_impact
+----------------------------------------
+Description: Showing the environmental benefits
+Duration: 4 seconds
+
+PROMPT TO COPY:
+Split-screen comparison showing the solar bus on one side with clean air, flowers, and happy animals around it, versus an old diesel bus on the other side with gray smoke clouds. The solar bus side has green plants, blue skies, and smiling earth character, while the diesel side shows concerned-looking plants and animals. Educational but hopeful tone. children's book illustration, pixar animation style, bright vibrant colors, soft lighting, detailed, high quality, 4k
+                
+                Negative prompt: text, words, letters, scary, dark, violent, realistic photo, gloomy, sad, adult themes
+
+SAVE AS: solar_bus_story_scene_05_environmental_impact.png
+
+============================================================
+
+SCENE 6: kids_learning
+----------------------------------------
+Description: Children learning about renewable energy
+Duration: 4 seconds
+
+PROMPT TO COPY:
+Children sitting in a circle at school with their teacher, looking at a large, colorful poster about renewable energy. The poster shows the sun, solar panels, wind turbines, and the earth with a big smile. Kids are raising their hands excitedly, with thought bubbles showing lightbulbs and ideas. Books about science and environment are scattered around. Bright classroom with educational posters on walls. children's book illustration, pixar animation style, bright vibrant colors, soft lighting, detailed, high quality, 4k
+                
+                Negative prompt: text, words, letters, scary, dark, violent, realistic photo, gloomy, sad, adult themes
+
+SAVE AS: solar_bus_story_scene_06_kids_learning.png
+
+============================================================
+
+SCENE 7: inspiring_future
+----------------------------------------
+Description: Kids inspired to help the environment
+Duration: 3 seconds
+
+PROMPT TO COPY:
+Group of diverse children standing together outdoors with their arms raised in celebration, with the solar school bus in the background. Above them, thought bubbles show various environmental inventions: solar houses, wind farms, electric cars, recycling centers. The children look determined and inspired. Beautiful sunset/sunrise in the background with the text 'You Can Change the World!' floating in the sky in friendly, colorful letters. children's book illustration, pixar animation style, bright vibrant colors, soft lighting, detailed, high quality, 4k
+                
+                Negative prompt: text, words, letters, scary, dark, violent, realistic photo, gloomy, sad, adult themes
+
+SAVE AS: solar_bus_story_scene_07_inspiring_future.png
+
+============================================================
+

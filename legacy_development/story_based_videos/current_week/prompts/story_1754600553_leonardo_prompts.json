@@ -1,0 +1,81 @@
+{
+  "story_id": "story_1754600553",
+  "story_title": "Solar-Powered School Bus Adventure",
+  "analysis": {
+    "story_type": "environmental_technology",
+    "main_subject": "solar-powered school bus",
+    "characters": [
+      "school children",
+      "bus driver",
+      "teacher"
+    ],
+    "setting": "California school, sunny day",
+    "key_visuals": [
+      "bright yellow school bus with solar panels",
+      "excited children discovering the bus",
+      "solar panels converting sunshine to energy",
+      "peaceful bus ride with happy kids",
+      "environmental comparison (clean vs polluted)",
+      "children learning about renewable energy",
+      "inspiring future with kids as environmental heroes"
+    ],
+    "emotions": [
+      "excitement",
+      "wonder",
+      "hope",
+      "pride"
+    ],
+    "educational_elements": [
+      "solar energy",
+      "environmental protection",
+      "innovation"
+    ]
+  },
+  "prompts": [
+    {
+      "scene": "bus_introduction",
+      "duration": 3,
+      "prompt": "A bright yellow school bus named 'Sunny' with solar panels on the roof, parked in front of a modern California elementary school. Children with backpacks walking excitedly toward the bus. Beautiful blue sky, palm trees, sunshine rays. children's book illustration, pixar animation style, bright vibrant colors, soft lighting, whimsical, educational, detailed, high quality, 4k. Negative prompt: text, words, letters, scary, dark, violent, realistic photo, gloomy, sad, adult themes"
+    },
+    {
+      "scene": "kids_amazed",
+      "duration": 4,
+      "prompt": "Diverse group of elementary school children (ages 6-10) with expressions of wonder and excitement, pointing at solar panels on the bus roof. One child touching the bus side, bus driver smiling and explaining. School playground background. children's book illustration, pixar animation style, bright vibrant colors, soft lighting, whimsical, educational, detailed, high quality, 4k. Negative prompt: text, words, letters, scary, dark, violent, realistic photo, gloomy, sad, adult themes"
+    },
+    {
+      "scene": "solar_magic",
+      "duration": 4,
+      "prompt": "Close-up of shiny blue solar panels with sparkles and energy lines, showing sunshine converting to electricity. Animated energy bolts flowing to bus engine. Cheerful sun with smiling face, clear blue sky. children's book illustration, pixar animation style, bright vibrant colors, soft lighting, whimsical, educational, detailed, high quality, 4k. Negative prompt: text, words, letters, scary, dark, violent, realistic photo, gloomy, sad, adult themes"
+    },
+    {
+      "scene": "peaceful_journey",
+      "duration": 4,
+      "prompt": "Interior of school bus with happy children in seats, looking out at beautiful scenery. Peaceful atmosphere, one child reading about renewable energy, digital display showing 'Solar Power: 100%'. children's book illustration, pixar animation style, bright vibrant colors, soft lighting, whimsical, educational, detailed, high quality, 4k. Negative prompt: text, words, letters, scary, dark, violent, realistic photo, gloomy, sad, adult themes"
+    },
+    {
+      "scene": "clean_vs_dirty",
+      "duration": 4,
+      "prompt": "Split-screen: solar bus with clean air, flowers, happy animals vs old diesel bus with gray smoke, concerned animals. Solar side has green plants, blue sky, smiling earth character. children's book illustration, pixar animation style, bright vibrant colors, soft lighting, whimsical, educational, detailed, high quality, 4k. Negative prompt: text, words, letters, scary, dark, violent, realistic photo, gloomy, sad, adult themes"
+    },
+    {
+      "scene": "learning_circle",
+      "duration": 4,
+      "prompt": "Children in classroom circle with teacher, colorful renewable energy poster showing sun, solar panels, wind turbines, smiling earth. Kids raising hands with lightbulb thought bubbles. children's book illustration, pixar animation style, bright vibrant colors, soft lighting, whimsical, educational, detailed, high quality, 4k. Negative prompt: text, words, letters, scary, dark, violent, realistic photo, gloomy, sad, adult themes"
+    },
+    {
+      "scene": "future_heroes",
+      "duration": 3,
+      "prompt": "Diverse children with arms raised in celebration, solar bus background. Thought bubbles showing environmental inventions: solar houses, wind farms, electric cars. 'You Can Change the World!' text in sky. children's book illustration, pixar animation style, bright vibrant colors, soft lighting, whimsical, educational, detailed, high quality, 4k. Negative prompt: text, words, letters, scary, dark, violent, realistic photo, gloomy, sad, adult themes"
+    }
+  ],
+  "instructions": {
+    "platform": "Leonardo.ai",
+    "model": "Leonardo Diffusion XL or DreamShaper v7",
+    "settings": {
+      "alchemy": true,
+      "prompt_magic": true,
+      "aspect_ratio": "16:9",
+      "style": "Illustration"
+    }
+  }
+}

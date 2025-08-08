@@ -1,0 +1,15 @@
+file '/Users/shadrackaddo/Desktop/junior graphic/video_production/assets/images/scene_title_1754596062.png'
+duration 3
+file '/Users/shadrackaddo/Desktop/junior graphic/video_production/assets/images/scene_introduction_1754596062.png'
+duration 5
+file '/Users/shadrackaddo/Desktop/junior graphic/video_production/assets/images/scene_story_1_1754596062.png'
+duration 8
+file '/Users/shadrackaddo/Desktop/junior graphic/video_production/assets/images/scene_story_2_1754596062.png'
+duration 8
+file '/Users/shadrackaddo/Desktop/junior graphic/video_production/assets/images/scene_story_3_1754596062.png'
+duration 8
+file '/Users/shadrackaddo/Desktop/junior graphic/video_production/assets/images/scene_education_1754596062.png'
+duration 5
+file '/Users/shadrackaddo/Desktop/junior graphic/video_production/assets/images/scene_conclusion_1754596063.png'
+duration 4
+file '/Users/shadrackaddo/Desktop/junior graphic/video_production/assets/images/scene_conclusion_1754596063.png'

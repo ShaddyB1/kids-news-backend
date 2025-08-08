@@ -1,0 +1,15 @@
+Scene 1 - title:
+Title card saying "Robot Fish Saves Ocean" with underwater background, children's book illustration, pixar style, bright vibrant colors, friendly characters, soft lighting, whimsical, educational, age 6-12, high quality, 4k, detailed, professional illustration | Negative prompt: scary, dark, violent, realistic, photo, gloomy, sad
+
+Scene 2 - eleanor:
+Young girl Eleanor Chen with her robot fish invention, excited expression, children's book illustration, pixar style, bright vibrant colors, friendly characters, soft lighting, whimsical, educational, age 6-12, high quality, 4k, detailed, professional illustration | Negative prompt: scary, dark, violent, realistic, photo, gloomy, sad
+
+Scene 3 - ocean_problem:
+Ocean with plastic pollution, sad fish, environmental concern, children's book illustration, pixar style, bright vibrant colors, friendly characters, soft lighting, whimsical, educational, age 6-12, high quality, 4k, detailed, professional illustration | Negative prompt: scary, dark, violent, realistic, photo, gloomy, sad
+
+Scene 4 - robot_action:
+Robot fish Gillbert swimming and collecting plastic pieces, children's book illustration, pixar style, bright vibrant colors, friendly characters, soft lighting, whimsical, educational, age 6-12, high quality, 4k, detailed, professional illustration | Negative prompt: scary, dark, violent, realistic, photo, gloomy, sad
+
+Scene 5 - celebration:
+Clean ocean with happy sea creatures celebrating, children's book illustration, pixar style, bright vibrant colors, friendly characters, soft lighting, whimsical, educational, age 6-12, high quality, 4k, detailed, professional illustration | Negative prompt: scary, dark, violent, realistic, photo, gloomy, sad
+

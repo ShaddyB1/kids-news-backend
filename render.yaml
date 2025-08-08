@@ -1,0 +1,22 @@
+services:
+  - type: web
+    name: kids-news-backend
+    env: python
+    plan: starter
+    buildCommand: "pip install -r requirements.txt"
+    startCommand: "gunicorn legacy_development.flask_backend:app --bind 0.0.0.0:10000 --workers 2"
+    envVars:
+      - key: PORT
+        value: 10000
+      - key: ADMIN_SHARED_SECRET
+        sync: false
+      - key: EMAIL_USER
+        sync: false
+      - key: EMAIL_PASSWORD
+        sync: false
+      - key: SELECTION_PORTAL_URL
+        value: "https://kids-news-backend.onrender.com/admin/weekly"
+      - key: PODCAST_SITE_URL
+        value: "https://kids-news-backend.onrender.com"
+
+

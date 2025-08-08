@@ -1,0 +1,220 @@
+{
+  "voice_synthesis": {
+    "primary_provider": "elevenlabs",
+    "fallback_providers": ["azure", "google", "system"],
+    "elevenlabs": {
+      "voices": {
+        "josh": {
+          "id": "EXAVITQu4vr4xnFDjCHI",
+          "description": "Young, friendly male voice for kids",
+          "age_range": "20-30",
+          "characteristics": ["warm", "enthusiastic", "clear"]
+        },
+        "bella": {
+          "id": "bella_voice_id",
+          "description": "Young female voice, energetic",
+          "age_range": "20-25",
+          "characteristics": ["cheerful", "engaging", "animated"]
+        }
+      },
+      "settings": {
+        "stability": 0.75,
+        "similarity_boost": 0.85,
+        "style": 0.3,
+        "use_speaker_boost": true
+      },
+      "cost_per_1000_chars": 0.30
+    },
+    "azure": {
+      "voices": {
+        "christopher": {
+          "name": "en-US-ChristopherNeural",
+          "style": "friendly",
+          "description": "Natural young male voice"
+        },
+        "jenny": {
+          "name": "en-US-JennyNeural",
+          "style": "cheerful",
+          "description": "Friendly female voice"
+        }
+      },
+      "cost_per_1M_chars": 16.00
+    },
+    "google": {
+      "voices": {
+        "wavenet_c": {
+          "name": "en-US-Wavenet-C",
+          "description": "Neural female voice"
+        },
+        "wavenet_d": {
+          "name": "en-US-Wavenet-D",
+          "description": "Neural male voice"
+        }
+      },
+      "cost_per_1M_chars": 16.00
+    }
+  },
+  "graphics": {
+    "themes": {
+      "ocean": {
+        "colors": {
+          "primary": "#00B4D8",
+          "secondary": "#0077B6",
+          "accent": "#90E0EF",
+          "background_gradient": ["#0077B6", "#00B4D8", "#90E0EF"]
+        },
+        "assets": ["fish", "waves", "bubbles", "coral", "underwater"],
+        "animations": ["swimming", "floating", "wave_motion"],
+        "music_style": "calm_underwater"
+      },
+      "technology": {
+        "colors": {
+          "primary": "#7209B7",
+          "secondary": "#560BAD",
+          "accent": "#B5179E",
+          "background_gradient": ["#560BAD", "#7209B7", "#B5179E"]
+        },
+        "assets": ["robot", "gears", "circuits", "digital_effects"],
+        "animations": ["tech_pulse", "data_flow", "rotating"],
+        "music_style": "upbeat_electronic"
+      },
+      "nature": {
+        "colors": {
+          "primary": "#52B788",
+          "secondary": "#40916C",
+          "accent": "#95D5B2",
+          "background_gradient": ["#40916C", "#52B788", "#95D5B2"]
+        },
+        "assets": ["trees", "animals", "flowers", "sun", "clouds"],
+        "animations": ["gentle_sway", "growing", "floating_leaves"],
+        "music_style": "peaceful_nature"
+      },
+      "space": {
+        "colors": {
+          "primary": "#1E3A8A",
+          "secondary": "#1E293B",
+          "accent": "#FBBF24",
+          "background_gradient": ["#1E293B", "#1E3A8A", "#FBBF24"]
+        },
+        "assets": ["stars", "planets", "rockets", "astronauts", "galaxies"],
+        "animations": ["stellar_drift", "orbit", "twinkle"],
+        "music_style": "cosmic_adventure"
+      }
+    },
+    "quality_settings": {
+      "image_resolution": [1920, 1080],
+      "image_quality": 95,
+      "animation_fps": 12,
+      "transition_duration": 0.5,
+      "vignette_strength": 0.3,
+      "color_enhancement": 1.1,
+      "sharpness": 1.05
+    }
+  },
+  "video_encoding": {
+    "presets": {
+      "production": {
+        "codec": "libx264",
+        "preset": "slow",
+        "crf": 18,
+        "profile": "high",
+        "level": "4.0",
+        "pixel_format": "yuv420p",
+        "audio_codec": "aac",
+        "audio_bitrate": "192k",
+        "audio_sample_rate": 48000
+      },
+      "web_optimized": {
+        "codec": "libx264",
+        "preset": "medium",
+        "crf": 23,
+        "profile": "main",
+        "level": "3.1",
+        "pixel_format": "yuv420p",
+        "audio_codec": "aac",
+        "audio_bitrate": "128k",
+        "audio_sample_rate": 44100,
+        "movflags": "+faststart"
+      },
+      "draft": {
+        "codec": "libx264",
+        "preset": "ultrafast",
+        "crf": 28,
+        "pixel_format": "yuv420p",
+        "audio_codec": "aac",
+        "audio_bitrate": "96k",
+        "audio_sample_rate": 44100
+      }
+    }
+  },
+  "cost_optimization": {
+    "cache_strategy": {
+      "enable": true,
+      "voice_cache_days": 30,
+      "graphics_cache_days": 90,
+      "similar_threshold": 0.85
+    },
+    "api_limits": {
+      "max_voice_calls_per_video": 3,
+      "max_image_generation_per_video": 5,
+      "batch_processing": true
+    },
+    "targets": {
+      "cost_per_video": 0.50,
+      "max_cost_per_video": 1.00,
+      "monthly_budget": 100.00
+    }
+  },
+  "quality_standards": {
+    "minimum_scores": {
+      "voice_naturalness": 85,
+      "graphics_relevance": 80,
+      "educational_value": 90,
+      "engagement": 75,
+      "safety": 100
+    },
+    "content_guidelines": {
+      "max_sentence_length": 15,
+      "vocabulary_level": "grade_2_4",
+      "positive_tone": true,
+      "avoid_scary_content": true
+    },
+    "technical_requirements": {
+      "min_resolution": "1280x720",
+      "max_file_size_mb": 50,
+      "supported_formats": ["mp4", "webm"],
+      "aspect_ratio": "16:9"
+    }
+  },
+  "production_workflow": {
+    "stages": [
+      {
+        "name": "content_processing",
+        "timeout_seconds": 10,
+        "retry_on_failure": true
+      },
+      {
+        "name": "voice_synthesis",
+        "timeout_seconds": 30,
+        "retry_on_failure": true
+      },
+      {
+        "name": "graphics_generation",
+        "timeout_seconds": 60,
+        "retry_on_failure": false
+      },
+      {
+        "name": "video_assembly",
+        "timeout_seconds": 120,
+        "retry_on_failure": false
+      },
+      {
+        "name": "quality_check",
+        "timeout_seconds": 10,
+        "retry_on_failure": false
+      }
+    ],
+    "batch_size": 5,
+    "parallel_processing": true
+  }
+}

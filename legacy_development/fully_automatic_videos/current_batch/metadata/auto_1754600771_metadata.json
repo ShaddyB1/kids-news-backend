@@ -1,0 +1,48 @@
+{
+  "story_id": "auto_1754600771",
+  "story_title": "Ocean-Cleaning Robot Adventure",
+  "generation_time": 1754600814.618313,
+  "analysis": {
+    "main_topic": "Amazing environmental innovation helping our planet",
+    "characters": [
+      "young inventors",
+      "scientists",
+      "students",
+      "environmental heroes"
+    ],
+    "setting": "modern eco-friendly location",
+    "key_scenes": [
+      "eco_title",
+      "problem_awareness",
+      "innovative_solution",
+      "technology_working",
+      "positive_impact",
+      "community_adoption",
+      "future_inspiration"
+    ],
+    "emotions": [
+      "hope",
+      "excitement",
+      "determination",
+      "pride"
+    ],
+    "educational_points": [
+      "environmental science",
+      "renewable energy",
+      "innovation"
+    ],
+    "image_descriptions": [
+      "Bright title scene showing environmental innovation with green technology and happy earth",
+      "Scene showing environmental challenge with concerned but hopeful characters",
+      "Innovative eco-friendly solution being introduced by excited inventors",
+      "Technology working successfully with clean energy and natural elements",
+      "Positive environmental impact with clean air, happy animals, and green spaces",
+      "Community embracing the green technology with diverse people celebrating",
+      "Inspiring future scene with children as environmental heroes and clean planet"
+    ]
+  },
+  "images_generated": 7,
+  "video_path": "fully_automatic_videos/current_batch/videos/final/auto_1754600771_automatic.mp4",
+  "fully_automatic": true,
+  "cost_estimate": 0.007
+}

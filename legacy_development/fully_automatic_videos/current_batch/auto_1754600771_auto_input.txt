@@ -1,0 +1,15 @@
+file '/Users/shadrackaddo/Desktop/junior graphic/fully_automatic_videos/current_batch/images/generated/auto_1754600771_auto_00.png'
+duration 3
+file '/Users/shadrackaddo/Desktop/junior graphic/fully_automatic_videos/current_batch/images/generated/auto_1754600771_auto_01.png'
+duration 4
+file '/Users/shadrackaddo/Desktop/junior graphic/fully_automatic_videos/current_batch/images/generated/auto_1754600771_auto_02.png'
+duration 4
+file '/Users/shadrackaddo/Desktop/junior graphic/fully_automatic_videos/current_batch/images/generated/auto_1754600771_auto_03.png'
+duration 4
+file '/Users/shadrackaddo/Desktop/junior graphic/fully_automatic_videos/current_batch/images/generated/auto_1754600771_auto_04.png'
+duration 4
+file '/Users/shadrackaddo/Desktop/junior graphic/fully_automatic_videos/current_batch/images/generated/auto_1754600771_auto_05.png'
+duration 4
+file '/Users/shadrackaddo/Desktop/junior graphic/fully_automatic_videos/current_batch/images/generated/auto_1754600771_auto_06.png'
+duration 3
+file '/Users/shadrackaddo/Desktop/junior graphic/fully_automatic_videos/current_batch/images/generated/auto_1754600771_auto_06.png'

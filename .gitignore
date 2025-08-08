@@ -1,0 +1,37 @@
+# Python
+.venv/
+__pycache__/
+*.pyc
+*.pyo
+*.pyd
+*.log
+
+# Node
+node_modules/
+app_development/kids_news_app_fixed/node_modules/
+
+# OS
+.DS_Store
+
+# Build/Meta
+*.lock
+package-lock.json
+
+# Generated content
+kids_news_content/
+production/generated_videos/
+production/story_sync_videos/
+production/generated_videos/**
+
+# Secrets
+*.env
+**/*.env
+
+# Expo/EAS
+app_development/kids_news_app_fixed/.expo/
+app_development/kids_news_app_fixed/.expo-shared/
+
+# Misc temp
+_cleanup_archive/
+
+
