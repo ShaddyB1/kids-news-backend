@@ -49,9 +49,11 @@ class ContentProcessor:
         """Simplify title for kids"""
         # Remove complex punctuation
         title = re.sub(r'[:\-—–]', ' - ', title)
-        # Replace various quote marks with simple quotes
-        title = re.sub(r'[""]', '"', title)
-        title = re.sub(r'['']', "'", title)
+        # Normalize various quote marks safely
+        title = title.translate({
+            ord('“'): '"', ord('”'): '"', ord('„'): '"', ord('‟'): '"',
+            ord('‘'): "'", ord('’'): "'", ord('‚'): "'", ord('‛'): "'",
+        })
         
         # Basic word replacements
         replacements = {
@@ -181,9 +183,11 @@ class ContentProcessor:
         # Remove parenthetical information
         sentence = re.sub(r'\([^)]*\)', '', sentence)
         
-        # Remove quotes and complex punctuation
-        sentence = re.sub(r'[""]', '"', sentence)
-        sentence = re.sub(r'['']', "'", sentence)
+        # Normalize quotes safely
+        sentence = sentence.translate({
+            ord('“'): '"', ord('”'): '"', ord('„'): '"', ord('‟'): '"',
+            ord('‘'): "'", ord('’'): "'", ord('‚'): "'", ord('‛'): "'",
+        })
         
         # Split compound sentences with "and"
         if ' and ' in sentence and len(sentence.split()) > 15:
