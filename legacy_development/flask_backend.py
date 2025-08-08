@@ -19,10 +19,10 @@ import os
 import logging
 from typing import List
 
-from config import Config
-from news_scraper import NewsScraper, NewsArticle
-from content_processor import ContentProcessor
-from web_newsletter_generator import WebNewsletterGenerator
+from .config import Config
+from .news_scraper import NewsScraper, NewsArticle
+from .content_processor import ContentProcessor
+from .web_newsletter_generator import WebNewsletterGenerator
 
 # Set up logging
 logging.basicConfig(level=logging.INFO)
