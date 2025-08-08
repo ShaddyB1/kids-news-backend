@@ -12,10 +12,10 @@ from datetime import datetime
 from typing import List
 import argparse
 
-from config import Config
-from news_scraper import NewsScraper, NewsArticle
-from content_processor import ContentProcessor
-from newsletter_generator import NewsletterGenerator
+from .config import Config
+from .news_scraper import NewsScraper, NewsArticle
+from .content_processor import ContentProcessor
+from .newsletter_generator import NewsletterGenerator
 
 # Set up logging
 logging.basicConfig(

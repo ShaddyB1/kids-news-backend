@@ -2,8 +2,8 @@ from datetime import datetime
 from typing import List
 import os
 from jinja2 import Template
-from news_scraper import NewsArticle
-from config import Config
+from .news_scraper import NewsArticle
+from .config import Config
 import logging
 
 logger = logging.getLogger(__name__)

@@ -2,9 +2,9 @@ from datetime import datetime
 from typing import List
 import os
 from jinja2 import Template
-from news_scraper import NewsArticle
-from config import Config
-from kids_activities import KidsActivitiesGenerator
+from .news_scraper import NewsArticle
+from .config import Config
+from .kids_activities import KidsActivitiesGenerator
 import logging
 
 logger = logging.getLogger(__name__)

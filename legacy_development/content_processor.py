@@ -2,8 +2,8 @@ import openai
 import textstat
 import re
 from typing import List, Dict
-from config import Config
-from news_scraper import NewsArticle
+from .config import Config
+from .news_scraper import NewsArticle
 import logging
 
 logger = logging.getLogger(__name__)

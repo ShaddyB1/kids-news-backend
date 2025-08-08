@@ -4,7 +4,7 @@ from bs4 import BeautifulSoup
 from datetime import datetime, timedelta
 import re
 from typing import List, Dict, Optional
-from config import Config
+from .config import Config
 import logging
 
 # Set up logging
