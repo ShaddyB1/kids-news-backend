@@ -4,7 +4,8 @@ services:
     env: python
     plan: starter
     buildCommand: "pip install -r production/requirements.txt"
-    startCommand: "cd production && python backend_api.py"
+    startCommand: "python3 production/backend_api.py"
+    rootDir: "."
     envVars:
       - key: PORT
         value: 10000
