@@ -1,0 +1,130 @@
+import { StyleSheet } from 'react-native';
+
+const styles = StyleSheet.create({
+  storyTabs: {
+    flexDirection: 'row',
+    gap: 12,
+    marginBottom: 20,
+  },
+  storyTab: {
+    backgroundColor: '#FFFFFF',
+    paddingHorizontal: 20,
+    paddingVertical: 12,
+    borderRadius: 25,
+    shadowColor: '#64748B',
+    shadowOffset: { width: 0, height: 2 },
+    shadowOpacity: 0.1,
+    shadowRadius: 4,
+    elevation: 3,
+  },
+  storyTabActive: {
+    backgroundColor: '#667eea',
+    shadowColor: '#667eea',
+    shadowOpacity: 0.3,
+  },
+  storyTabText: {
+    color: '#475569',
+    fontWeight: '700',
+    fontSize: 14,
+  },
+  storyTabTextActive: {
+    color: '#FFFFFF',
+  },
+  categoryBadge: {
+    backgroundColor: '#EC4899',
+    paddingHorizontal: 16,
+    paddingVertical: 6,
+    borderRadius: 16,
+    alignSelf: 'flex-start',
+    marginBottom: 16,
+    shadowColor: '#EC4899',
+    shadowOffset: { width: 0, height: 2 },
+    shadowOpacity: 0.3,
+    shadowRadius: 4,
+    elevation: 4,
+  },
+  categoryText: {
+    color: '#FFFFFF',
+    fontSize: 13,
+    fontWeight: '800',
+    letterSpacing: 0.5,
+  },
+  storyTitle: {
+    fontSize: 28,
+    fontWeight: '900',
+    color: '#1E293B',
+    marginBottom: 16,
+    lineHeight: 34,
+  },
+  storyContent: {
+    fontSize: 17,
+    lineHeight: 28,
+    color: '#374151',
+    fontWeight: '500',
+  },
+  watchVideoButton: {
+    backgroundColor: '#FF6B9D',
+    paddingVertical: 16,
+    paddingHorizontal: 24,
+    borderRadius: 16,
+    alignItems: 'center',
+    marginVertical: 16,
+    shadowColor: '#FF6B9D',
+    shadowOffset: { width: 0, height: 4 },
+    shadowOpacity: 0.3,
+    shadowRadius: 8,
+    elevation: 6,
+  },
+  watchVideoButtonText: {
+    color: '#FFFFFF',
+    fontSize: 18,
+    fontWeight: '800',
+    letterSpacing: 0.5,
+  },
+  videoSection: {
+    marginVertical: 16,
+  },
+  videoContainer: {
+    backgroundColor: '#000000',
+    borderRadius: 16,
+    overflow: 'hidden',
+    marginBottom: 20,
+    shadowColor: '#000',
+    shadowOffset: { width: 0, height: 8 },
+    shadowOpacity: 0.3,
+    shadowRadius: 16,
+    elevation: 12,
+  },
+  videoPlayer: {
+    width: '100%',
+    height: 220,
+  },
+  videoInfoCard: {
+    backgroundColor: '#FFFFFF',
+    borderRadius: 20,
+    padding: 20,
+    shadowColor: '#64748B',
+    shadowOffset: { width: 0, height: 4 },
+    shadowOpacity: 0.1,
+    shadowRadius: 12,
+    elevation: 8,
+    borderWidth: 1,
+    borderColor: '#F1F5F9',
+  },
+  videoInfoTitle: {
+    fontSize: 18,
+    fontWeight: '800',
+    color: '#1E293B',
+    marginBottom: 12,
+  },
+  videoInfoText: {
+    fontSize: 15,
+    color: '#475569',
+    lineHeight: 22,
+    marginBottom: 8,
+  },
+});
+
+export default styles;
+
+

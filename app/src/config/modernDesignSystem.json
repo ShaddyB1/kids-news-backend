@@ -1,0 +1,510 @@
+{
+  "modernDesignSystem": {
+    "name": "Modern Kid-Friendly News App Design System",
+    "version": "2.0",
+    "style": "Modern, Playful, Card-based with Depth and Vibrant Colors",
+    "targetAudience": "Kids 6-12",
+    "principles": [
+      "Layered card design with depth",
+      "Floating overlays and modals",
+      "Vibrant gradients and colors",
+      "Rounded corners everywhere",
+      "Strong visual hierarchy",
+      "Interactive elements with hover states",
+      "Content personalization",
+      "Smooth transitions and animations"
+    ],
+    "colors": {
+      "primary": {
+        "main": "#6366F1",
+        "light": "#A5B4FC",
+        "dark": "#4338CA",
+        "gradient": "linear-gradient(135deg, #667eea 0%, #764ba2 100%)"
+      },
+      "secondary": {
+        "main": "#F59E0B",
+        "light": "#FCD34D",
+        "dark": "#D97706",
+        "gradient": "linear-gradient(135deg, #f093fb 0%, #f5576c 100%)"
+      },
+      "accent": {
+        "main": "#10B981",
+        "light": "#6EE7B7",
+        "dark": "#047857",
+        "gradient": "linear-gradient(135deg, #4facfe 0%, #00f2fe 100%)"
+      },
+      "background": {
+        "primary": "#F8FAFC",
+        "secondary": "#F1F5F9",
+        "elevated": "#FFFFFF",
+        "overlay": "rgba(15, 23, 42, 0.8)",
+        "gradient": "linear-gradient(135deg, #667eea 0%, #764ba2 100%)",
+        "darkMode": "#0F172A"
+      },
+      "text": {
+        "primary": "#0F172A",
+        "secondary": "#475569",
+        "tertiary": "#94A3B8",
+        "inverse": "#FFFFFF",
+        "accent": "#6366F1"
+      },
+      "status": {
+        "success": "#10B981",
+        "warning": "#F59E0B",
+        "error": "#EF4444",
+        "info": "#3B82F6",
+        "live": "#DC2626",
+        "trending": "#8B5CF6",
+        "breaking": "#F97316"
+      },
+      "categories": {
+        "space": {
+          "main": "#8B5CF6",
+          "light": "#C4B5FD",
+          "gradient": "linear-gradient(135deg, #667eea 0%, #764ba2 100%)"
+        },
+        "environment": {
+          "main": "#10B981",
+          "light": "#6EE7B7",
+          "gradient": "linear-gradient(135deg, #84fab0 0%, #8fd3f4 100%)"
+        },
+        "technology": {
+          "main": "#3B82F6",
+          "light": "#93C5FD",
+          "gradient": "linear-gradient(135deg, #4facfe 0%, #00f2fe 100%)"
+        },
+        "health": {
+          "main": "#EC4899",
+          "light": "#F9A8D4",
+          "gradient": "linear-gradient(135deg, #fa709a 0%, #fee140 100%)"
+        },
+        "sports": {
+          "main": "#F59E0B",
+          "light": "#FCD34D",
+          "gradient": "linear-gradient(135deg, #fdbb2d 0%, #22c1c3 100%)"
+        },
+        "science": {
+          "main": "#06B6D4",
+          "light": "#67E8F9",
+          "gradient": "linear-gradient(135deg, #89f7fe 0%, #66a6ff 100%)"
+        },
+        "arts": {
+          "main": "#F97316",
+          "light": "#FDBA74",
+          "gradient": "linear-gradient(135deg, #ff9a9e 0%, #fecfef 100%)"
+        },
+        "history": {
+          "main": "#8B5A2B",
+          "light": "#D2B48C",
+          "gradient": "linear-gradient(135deg, #d299c2 0%, #fef9d7 100%)"
+        }
+      }
+    },
+    "typography": {
+      "fontFamily": {
+        "primary": "-apple-system, BlinkMacSystemFont, 'Segoe UI', Roboto, sans-serif",
+        "secondary": "SF Pro Display, -apple-system, BlinkMacSystemFont, sans-serif",
+        "mono": "SF Mono, Menlo, Monaco, monospace"
+      },
+      "sizes": {
+        "xs": 11,
+        "sm": 13,
+        "base": 15,
+        "lg": 17,
+        "xl": 20,
+        "xxl": 24,
+        "xxxl": 32,
+        "display": 48,
+        "hero": 64
+      },
+      "weights": {
+        "light": "300",
+        "regular": "400",
+        "medium": "500",
+        "semibold": "600",
+        "bold": "700",
+        "extrabold": "800",
+        "black": "900"
+      },
+      "lineHeights": {
+        "tight": 1.2,
+        "snug": 1.375,
+        "normal": 1.5,
+        "relaxed": 1.625,
+        "loose": 2.0
+      }
+    },
+    "spacing": {
+      "unit": 4,
+      "xs": 4,
+      "sm": 8,
+      "md": 16,
+      "lg": 24,
+      "xl": 32,
+      "xxl": 48,
+      "xxxl": 64,
+      "xxxxl": 96
+    },
+    "borderRadius": {
+      "none": 0,
+      "xs": 2,
+      "sm": 4,
+      "md": 8,
+      "lg": 12,
+      "xl": 16,
+      "xxl": 24,
+      "xxxl": 32,
+      "full": 9999,
+      "card": 20,
+      "modal": 24,
+      "button": 12,
+      "chip": 24,
+      "avatar": 9999
+    },
+    "shadows": {
+      "none": "none",
+      "xs": {
+        "shadowColor": "#000",
+        "shadowOffset": { "width": 0, "height": 1 },
+        "shadowOpacity": 0.05,
+        "shadowRadius": 1,
+        "elevation": 1
+      },
+      "sm": {
+        "shadowColor": "#000",
+        "shadowOffset": { "width": 0, "height": 2 },
+        "shadowOpacity": 0.1,
+        "shadowRadius": 3,
+        "elevation": 2
+      },
+      "md": {
+        "shadowColor": "#000",
+        "shadowOffset": { "width": 0, "height": 4 },
+        "shadowOpacity": 0.15,
+        "shadowRadius": 6,
+        "elevation": 4
+      },
+      "lg": {
+        "shadowColor": "#000",
+        "shadowOffset": { "width": 0, "height": 8 },
+        "shadowOpacity": 0.2,
+        "shadowRadius": 12,
+        "elevation": 8
+      },
+      "xl": {
+        "shadowColor": "#000",
+        "shadowOffset": { "width": 0, "height": 16 },
+        "shadowOpacity": 0.25,
+        "shadowRadius": 24,
+        "elevation": 12
+      },
+      "floating": {
+        "shadowColor": "#6366F1",
+        "shadowOffset": { "width": 0, "height": 8 },
+        "shadowOpacity": 0.3,
+        "shadowRadius": 16,
+        "elevation": 10
+      }
+    },
+    "components": {
+      "floatingCard": {
+        "backgroundColor": "#FFFFFF",
+        "borderRadius": 20,
+        "padding": 20,
+        "shadow": "lg",
+        "transform": "scale(1.02)",
+        "overlay": true,
+        "blur": true
+      },
+      "heroCard": {
+        "height": 280,
+        "borderRadius": 24,
+        "overflow": "hidden",
+        "gradient": true,
+        "overlayOpacity": 0.4,
+        "contentPosition": "bottom",
+        "textShadow": true
+      },
+      "compactCard": {
+        "height": 120,
+        "borderRadius": 16,
+        "layout": "horizontal",
+        "imageWidth": 120,
+        "padding": 16,
+        "shadow": "md"
+      },
+      "categoryPill": {
+        "paddingHorizontal": 16,
+        "paddingVertical": 8,
+        "borderRadius": 24,
+        "gradient": true,
+        "textColor": "#FFFFFF",
+        "fontSize": 13,
+        "fontWeight": "600",
+        "letterSpacing": 0.5,
+        "textTransform": "uppercase"
+      },
+      "statusBadge": {
+        "paddingHorizontal": 12,
+        "paddingVertical": 4,
+        "borderRadius": 8,
+        "fontSize": 11,
+        "fontWeight": "700",
+        "letterSpacing": 0.5,
+        "textTransform": "uppercase",
+        "animated": true,
+        "variants": {
+          "live": {
+            "backgroundColor": "#DC2626",
+            "textColor": "#FFFFFF",
+            "pulse": true
+          },
+          "breaking": {
+            "backgroundColor": "#F97316",
+            "textColor": "#FFFFFF"
+          },
+          "trending": {
+            "backgroundColor": "#8B5CF6",
+            "textColor": "#FFFFFF"
+          }
+        }
+      },
+      "modernButton": {
+        "height": 48,
+        "paddingHorizontal": 24,
+        "borderRadius": 12,
+        "fontSize": 16,
+        "fontWeight": "600",
+        "shadow": "md",
+        "variants": {
+          "primary": {
+            "gradient": "linear-gradient(135deg, #6366F1 0%, #8B5CF6 100%)",
+            "textColor": "#FFFFFF"
+          },
+          "secondary": {
+            "backgroundColor": "#F1F5F9",
+            "textColor": "#475569",
+            "border": "1px solid #E2E8F0"
+          },
+          "floating": {
+            "gradient": "linear-gradient(135deg, #667eea 0%, #764ba2 100%)",
+            "textColor": "#FFFFFF",
+            "shadow": "floating"
+          }
+        }
+      },
+      "searchBar": {
+        "height": 48,
+        "borderRadius": 24,
+        "backgroundColor": "#F8FAFC",
+        "paddingHorizontal": 20,
+        "fontSize": 16,
+        "shadow": "sm",
+        "border": "1px solid #E2E8F0",
+        "focusBorder": "2px solid #6366F1"
+      },
+      "avatar": {
+        "sizes": {
+          "xs": 24,
+          "sm": 32,
+          "md": 40,
+          "lg": 56,
+          "xl": 80,
+          "xxl": 120
+        },
+        "borderRadius": "full",
+        "border": "2px solid #FFFFFF",
+        "shadow": "md"
+      },
+      "bottomTabBar": {
+        "height": 80,
+        "backgroundColor": "#FFFFFF",
+        "borderRadius": 24,
+        "margin": 16,
+        "shadow": "xl",
+        "blur": true,
+        "iconSize": 24,
+        "labelSize": 12,
+        "activeIndicator": {
+          "width": 40,
+          "height": 4,
+          "borderRadius": 2,
+          "backgroundColor": "#6366F1"
+        }
+      },
+      "uploadButton": {
+        "width": 120,
+        "height": 120,
+        "borderRadius": 24,
+        "backgroundColor": "#F8FAFC",
+        "border": "2px dashed #CBD5E1",
+        "justifyContent": "center",
+        "alignItems": "center",
+        "variants": {
+          "active": {
+            "border": "2px dashed #6366F1",
+            "backgroundColor": "#EEF2FF"
+          },
+          "uploading": {
+            "backgroundColor": "#6366F1",
+            "border": "none"
+          }
+        }
+      }
+    },
+    "layouts": {
+      "screen": {
+        "paddingHorizontal": 20,
+        "paddingTop": 16,
+        "backgroundColor": "#F8FAFC"
+      },
+      "modal": {
+        "backgroundColor": "#FFFFFF",
+        "borderRadius": 24,
+        "padding": 24,
+        "margin": 20,
+        "shadow": "xl",
+        "overlay": "rgba(15, 23, 42, 0.8)"
+      },
+      "floatingPanel": {
+        "position": "absolute",
+        "backgroundColor": "#FFFFFF",
+        "borderRadius": 20,
+        "padding": 20,
+        "shadow": "floating",
+        "blur": true
+      },
+      "grid": {
+        "columns": 2,
+        "gap": 16,
+        "aspectRatio": 1.2
+      },
+      "masonry": {
+        "columns": 2,
+        "gap": 16,
+        "staggered": true
+      }
+    },
+    "animations": {
+      "duration": {
+        "fast": 150,
+        "normal": 300,
+        "slow": 500,
+        "slower": 800
+      },
+      "easing": {
+        "standard": "cubic-bezier(0.4, 0.0, 0.2, 1)",
+        "accelerate": "cubic-bezier(0.4, 0.0, 1, 1)",
+        "decelerate": "cubic-bezier(0.0, 0.0, 0.2, 1)",
+        "bounce": "cubic-bezier(0.68, -0.55, 0.265, 1.55)"
+      },
+      "spring": {
+        "damping": 15,
+        "stiffness": 150,
+        "mass": 1
+      },
+      "transitions": {
+        "slideUp": {
+          "from": { "translateY": 100, "opacity": 0 },
+          "to": { "translateY": 0, "opacity": 1 }
+        },
+        "fadeIn": {
+          "from": { "opacity": 0, "scale": 0.9 },
+          "to": { "opacity": 1, "scale": 1 }
+        },
+        "scaleIn": {
+          "from": { "scale": 0.8, "opacity": 0 },
+          "to": { "scale": 1, "opacity": 1 }
+        }
+      }
+    },
+    "patterns": {
+      "contentStructure": {
+        "hero": {
+          "type": "floating",
+          "height": "40%",
+          "overlay": true,
+          "gradient": true,
+          "borderRadius": 24,
+          "shadow": "xl"
+        },
+        "sections": [
+          {
+            "type": "horizontalCards",
+            "title": "Breaking News",
+            "cardType": "hero",
+            "showSeeAll": true,
+            "spacing": 16
+          },
+          {
+            "type": "verticalList",
+            "title": "Latest Stories",
+            "cardType": "compact",
+            "pagination": true
+          },
+          {
+            "type": "masonryGrid",
+            "title": "Explore Categories",
+            "columns": 2,
+            "staggered": true
+          }
+        ]
+      },
+      "navigation": {
+        "type": "floating-tabs",
+        "position": "bottom",
+        "style": "floating",
+        "blur": true,
+        "items": [
+          { "icon": "home", "label": "Home", "gradient": true },
+          { "icon": "play", "label": "Videos", "gradient": true },
+          { "icon": "explore", "label": "Explore", "gradient": true },
+          { "icon": "bookmark", "label": "Saved", "gradient": true },
+          { "icon": "person", "label": "Profile", "gradient": true }
+        ]
+      },
+      "videoUpload": {
+        "type": "drag-drop",
+        "preview": true,
+        "progress": true,
+        "validation": {
+          "maxSize": "100MB",
+          "formats": ["mp4", "mov", "avi"],
+          "duration": "max 10 minutes"
+        },
+        "states": {
+          "idle": "dashed border",
+          "dragover": "solid border + highlight",
+          "uploading": "progress bar",
+          "success": "checkmark + preview",
+          "error": "error message + retry"
+        }
+      }
+    },
+    "accessibility": {
+      "minTouchTarget": 44,
+      "contrastRatio": 4.5,
+      "focusIndicator": {
+        "width": 2,
+        "color": "#6366F1",
+        "offset": 2,
+        "borderRadius": 4
+      },
+      "reducedMotion": true,
+      "screenReader": true
+    },
+    "responsiveness": {
+      "breakpoints": {
+        "sm": 640,
+        "md": 768,
+        "lg": 1024,
+        "xl": 1280
+      },
+      "scaling": {
+        "typography": "fluid",
+        "spacing": "proportional",
+        "components": "adaptive"
+      }
+    }
+  }
+}

@@ -1,0 +1,357 @@
+{
+  "designSystem": {
+    "name": "Modern News App Design System",
+    "style": "Clean, Modern, Card-based with subtle depth",
+    "targetAudience": "Kids 6-12",
+    "principles": [
+      "High contrast for readability",
+      "Rounded corners for friendliness",
+      "Card-based layout for content separation",
+      "Consistent spacing and padding",
+      "Subtle shadows for depth",
+      "Bold typography for headlines"
+    ],
+    "colors": {
+      "primary": {
+        "main": "#000000",
+        "light": "#333333",
+        "dark": "#000000"
+      },
+      "secondary": {
+        "main": "#FF4444",
+        "light": "#FF6666",
+        "dark": "#DD2222"
+      },
+      "background": {
+        "default": "#FFFFFF",
+        "paper": "#F8F9FA",
+        "elevated": "#FFFFFF",
+        "overlay": "rgba(0,0,0,0.5)"
+      },
+      "text": {
+        "primary": "#000000",
+        "secondary": "#666666",
+        "disabled": "#999999",
+        "hint": "#AAAAAA",
+        "onDark": "#FFFFFF"
+      },
+      "status": {
+        "live": "#FF0000",
+        "breaking": "#FF4444",
+        "trending": "#FFA500",
+        "new": "#00AA00"
+      },
+      "categories": {
+        "politics": "#2E86AB",
+        "sports": "#A23B72",
+        "tech": "#5C946E",
+        "health": "#F18F01",
+        "business": "#C73E1D",
+        "finance": "#6A994E",
+        "world": "#BC4B51"
+      }
+    },
+    "typography": {
+      "fontFamily": {
+        "primary": "System",
+        "secondary": "System",
+        "mono": "Menlo"
+      },
+      "sizes": {
+        "xs": 10,
+        "sm": 12,
+        "md": 14,
+        "lg": 16,
+        "xl": 18,
+        "xxl": 24,
+        "xxxl": 32,
+        "display": 40
+      },
+      "weights": {
+        "light": "300",
+        "regular": "400",
+        "medium": "500",
+        "semibold": "600",
+        "bold": "700",
+        "black": "900"
+      },
+      "lineHeights": {
+        "tight": 1.2,
+        "normal": 1.5,
+        "relaxed": 1.8
+      }
+    },
+    "spacing": {
+      "unit": 4,
+      "xs": 4,
+      "sm": 8,
+      "md": 16,
+      "lg": 24,
+      "xl": 32,
+      "xxl": 48,
+      "xxxl": 64
+    },
+    "borderRadius": {
+      "none": 0,
+      "sm": 4,
+      "md": 8,
+      "lg": 12,
+      "xl": 16,
+      "xxl": 24,
+      "full": 9999,
+      "card": 16,
+      "button": 8,
+      "chip": 20
+    },
+    "shadows": {
+      "none": "none",
+      "sm": {
+        "shadowColor": "#000",
+        "shadowOffset": { "width": 0, "height": 1 },
+        "shadowOpacity": 0.05,
+        "shadowRadius": 2,
+        "elevation": 1
+      },
+      "md": {
+        "shadowColor": "#000",
+        "shadowOffset": { "width": 0, "height": 2 },
+        "shadowOpacity": 0.1,
+        "shadowRadius": 4,
+        "elevation": 3
+      },
+      "lg": {
+        "shadowColor": "#000",
+        "shadowOffset": { "width": 0, "height": 4 },
+        "shadowOpacity": 0.15,
+        "shadowRadius": 8,
+        "elevation": 5
+      },
+      "xl": {
+        "shadowColor": "#000",
+        "shadowOffset": { "width": 0, "height": 8 },
+        "shadowOpacity": 0.2,
+        "shadowRadius": 16,
+        "elevation": 8
+      }
+    },
+    "components": {
+      "navigationBar": {
+        "height": 56,
+        "backgroundColor": "transparent",
+        "blur": true,
+        "borderBottom": false,
+        "titleStyle": {
+          "fontSize": "xl",
+          "fontWeight": "bold",
+          "textAlign": "center"
+        }
+      },
+      "tabBar": {
+        "height": 60,
+        "backgroundColor": "#FFFFFF",
+        "borderTop": true,
+        "iconSize": 24,
+        "labelSize": "xs",
+        "activeColor": "#000000",
+        "inactiveColor": "#999999"
+      },
+      "card": {
+        "padding": "md",
+        "borderRadius": "card",
+        "backgroundColor": "#FFFFFF",
+        "shadow": "md",
+        "marginBottom": "md",
+        "variants": {
+          "featured": {
+            "height": 280,
+            "imageHeight": 180,
+            "titleSize": "xl",
+            "descriptionLines": 3
+          },
+          "standard": {
+            "height": 120,
+            "imageWidth": 120,
+            "layout": "horizontal",
+            "titleSize": "lg",
+            "descriptionLines": 2
+          },
+          "compact": {
+            "height": 80,
+            "imageWidth": 80,
+            "layout": "horizontal",
+            "titleSize": "md",
+            "descriptionLines": 1
+          }
+        }
+      },
+      "categoryChip": {
+        "paddingHorizontal": "md",
+        "paddingVertical": "sm",
+        "borderRadius": "chip",
+        "fontSize": "sm",
+        "fontWeight": "semibold",
+        "textTransform": "uppercase",
+        "letterSpacing": 0.5
+      },
+      "statusBadge": {
+        "paddingHorizontal": "sm",
+        "paddingVertical": "xs",
+        "borderRadius": "sm",
+        "fontSize": "xs",
+        "fontWeight": "bold",
+        "textTransform": "uppercase",
+        "variants": {
+          "live": {
+            "backgroundColor": "#FF0000",
+            "textColor": "#FFFFFF",
+            "animated": true
+          },
+          "breaking": {
+            "backgroundColor": "#FF4444",
+            "textColor": "#FFFFFF"
+          },
+          "new": {
+            "backgroundColor": "#00AA00",
+            "textColor": "#FFFFFF"
+          }
+        }
+      },
+      "button": {
+        "height": 48,
+        "paddingHorizontal": "lg",
+        "borderRadius": "button",
+        "fontSize": "md",
+        "fontWeight": "semibold",
+        "variants": {
+          "primary": {
+            "backgroundColor": "#000000",
+            "textColor": "#FFFFFF"
+          },
+          "secondary": {
+            "backgroundColor": "transparent",
+            "borderWidth": 1,
+            "borderColor": "#000000",
+            "textColor": "#000000"
+          },
+          "text": {
+            "backgroundColor": "transparent",
+            "textColor": "#000000"
+          }
+        }
+      },
+      "searchBar": {
+        "height": 44,
+        "borderRadius": "lg",
+        "backgroundColor": "#F0F0F0",
+        "paddingHorizontal": "md",
+        "fontSize": "md",
+        "placeholderColor": "#999999",
+        "iconSize": 20,
+        "iconColor": "#666666"
+      },
+      "avatar": {
+        "sizes": {
+          "sm": 32,
+          "md": 40,
+          "lg": 56,
+          "xl": 80
+        },
+        "borderRadius": "full",
+        "borderWidth": 2,
+        "borderColor": "#FFFFFF"
+      },
+      "divider": {
+        "height": 1,
+        "backgroundColor": "#E0E0E0",
+        "marginVertical": "md"
+      }
+    },
+    "layouts": {
+      "screen": {
+        "paddingHorizontal": "md",
+        "paddingTop": "md",
+        "backgroundColor": "#F8F9FA"
+      },
+      "scrollView": {
+        "showsVerticalScrollIndicator": false,
+        "bounces": true,
+        "contentInsetAdjustmentBehavior": "automatic"
+      },
+      "grid": {
+        "columns": 2,
+        "gap": "md",
+        "aspectRatio": 1
+      },
+      "list": {
+        "itemSpacing": "md",
+        "sectionSpacing": "xl",
+        "headerHeight": 40
+      }
+    },
+    "animations": {
+      "duration": {
+        "fast": 200,
+        "normal": 300,
+        "slow": 500
+      },
+      "easing": {
+        "standard": "cubic-bezier(0.4, 0.0, 0.2, 1)",
+        "accelerate": "cubic-bezier(0.4, 0.0, 1, 1)",
+        "decelerate": "cubic-bezier(0.0, 0.0, 0.2, 1)"
+      },
+      "spring": {
+        "damping": 15,
+        "stiffness": 100
+      }
+    },
+    "patterns": {
+      "contentStructure": {
+        "hero": {
+          "position": "top",
+          "height": "40%",
+          "overlay": true,
+          "gradient": true
+        },
+        "sections": [
+          {
+            "type": "horizontalScroll",
+            "title": "Breaking News",
+            "showSeeAll": true,
+            "cardType": "featured"
+          },
+          {
+            "type": "verticalList",
+            "title": "Latest News",
+            "cardType": "standard",
+            "pagination": true
+          },
+          {
+            "type": "grid",
+            "title": "Categories",
+            "columns": 3,
+            "aspectRatio": 1
+          }
+        ]
+      },
+      "navigation": {
+        "type": "tab",
+        "position": "bottom",
+        "items": [
+          { "icon": "home", "label": "Home" },
+          { "icon": "explore", "label": "Explore" },
+          { "icon": "bookmark", "label": "Saved" },
+          { "icon": "person", "label": "Profile" }
+        ]
+      }
+    },
+    "accessibility": {
+      "minTouchTarget": 44,
+      "contrastRatio": 4.5,
+      "focusIndicator": {
+        "width": 2,
+        "color": "#0066CC",
+        "offset": 2
+      }
+    }
+  }
+}

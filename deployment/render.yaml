@@ -4,7 +4,7 @@ services:
     env: python
     plan: starter
 buildCommand: "pip install --upgrade pip && pip install -r backend/requirements.txt"
-startCommand: "cd backend && python start_automation.py"
+startCommand: "cd backend && python integrated_backend.py"
     envVars:
       - key: PORT
         value: 10000

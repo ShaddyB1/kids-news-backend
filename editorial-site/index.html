@@ -1,0 +1,741 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Junior News Digest - Editorial Portal</title>
+    <style>
+        * {
+            margin: 0;
+            padding: 0;
+            box-sizing: border-box;
+        }
+
+        body {
+            font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
+            background: linear-gradient(135deg, #667eea 0%, #764ba2 100%);
+            min-height: 100vh;
+            color: #333;
+        }
+
+        .container {
+            max-width: 1400px;
+            margin: 0 auto;
+            padding: 20px;
+        }
+
+        .header {
+            text-align: center;
+            color: white;
+            margin-bottom: 30px;
+        }
+
+        .header h1 {
+            font-size: 2.5rem;
+            margin-bottom: 10px;
+            text-shadow: 2px 2px 4px rgba(0,0,0,0.3);
+        }
+
+        .header p {
+            font-size: 1.2rem;
+            opacity: 0.9;
+        }
+
+        .nav {
+            display: flex;
+            gap: 20px;
+            margin-bottom: 30px;
+            justify-content: center;
+            flex-wrap: wrap;
+        }
+
+        .nav button {
+            background: rgba(255, 255, 255, 0.2);
+            color: white;
+            border: none;
+            padding: 12px 24px;
+            border-radius: 25px;
+            cursor: pointer;
+            font-weight: 600;
+            transition: all 0.3s ease;
+            backdrop-filter: blur(10px);
+        }
+
+        .nav button:hover {
+            background: rgba(255, 255, 255, 0.3);
+            transform: translateY(-2px);
+        }
+
+        .nav button.active {
+            background: rgba(255, 255, 255, 0.4);
+            box-shadow: 0 4px 15px rgba(0,0,0,0.2);
+        }
+
+        .stats {
+            display: grid;
+            grid-template-columns: repeat(auto-fit, minmax(200px, 1fr));
+            gap: 20px;
+            margin-bottom: 30px;
+        }
+
+        .stat-card {
+            background: rgba(255, 255, 255, 0.15);
+            padding: 20px;
+            border-radius: 15px;
+            text-align: center;
+            backdrop-filter: blur(10px);
+            border: 1px solid rgba(255, 255, 255, 0.2);
+        }
+
+        .stat-card h3 {
+            font-size: 2rem;
+            color: white;
+            margin-bottom: 5px;
+        }
+
+        .stat-card p {
+            color: rgba(255, 255, 255, 0.8);
+        }
+
+        .flash-messages {
+            margin-bottom: 20px;
+        }
+
+        .flash-success {
+            background: rgba(76, 175, 80, 0.2);
+            color: #4CAF50;
+            padding: 15px;
+            border-radius: 10px;
+            margin-bottom: 10px;
+            border-left: 4px solid #4CAF50;
+            backdrop-filter: blur(10px);
+        }
+
+        .flash-error {
+            background: rgba(244, 67, 54, 0.2);
+            color: #f44336;
+            padding: 15px;
+            border-radius: 10px;
+            margin-bottom: 10px;
+            border-left: 4px solid #f44336;
+            backdrop-filter: blur(10px);
+        }
+
+        .process-section {
+            background: rgba(255, 255, 255, 0.15);
+            padding: 25px;
+            border-radius: 15px;
+            margin-bottom: 30px;
+            text-align: center;
+            backdrop-filter: blur(10px);
+            border: 1px solid rgba(255, 255, 255, 0.2);
+        }
+
+        .process-section h3 {
+            color: white;
+            margin-bottom: 15px;
+            font-size: 1.5rem;
+        }
+
+        .process-section p {
+            color: rgba(255, 255, 255, 0.8);
+            margin-bottom: 20px;
+        }
+
+        .candidates {
+            display: grid;
+            grid-template-columns: repeat(auto-fit, minmax(400px, 1fr));
+            gap: 20px;
+        }
+
+        .candidate {
+            background: rgba(255, 255, 255, 0.95);
+            border-radius: 15px;
+            padding: 20px;
+            box-shadow: 0 8px 32px rgba(0,0,0,0.1);
+            backdrop-filter: blur(10px);
+            border: 1px solid rgba(255, 255, 255, 0.2);
+            transition: transform 0.3s ease;
+        }
+
+        .candidate:hover {
+            transform: translateY(-5px);
+        }
+
+        .candidate-title {
+            font-size: 1.2rem;
+            font-weight: bold;
+            color: #2E5C8A;
+            margin-bottom: 15px;
+            line-height: 1.4;
+        }
+
+        .candidate-meta {
+            display: flex;
+            gap: 10px;
+            margin-bottom: 15px;
+            align-items: center;
+            flex-wrap: wrap;
+        }
+
+        .badge {
+            padding: 6px 12px;
+            border-radius: 20px;
+            font-size: 12px;
+            font-weight: bold;
+            text-transform: uppercase;
+        }
+
+        .badge.category { background: #E3F2FD; color: #1976D2; }
+        .badge.priority { background: #FFF3E0; color: #F57C00; }
+        .badge.breaking { background: #FFEBEE; color: #D32F2F; }
+        .badge.trending { background: #F3E5F5; color: #7B1FA2; }
+        .badge.hot { background: #FFF8E1; color: #F9A825; }
+
+        .candidate-content {
+            margin-bottom: 15px;
+            max-height: 120px;
+            overflow-y: auto;
+            color: #666;
+            line-height: 1.5;
+            padding: 10px;
+            background: rgba(248, 249, 250, 0.8);
+            border-radius: 8px;
+        }
+
+        .editor-notes {
+            width: 100%;
+            padding: 12px;
+            border: 2px solid #e0e0e0;
+            border-radius: 8px;
+            margin-bottom: 15px;
+            font-family: inherit;
+            resize: vertical;
+            min-height: 80px;
+            transition: border-color 0.3s ease;
+        }
+
+        .editor-notes:focus {
+            outline: none;
+            border-color: #4A90E2;
+        }
+
+        .actions {
+            display: flex;
+            gap: 10px;
+        }
+
+        .btn {
+            padding: 12px 24px;
+            border: none;
+            border-radius: 25px;
+            cursor: pointer;
+            font-weight: bold;
+            font-size: 14px;
+            transition: all 0.3s ease;
+            text-transform: uppercase;
+            letter-spacing: 0.5px;
+        }
+
+        .btn-approve {
+            background: linear-gradient(45deg, #4CAF50, #45a049);
+            color: white;
+            flex: 1;
+        }
+
+        .btn-approve:hover {
+            transform: translateY(-2px);
+            box-shadow: 0 4px 15px rgba(76, 175, 80, 0.4);
+        }
+
+        .btn-reject {
+            background: linear-gradient(45deg, #f44336, #d32f2f);
+            color: white;
+            flex: 1;
+        }
+
+        .btn-reject:hover {
+            transform: translateY(-2px);
+            box-shadow: 0 4px 15px rgba(244, 67, 54, 0.4);
+        }
+
+        .btn-process {
+            background: linear-gradient(45deg, #FF9800, #F57C00);
+            color: white;
+            font-size: 16px;
+            padding: 15px 30px;
+        }
+
+        .btn-process:hover {
+            transform: translateY(-2px);
+            box-shadow: 0 6px 20px rgba(255, 152, 0, 0.4);
+        }
+
+        .btn-generate {
+            background: linear-gradient(45deg, #9C27B0, #7B1FA2);
+            color: white;
+            font-size: 16px;
+            padding: 15px 30px;
+        }
+
+        .btn-generate:hover {
+            transform: translateY(-2px);
+            box-shadow: 0 6px 20px rgba(156, 39, 176, 0.4);
+        }
+
+        .loading {
+            text-align: center;
+            padding: 40px;
+            color: white;
+            font-size: 1.2rem;
+        }
+
+        .loading::after {
+            content: '';
+            display: inline-block;
+            width: 20px;
+            height: 20px;
+            border: 3px solid rgba(255,255,255,0.3);
+            border-radius: 50%;
+            border-top-color: white;
+            animation: spin 1s ease-in-out infinite;
+            margin-left: 10px;
+        }
+
+        @keyframes spin {
+            to { transform: rotate(360deg); }
+        }
+
+        .empty-state {
+            text-align: center;
+            padding: 60px 20px;
+            color: rgba(255, 255, 255, 0.8);
+        }
+
+        .empty-state h3 {
+            font-size: 1.5rem;
+            margin-bottom: 15px;
+            color: white;
+        }
+
+        .empty-state p {
+            font-size: 1.1rem;
+            margin-bottom: 25px;
+        }
+
+        @media (max-width: 768px) {
+            .candidates {
+                grid-template-columns: 1fr;
+            }
+            
+            .stats {
+                grid-template-columns: repeat(auto-fit, minmax(150px, 1fr));
+            }
+            
+            .actions {
+                flex-direction: column;
+            }
+            
+            .nav {
+                flex-direction: column;
+                align-items: center;
+            }
+        }
+    </style>
+</head>
+<body>
+    <div class="container">
+        <div class="header">
+            <h1>📰 Junior News Digest</h1>
+            <p>Editorial Portal - <span id="current-date"></span></p>
+        </div>
+        
+        <div class="nav">
+            <button class="active" onclick="showSection('review')">📝 Review Stories</button>
+            <button onclick="showSection('approved')">✅ Approved Stories</button>
+            <button onclick="showSection('generate')">🔄 Generate Stories</button>
+            <button onclick="showSection('settings')">⚙️ Settings</button>
+        </div>
+        
+        <div id="flash-messages" class="flash-messages"></div>
+        
+        <div class="stats">
+            <div class="stat-card">
+                <h3 id="total-candidates">0</h3>
+                <p>Total Candidates</p>
+            </div>
+            <div class="stat-card">
+                <h3 id="approved-count">0</h3>
+                <p>Approved</p>
+            </div>
+            <div class="stat-card">
+                <h3 id="pending-count">0</h3>
+                <p>Pending Review</p>
+            </div>
+            <div class="stat-card">
+                <h3 id="processed-count">0</h3>
+                <p>Published</p>
+            </div>
+        </div>
+        
+        <!-- Review Section -->
+        <div id="review-section" class="section">
+            <div id="process-approved" class="process-section" style="display: none;">
+                <h3>🎉 Stories Ready to Publish!</h3>
+                <p>You have approved stories ready to be processed and published to the app.</p>
+                <button class="btn btn-process" onclick="processApproved()">
+                    🔄 Process Approved Stories
+                </button>
+            </div>
+            
+            <div id="candidates-container" class="candidates">
+                <div class="loading">Loading candidate stories...</div>
+            </div>
+        </div>
+        
+        <!-- Approved Section -->
+        <div id="approved-section" class="section" style="display: none;">
+            <div id="approved-container">
+                <div class="empty-state">
+                    <h3>✅ Approved Stories</h3>
+                    <p>Stories you've approved will appear here before being published.</p>
+                </div>
+            </div>
+        </div>
+        
+        <!-- Generate Section -->
+        <div id="generate-section" class="section" style="display: none;">
+            <div class="process-section">
+                <h3>🤖 Generate New Stories</h3>
+                <p>Create fresh candidate stories for editorial review. Stories are generated based on current trends and educational topics for kids.</p>
+                <div style="margin: 20px 0;">
+                    <label for="story-count" style="color: white; margin-right: 15px;">Number of stories:</label>
+                    <select id="story-count" style="padding: 8px; border-radius: 5px; border: none;">
+                        <option value="5">5 stories</option>
+                        <option value="10" selected>10 stories</option>
+                        <option value="15">15 stories</option>
+                        <option value="20">20 stories</option>
+                    </select>
+                </div>
+                <button class="btn btn-generate" onclick="generateStories()">
+                    🎲 Generate Stories
+                </button>
+            </div>
+        </div>
+        
+        <!-- Settings Section -->
+        <div id="settings-section" class="section" style="display: none;">
+            <div class="process-section">
+                <h3>⚙️ Editorial Settings</h3>
+                <p>Configure your editorial workflow and preferences.</p>
+                <div style="text-align: left; margin-top: 20px;">
+                    <div style="margin: 15px 0;">
+                        <label style="color: white; display: block; margin-bottom: 5px;">Weekly Schedule:</label>
+                        <p style="color: rgba(255,255,255,0.8); font-size: 14px;">
+                            • Sunday 9:00 AM - Generate candidate stories<br>
+                            • Monday/Wednesday/Friday 8:00 AM - Publish approved content
+                        </p>
+                    </div>
+                    <div style="margin: 15px 0;">
+                        <label style="color: white; display: block; margin-bottom: 5px;">Content Guidelines:</label>
+                        <p style="color: rgba(255,255,255,0.8); font-size: 14px;">
+                            • Ages 6-12 appropriate content<br>
+                            • Positive, educational stories<br>
+                            • No scary or violent content<br>
+                            • Focus on science, technology, environment
+                        </p>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+
+    <script>
+        // Sample data for demonstration
+        let candidateStories = [];
+        let approvedStories = [];
+        let processedCount = 0;
+
+        // Initialize the portal
+        document.addEventListener('DOMContentLoaded', function() {
+            document.getElementById('current-date').textContent = new Date().toLocaleDateString('en-US', {
+                weekday: 'long',
+                year: 'numeric',
+                month: 'long',
+                day: 'numeric'
+            });
+            
+            generateSampleStories();
+            renderCandidates();
+            updateStats();
+        });
+
+        // Generate sample stories for demonstration
+        function generateSampleStories() {
+            const sampleStories = [
+                {
+                    id: 'story-1',
+                    title: 'Kids Create Amazing Solar Robot to Save Environment',
+                    content: 'A group of brilliant students from Green Valley School invented an incredible solar-powered robot that helps clean parks and protect our environment! The robot uses special solar panels to collect energy from the sun, so it doesn\'t need any harmful fuel. The students worked with their teacher for six months to build this amazing invention.',
+                    category: 'technology',
+                    priority: 9,
+                    isBreaking: false,
+                    isTrending: true,
+                    isHot: false,
+                    status: 'pending'
+                },
+                {
+                    id: 'story-2',
+                    title: 'Ocean Cleanup Robot Saves 1000 Sea Animals',
+                    content: 'An incredible robot named "Ocean Helper" has saved over 1,000 sea animals from plastic pollution! The robot was created by marine scientists in California. It swims through the ocean like a friendly whale, collecting plastic bottles, bags, and other trash that hurt sea creatures.',
+                    category: 'environment',
+                    priority: 8,
+                    isBreaking: true,
+                    isTrending: false,
+                    isHot: true,
+                    status: 'pending'
+                },
+                {
+                    id: 'story-3',
+                    title: 'Young Scientists Help Create New Medicine for Kids',
+                    content: 'Amazing young scientists have helped create a new medicine that helps children with allergies stay safe and healthy! The medicine works like a superhero shield, protecting kids from dangerous allergic reactions. The research team worked with students from Science Academy to test and improve the medicine.',
+                    category: 'health',
+                    priority: 7,
+                    isBreaking: true,
+                    isTrending: false,
+                    isHot: false,
+                    status: 'pending'
+                },
+                {
+                    id: 'story-4',
+                    title: 'Kids Discover New Planet Using School Telescope',
+                    content: 'Students at Star Academy made an incredible discovery - they found a new planet using their school telescope! The planet is called "Wonder World" and it\'s located 50 light-years away from Earth. The young astronomers worked every night for three months, carefully studying the stars.',
+                    category: 'science',
+                    priority: 10,
+                    isBreaking: false,
+                    isTrending: true,
+                    isHot: true,
+                    status: 'pending'
+                },
+                {
+                    id: 'story-5',
+                    title: 'Young Recycling Champions Save Their City',
+                    content: 'A group of 8-year-old environmental heroes started a recycling program that saved their entire city! They collected over 10,000 plastic bottles, 5,000 aluminum cans, and 2,000 newspapers in just one month. The mayor gave them a special award for helping make their city cleaner.',
+                    category: 'environment',
+                    priority: 6,
+                    isBreaking: false,
+                    isTrending: false,
+                    isHot: true,
+                    status: 'pending'
+                }
+            ];
+
+            candidateStories = sampleStories;
+        }
+
+        // Show different sections
+        function showSection(section) {
+            // Hide all sections
+            document.querySelectorAll('.section').forEach(s => s.style.display = 'none');
+            
+            // Remove active class from all nav buttons
+            document.querySelectorAll('.nav button').forEach(b => b.classList.remove('active'));
+            
+            // Show selected section
+            document.getElementById(section + '-section').style.display = 'block';
+            
+            // Add active class to clicked button
+            event.target.classList.add('active');
+            
+            // Load section-specific content
+            if (section === 'approved') {
+                renderApproved();
+            }
+        }
+
+        // Render candidate stories
+        function renderCandidates() {
+            const container = document.getElementById('candidates-container');
+            
+            if (candidateStories.length === 0) {
+                container.innerHTML = `
+                    <div class="empty-state">
+                        <h3>📝 No Stories to Review</h3>
+                        <p>Generate new candidate stories to start the editorial review process.</p>
+                        <button class="btn btn-generate" onclick="generateStories()">
+                            🎲 Generate Stories
+                        </button>
+                    </div>
+                `;
+                return;
+            }
+
+            const pendingStories = candidateStories.filter(story => story.status === 'pending');
+            
+            container.innerHTML = pendingStories.map(story => `
+                <div class="candidate" id="candidate-${story.id}">
+                    <div class="candidate-title">${story.title}</div>
+                    
+                    <div class="candidate-meta">
+                        <span class="badge category">${story.category}</span>
+                        <span class="badge priority">Priority: ${story.priority}/10</span>
+                        ${story.isBreaking ? '<span class="badge breaking">🔴 Breaking</span>' : ''}
+                        ${story.isTrending ? '<span class="badge trending">🔥 Trending</span>' : ''}
+                        ${story.isHot ? '<span class="badge hot">⚡ Hot</span>' : ''}
+                    </div>
+                    
+                    <div class="candidate-content">${story.content}</div>
+                    
+                    <textarea class="editor-notes" placeholder="Editor notes (optional)..." id="notes-${story.id}"></textarea>
+                    
+                    <div class="actions">
+                        <button class="btn btn-approve" onclick="approveStory('${story.id}')">
+                            ✅ Approve
+                        </button>
+                        <button class="btn btn-reject" onclick="rejectStory('${story.id}')">
+                            ❌ Reject
+                        </button>
+                    </div>
+                </div>
+            `).join('');
+        }
+
+        // Render approved stories
+        function renderApproved() {
+            const container = document.getElementById('approved-container');
+            
+            if (approvedStories.length === 0) {
+                container.innerHTML = `
+                    <div class="empty-state">
+                        <h3>✅ No Approved Stories</h3>
+                        <p>Stories you approve will appear here before being published.</p>
+                    </div>
+                `;
+                return;
+            }
+
+            container.innerHTML = `
+                <div class="candidates">
+                    ${approvedStories.map(story => `
+                        <div class="candidate">
+                            <div class="candidate-title">${story.title}</div>
+                            <div class="candidate-meta">
+                                <span class="badge category">${story.category}</span>
+                                <span class="badge priority">Priority: ${story.priority}/10</span>
+                                <span style="color: #4CAF50; font-weight: bold;">✅ APPROVED</span>
+                            </div>
+                            <div class="candidate-content">${story.content}</div>
+                            ${story.editorNotes ? `<p><strong>Editor Notes:</strong> ${story.editorNotes}</p>` : ''}
+                        </div>
+                    `).join('')}
+                </div>
+            `;
+        }
+
+        // Approve a story
+        function approveStory(storyId) {
+            const story = candidateStories.find(s => s.id === storyId);
+            if (!story) return;
+
+            const editorNotes = document.getElementById(`notes-${storyId}`).value;
+            
+            story.status = 'approved';
+            story.editorNotes = editorNotes;
+            approvedStories.push(story);
+
+            showFlashMessage(`✅ Story "${story.title}" approved successfully!`, 'success');
+            
+            renderCandidates();
+            updateStats();
+            
+            // Show process button if we have approved stories
+            if (approvedStories.length > 0) {
+                document.getElementById('process-approved').style.display = 'block';
+            }
+        }
+
+        // Reject a story
+        function rejectStory(storyId) {
+            const story = candidateStories.find(s => s.id === storyId);
+            if (!story) return;
+
+            const editorNotes = document.getElementById(`notes-${storyId}`).value;
+            
+            story.status = 'rejected';
+            story.editorNotes = editorNotes;
+
+            showFlashMessage(`❌ Story "${story.title}" rejected`, 'error');
+            
+            renderCandidates();
+            updateStats();
+        }
+
+        // Process approved stories
+        function processApproved() {
+            if (approvedStories.length === 0) return;
+
+            const count = approvedStories.length;
+            processedCount += count;
+            
+            // Move approved stories to processed
+            approvedStories.forEach(story => {
+                story.status = 'processed';
+            });
+            
+            approvedStories = [];
+            
+            showFlashMessage(`🎉 ${count} stories have been processed and published!`, 'success');
+            
+            document.getElementById('process-approved').style.display = 'none';
+            renderCandidates();
+            renderApproved();
+            updateStats();
+        }
+
+        // Generate new stories
+        function generateStories() {
+            const count = parseInt(document.getElementById('story-count').value);
+            
+            showFlashMessage(`🎲 Generating ${count} new candidate stories...`, 'success');
+            
+            // Simulate generating new stories
+            setTimeout(() => {
+                generateSampleStories(); // In real app, this would call an API
+                renderCandidates();
+                updateStats();
+                showFlashMessage(`✅ Generated ${count} new candidate stories!`, 'success');
+            }, 2000);
+        }
+
+        // Update statistics
+        function updateStats() {
+            const totalCandidates = candidateStories.length;
+            const approvedCount = approvedStories.length;
+            const pendingCount = candidateStories.filter(s => s.status === 'pending').length;
+
+            document.getElementById('total-candidates').textContent = totalCandidates;
+            document.getElementById('approved-count').textContent = approvedCount;
+            document.getElementById('pending-count').textContent = pendingCount;
+            document.getElementById('processed-count').textContent = processedCount;
+        }
+
+        // Show flash messages
+        function showFlashMessage(message, type) {
+            const container = document.getElementById('flash-messages');
+            const messageDiv = document.createElement('div');
+            messageDiv.className = `flash-${type}`;
+            messageDiv.textContent = message;
+            
+            container.appendChild(messageDiv);
+            
+            // Auto-remove after 5 seconds
+            setTimeout(() => {
+                messageDiv.remove();
+            }, 5000);
+        }
+
+        // Auto-refresh stats every 30 seconds
+        setInterval(updateStats, 30000);
+    </script>
+</body>
+</html>
