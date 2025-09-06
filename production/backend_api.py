@@ -730,8 +730,7 @@ def initialize_sample_data():
         logger.error(f"Error initializing sample data: {e}")
 
 if __name__ == '__main__':
-    # Initialize database and sample data
-    db.initialize_database()
+    # Initialize sample data (database already initialized in DatabaseManager.__init__)
     initialize_sample_data()
     
     port = int(os.getenv('PORT', 5000))
