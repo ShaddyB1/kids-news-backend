@@ -477,6 +477,7 @@
                     id: 'story-1',
                     title: 'Kids Create Amazing Solar Robot to Save Environment',
                     content: 'A group of brilliant students from Green Valley School invented an incredible solar-powered robot that helps clean parks and protect our environment! The robot uses special solar panels to collect energy from the sun, so it doesn\'t need any harmful fuel. The students worked with their teacher for six months to build this amazing invention.',
+                    script: 'Hi kids! Today we have an amazing story called "Kids Create Amazing Solar Robot to Save Environment"!\n\nLet me tell you what happened:\n\nA group of brilliant students from Green Valley School invented an incredible solar-powered robot that helps clean parks and protect our environment! The robot uses special solar panels to collect energy from the sun, so it doesn\'t need any harmful fuel. The students worked with their teacher for six months to build this amazing invention.\n\nIsn\'t that incredible? This shows us that with creativity and hard work, we can make amazing things happen!\n\nWhat do you think about this story? Remember, you can make a difference too!\n\nThanks for watching Junior News Digest! See you next time!',
                     category: 'technology',
                     priority: 9,
                     isBreaking: false,
@@ -586,6 +587,21 @@
                     
                     <div class="candidate-content">${story.content}</div>
                     
+                    <div class="script-section" style="margin: 15px 0;">
+                        <h4 style="color: #2c3e50; margin-bottom: 8px; display: flex; align-items: center;">
+                            📝 Video Script:
+                            <button class="btn-small" onclick="generateScript('${story.id}')" style="margin-left: 10px; padding: 4px 8px; font-size: 12px; background: #3498db; color: white; border: none; border-radius: 3px; cursor: pointer;">
+                                🔄 Regenerate
+                            </button>
+                        </h4>
+                        <textarea 
+                            class="script-editor" 
+                            id="script-${story.id}"
+                            placeholder="Video script will be generated automatically..."
+                            style="width: 100%; min-height: 120px; padding: 10px; border: 1px solid #ddd; border-radius: 5px; font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif; font-size: 14px; resize: vertical; margin-bottom: 10px;"
+                        >${story.script || generateScriptForStory(story)}</textarea>
+                    </div>
+                    
                     <textarea class="editor-notes" placeholder="Editor notes (optional)..." id="notes-${story.id}"></textarea>
                     
                     <div class="actions">
@@ -632,15 +648,48 @@
             `;
         }
 
+        // Generate script for a story
+        function generateScriptForStory(story) {
+            const scriptParts = [
+                `Hi kids! Today we have an amazing story called "${story.title}"!`,
+                "",
+                "Let me tell you what happened:",
+                "",
+                story.content,
+                "",
+                "Isn't that incredible? This shows us that with creativity and hard work, we can make amazing things happen!",
+                "",
+                "What do you think about this story? Remember, you can make a difference too!",
+                "",
+                "Thanks for watching Junior News Digest! See you next time!"
+            ];
+            
+            return scriptParts.join("\n");
+        }
+
+        // Regenerate script for a specific story
+        function generateScript(storyId) {
+            const story = candidateStories.find(s => s.id === storyId);
+            if (!story) return;
+
+            const newScript = generateScriptForStory(story);
+            story.script = newScript;
+            
+            document.getElementById(`script-${storyId}`).value = newScript;
+            showFlashMessage(`🔄 Script regenerated for "${story.title}"`, 'success');
+        }
+
         // Approve a story
         function approveStory(storyId) {
             const story = candidateStories.find(s => s.id === storyId);
             if (!story) return;
 
             const editorNotes = document.getElementById(`notes-${storyId}`).value;
+            const script = document.getElementById(`script-${storyId}`).value;
             
             story.status = 'approved';
             story.editorNotes = editorNotes;
+            story.script = script; // Save the edited script
             approvedStories.push(story);
 
             showFlashMessage(`✅ Story "${story.title}" approved successfully!`, 'success');

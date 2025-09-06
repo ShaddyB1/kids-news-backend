@@ -55,6 +55,7 @@ class AutomatedEditorialSystem:
                 title TEXT NOT NULL,
                 content TEXT NOT NULL,
                 summary TEXT NOT NULL,
+                script TEXT NOT NULL,
                 category TEXT NOT NULL,
                 author TEXT NOT NULL,
                 priority_score INTEGER DEFAULT 5,
@@ -71,15 +72,15 @@ class AutomatedEditorialSystem:
             )
         ''')
         
-        # Publishing schedule table
+        # Publishing schedule table - updated for even distribution
         cursor.execute('''
             CREATE TABLE IF NOT EXISTS publishing_schedule (
                 id INTEGER PRIMARY KEY AUTOINCREMENT,
                 week_start_date TEXT NOT NULL,
-                monday_story_id TEXT,
-                wednesday_story_id TEXT,
-                friday_story_id TEXT,
-                status TEXT DEFAULT 'pending',
+                publish_day TEXT NOT NULL,
+                story_id TEXT NOT NULL,
+                story_order INTEGER DEFAULT 1,
+                status TEXT DEFAULT 'scheduled',
                 created_at TIMESTAMP DEFAULT CURRENT_TIMESTAMP
             )
         ''')
@@ -120,12 +121,12 @@ class AutomatedEditorialSystem:
                 try:
                     cursor.execute('''
                         INSERT INTO automated_stories 
-                        (id, title, content, summary, category, author, priority_score,
+                        (id, title, content, summary, script, category, author, priority_score,
                          is_breaking, is_trending, is_hot, status, generated_date)
-                        VALUES (?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?)
+                        VALUES (?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?)
                     ''', (
                         story['id'], story['title'], story['content'], story['summary'],
-                        story['category'], story['author'], story['priority_score'],
+                        story['script'], story['category'], story['author'], story['priority_score'],
                         story['is_breaking'], story['is_trending'], story['is_hot'],
                         'pending_review', datetime.now().isoformat()
                     ))
@@ -149,7 +150,7 @@ class AutomatedEditorialSystem:
             self.log_automation_action("story_generation_error", str(e), success=False)
     
     def process_approved_stories(self):
-        """Process approved stories and schedule for Mon/Wed/Fri publishing"""
+        """Process approved stories and schedule evenly for Mon/Wed/Fri publishing"""
         try:
             logger.info("📋 Processing approved stories for weekly schedule...")
             
@@ -181,48 +182,80 @@ class AutomatedEditorialSystem:
             next_wednesday = next_monday + timedelta(days=2)
             next_friday = next_monday + timedelta(days=4)
             
-            # Select top 3 stories for Mon/Wed/Fri
-            stories_to_schedule = approved_stories[:3]
+            # Distribute stories evenly across Mon/Wed/Fri
+            total_approved = len(approved_stories)
             
-            if len(stories_to_schedule) >= 3:
-                # Create publishing schedule
-                cursor.execute('''
-                    INSERT INTO publishing_schedule 
-                    (week_start_date, monday_story_id, wednesday_story_id, friday_story_id, status)
-                    VALUES (?, ?, ?, ?, ?)
-                ''', (
-                    next_monday.strftime('%Y-%m-%d'),
-                    stories_to_schedule[0][0],  # Monday - highest priority
-                    stories_to_schedule[1][0],  # Wednesday - second priority
-                    stories_to_schedule[2][0],  # Friday - third priority
-                    'scheduled'
-                ))
+            if total_approved >= 3:
+                # Calculate even distribution
+                stories_per_day = total_approved // 3
+                remaining_stories = total_approved % 3
                 
-                # Update stories with scheduled publish dates
-                schedule_data = [
-                    (stories_to_schedule[0][0], next_monday.strftime('%Y-%m-%d')),
-                    (stories_to_schedule[1][0], next_wednesday.strftime('%Y-%m-%d')),
-                    (stories_to_schedule[2][0], next_friday.strftime('%Y-%m-%d'))
-                ]
+                # Distribute stories
+                monday_count = stories_per_day + (1 if remaining_stories > 0 else 0)
+                wednesday_count = stories_per_day + (1 if remaining_stories > 1 else 0)
+                friday_count = stories_per_day
                 
-                for story_id, publish_date in schedule_data:
+                # Split stories into groups
+                monday_stories = approved_stories[:monday_count]
+                wednesday_stories = approved_stories[monday_count:monday_count + wednesday_count]
+                friday_stories = approved_stories[monday_count + wednesday_count:]
+                
+                # Create publishing schedule entries for each day
+                week_start = next_monday.strftime('%Y-%m-%d')
+                
+                # Schedule Monday stories
+                for i, story in enumerate(monday_stories):
+                    cursor.execute('''
+                        INSERT INTO publishing_schedule 
+                        (week_start_date, publish_day, story_id, story_order, status)
+                        VALUES (?, ?, ?, ?, ?)
+                    ''', (week_start, 'Monday', story[0], i + 1, 'scheduled'))
+                    
                     cursor.execute('''
                         UPDATE automated_stories 
                         SET status = 'scheduled', scheduled_publish_date = ?
                         WHERE id = ?
-                    ''', (publish_date, story_id))
+                    ''', (next_monday.strftime('%Y-%m-%d'), story[0]))
+                
+                # Schedule Wednesday stories
+                for i, story in enumerate(wednesday_stories):
+                    cursor.execute('''
+                        INSERT INTO publishing_schedule 
+                        (week_start_date, publish_day, story_id, story_order, status)
+                        VALUES (?, ?, ?, ?, ?)
+                    ''', (week_start, 'Wednesday', story[0], i + 1, 'scheduled'))
+                    
+                    cursor.execute('''
+                        UPDATE automated_stories 
+                        SET status = 'scheduled', scheduled_publish_date = ?
+                        WHERE id = ?
+                    ''', (next_wednesday.strftime('%Y-%m-%d'), story[0]))
+                
+                # Schedule Friday stories
+                for i, story in enumerate(friday_stories):
+                    cursor.execute('''
+                        INSERT INTO publishing_schedule 
+                        (week_start_date, publish_day, story_id, story_order, status)
+                        VALUES (?, ?, ?, ?, ?)
+                    ''', (week_start, 'Friday', story[0], i + 1, 'scheduled'))
+                    
+                    cursor.execute('''
+                        UPDATE automated_stories 
+                        SET status = 'scheduled', scheduled_publish_date = ?
+                        WHERE id = ?
+                    ''', (next_friday.strftime('%Y-%m-%d'), story[0]))
                 
                 conn.commit()
                 
                 self.log_automation_action(
                     "story_scheduling",
-                    f"Scheduled {len(stories_to_schedule)} stories for Mon/Wed/Fri publishing"
+                    f"Evenly distributed {total_approved} stories: Mon({monday_count}), Wed({wednesday_count}), Fri({friday_count})"
                 )
                 
-                logger.info(f"✅ Scheduled {len(stories_to_schedule)} stories for next week!")
+                logger.info(f"✅ Evenly scheduled {total_approved} stories: Monday({monday_count}), Wednesday({wednesday_count}), Friday({friday_count})")
                 
             else:
-                logger.warning(f"Only {len(stories_to_schedule)} approved stories available. Need at least 3.")
+                logger.warning(f"Only {total_approved} approved stories available. Need at least 3 for even distribution.")
             
             conn.close()
             
@@ -231,71 +264,83 @@ class AutomatedEditorialSystem:
             self.log_automation_action("story_processing_error", str(e), success=False)
     
     def publish_scheduled_story(self, day_name):
-        """Publish scheduled story for Mon/Wed/Fri at 8:00 AM"""
+        """Publish all scheduled stories for Mon/Wed/Fri at 8:00 AM"""
         try:
-            logger.info(f"📰 {day_name.upper()} 8:00 AM - Publishing scheduled story...")
+            logger.info(f"📰 {day_name.upper()} 8:00 AM - Publishing scheduled stories...")
             
             conn = sqlite3.connect(self.db_path)
             cursor = conn.cursor()
             
-            # Get today's scheduled story
+            # Get today's scheduled stories
             today = datetime.now().strftime('%Y-%m-%d')
             
             cursor.execute('''
-                SELECT s.id, s.title, s.content, s.summary, s.category, s.author,
-                       s.is_breaking, s.is_trending, s.is_hot
+                SELECT s.id, s.title, s.content, s.summary, s.script, s.category, s.author,
+                       s.is_breaking, s.is_trending, s.is_hot, ps.story_order
                 FROM automated_stories s
-                WHERE s.scheduled_publish_date = ? AND s.status = 'scheduled'
-            ''', (today,))
+                JOIN publishing_schedule ps ON s.id = ps.story_id
+                WHERE s.scheduled_publish_date = ? AND s.status = 'scheduled' 
+                AND ps.publish_day = ?
+                ORDER BY ps.story_order
+            ''', (today, day_name))
             
-            story = cursor.fetchone()
+            stories = cursor.fetchall()
             
-            if not story:
-                logger.info(f"No story scheduled for {day_name}")
+            if not stories:
+                logger.info(f"No stories scheduled for {day_name}")
                 return
             
-            # Create article in main app database
-            article_id = f"{story[1].lower().replace(' ', '-').replace(',', '').replace('.', '')}-{datetime.now().strftime('%Y%m%d')}"
+            published_count = 0
             
-            # Connect to main app database (you'll need to adjust path)
-            app_db_path = "junior_news_integrated.db"  # Adjust this path
+            # Connect to main app database
+            app_db_path = "junior_news_integrated.db"
             app_conn = sqlite3.connect(app_db_path)
             app_cursor = app_conn.cursor()
             
-            # Insert into main app articles table
-            app_cursor.execute('''
-                INSERT INTO articles (id, title, headline, content, summary, category, author, 
-                                    published_date, read_time, likes, views, comments,
-                                    is_breaking, is_trending, is_hot)
-                VALUES (?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?)
-            ''', (
-                article_id, story[1], story[1], story[2], story[3], story[4], story[5],
-                datetime.now().isoformat(), f"{max(1, len(story[2].split()) // 200)} min read",
-                0, 0, 0, story[6], story[7], story[8]
-            ))
+            for i, story in enumerate(stories):
+                try:
+                    # Create unique article ID
+                    article_id = f"{story[1].lower().replace(' ', '-').replace(',', '').replace('.', '')}-{datetime.now().strftime('%Y%m%d')}-{i+1:02d}"
+                    
+                    # Insert into main app articles table
+                    app_cursor.execute('''
+                        INSERT INTO articles (id, title, headline, content, summary, category, author, 
+                                            published_date, read_time, likes, views, comments,
+                                            is_breaking, is_trending, is_hot)
+                        VALUES (?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?)
+                    ''', (
+                        article_id, story[1], story[1], story[2], story[3], story[5], story[6],
+                        datetime.now().isoformat(), f"{max(1, len(story[2].split()) // 200)} min read",
+                        0, 0, 0, story[7], story[8], story[9]
+                    ))
+                    
+                    # Update story status to published
+                    cursor.execute('''
+                        UPDATE automated_stories 
+                        SET status = 'published', published_date = ?
+                        WHERE id = ?
+                    ''', (datetime.now().isoformat(), story[0]))
+                    
+                    published_count += 1
+                    logger.info(f"✅ Published story {i+1}: {story[1]}")
+                    
+                except Exception as e:
+                    logger.error(f"Error publishing story {story[1]}: {e}")
             
             app_conn.commit()
             app_conn.close()
-            
-            # Update story status to published
-            cursor.execute('''
-                UPDATE automated_stories 
-                SET status = 'published', published_date = ?
-                WHERE id = ?
-            ''', (datetime.now().isoformat(), story[0]))
-            
             conn.commit()
             conn.close()
             
             self.log_automation_action(
                 f"{day_name.lower()}_publishing",
-                f"Published story: {story[1]}"
+                f"Published {published_count} stories for {day_name}"
             )
             
-            logger.info(f"✅ Published story: {story[1]}")
+            logger.info(f"✅ Published {published_count} stories for {day_name}")
             
         except Exception as e:
-            logger.error(f"Error publishing {day_name} story: {e}")
+            logger.error(f"Error publishing {day_name} stories: {e}")
             self.log_automation_action(f"{day_name.lower()}_publishing_error", str(e), success=False)
     
     def log_automation_action(self, action: str, details: str, success: bool = True):
@@ -443,9 +488,13 @@ class StoryGenerator:
         content = content.replace('{impact_stat}', random.choice(impact_stats))
         content = content.replace('{number}', random.choice(numbers))
         
+        # Generate script for video narration
+        script = self._generate_script_from_content(content, title)
+        
         return {
             'title': title,
             'content': content,
+            'script': script,
             'category': category,
             'author': 'Junior News Team',
             'summary': content[:150] + '...' if len(content) > 150 else content
@@ -456,13 +505,36 @@ class StoryGenerator:
         title = f"Amazing {category.title()} Discovery for Kids #{index+1}"
         content = f"This is an exciting story about {category} that will inspire young minds everywhere! Children and young people are making incredible discoveries and contributions in {category}. This story shows how kids can make a real difference in the world through creativity, hard work, and determination. Scientists and experts are amazed by what young people can achieve when they put their minds to it!"
         
+        # Generate script for video narration
+        script = self._generate_script_from_content(content, title)
+        
         return {
             'title': title,
             'content': content,
+            'script': script,
             'category': category,
             'author': 'Junior News Team',
             'summary': content[:150] + '...' if len(content) > 150 else content
         }
+    
+    def _generate_script_from_content(self, content: str, title: str) -> str:
+        """Generate a video script from story content"""
+        # Create a kid-friendly script structure
+        script_parts = [
+            f"Hi kids! Today we have an amazing story called '{title}'!",
+            "",
+            "Let me tell you what happened:",
+            "",
+            content,
+            "",
+            "Isn't that incredible? This shows us that with creativity and hard work, we can make amazing things happen!",
+            "",
+            "What do you think about this story? Remember, you can make a difference too!",
+            "",
+            "Thanks for watching Junior News Digest! See you next time!"
+        ]
+        
+        return "\n".join(script_parts)
 
 def run_automation_system():
     """Main automation system runner"""
