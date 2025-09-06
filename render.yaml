@@ -3,9 +3,8 @@ services:
     name: kids-news-backend
     env: python
     plan: starter
-    buildCommand: "pip install -r production/requirements.txt"
-    startCommand: "python3 production/backend_api.py"
-    rootDir: "."
+    buildCommand: "pip install --upgrade pip && pip install -r production/requirements.txt"
+    startCommand: "cd production && python backend_api.py"
     envVars:
       - key: PORT
         value: 10000

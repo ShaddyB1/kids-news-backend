@@ -4,8 +4,7 @@
 Flask==2.3.3
 flask-cors==4.0.0
 
-# Database
-sqlite3
+# Database (sqlite3 is built into Python)
 
 # Authentication & Security
 PyJWT==2.8.0
