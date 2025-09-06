@@ -1,0 +1,15 @@
+file '/Users/shadrackaddo/Desktop/junior graphic/production/story_sync_videos/images/exact_user_logo_scene_00.png'
+duration 9.079
+file '/Users/shadrackaddo/Desktop/junior graphic/production/story_sync_videos/images/story_sync_scene_01_seed_401.clean.png'
+duration 9.079
+file '/Users/shadrackaddo/Desktop/junior graphic/production/story_sync_videos/images/story_sync_scene_02_seed_402.clean.png'
+duration 9.079
+file '/Users/shadrackaddo/Desktop/junior graphic/production/story_sync_videos/images/story_sync_scene_03_seed_403.clean.png'
+duration 9.079
+file '/Users/shadrackaddo/Desktop/junior graphic/production/story_sync_videos/images/story_sync_scene_04_seed_404.clean.png'
+duration 9.079
+file '/Users/shadrackaddo/Desktop/junior graphic/production/story_sync_videos/images/story_sync_scene_05_seed_405.clean.png'
+duration 9.079
+file '/Users/shadrackaddo/Desktop/junior graphic/production/story_sync_videos/images/story_sync_scene_06_seed_406.clean.png'
+duration 9.079
+file '/Users/shadrackaddo/Desktop/junior graphic/production/story_sync_videos/images/story_sync_scene_06_seed_406.clean.png'

@@ -1,0 +1,29 @@
+<?xml version="1.0" encoding="UTF-8"?>
+        <rss version="2.0">
+          <channel>
+            <title>Kids Daily News Podcast</title>
+            <link>https://example.com/kids_news_podcast</link>
+            <description>Kid‑friendly news stories with natural narration.</description>
+            <language>en-us</language>
+            <itunes:author>Kids Daily News</itunes:author>
+            <item>
+              <title>Young_Inventors_Change_the_World_audio</title>
+              <description><![CDATA[Kid‑friendly news story.]]></description>
+              <pubDate>Fri, 08 Aug 2025 09:25:12 +0000</pubDate>
+              <guid isPermaLink="false">2025-08-04_week-Young_Inventors_Change_the_World_audio.mp3</guid>
+              <enclosure url="https://example.com/kids_news_podcast/audio/2025-08-04_week/Young_Inventors_Change_the_World_audio.mp3" length="330518" type="audio/mpeg" />
+            </item><item>
+              <title>Solar_School_Bus_Adventure_audio</title>
+              <description><![CDATA[Kid‑friendly news story.]]></description>
+              <pubDate>Fri, 08 Aug 2025 09:25:12 +0000</pubDate>
+              <guid isPermaLink="false">2025-08-04_week-Solar_School_Bus_Adventure_audio.mp3</guid>
+              <enclosure url="https://example.com/kids_news_podcast/audio/2025-08-04_week/Solar_School_Bus_Adventure_audio.mp3" length="265630" type="audio/mpeg" />
+            </item><item>
+              <title>Ocean_Robot_Saves_the_Day_audio</title>
+              <description><![CDATA[Kid‑friendly news story.]]></description>
+              <pubDate>Fri, 08 Aug 2025 09:25:12 +0000</pubDate>
+              <guid isPermaLink="false">2025-08-04_week-Ocean_Robot_Saves_the_Day_audio.mp3</guid>
+              <enclosure url="https://example.com/kids_news_podcast/audio/2025-08-04_week/Ocean_Robot_Saves_the_Day_audio.mp3" length="254763" type="audio/mpeg" />
+            </item>
+          </channel>
+        </rss>

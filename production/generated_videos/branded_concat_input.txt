@@ -1,0 +1,17 @@
+file '/Users/shadrackaddo/Desktop/projects/junior graphic/production/generated_videos/images/official_logo_scene_00.png'
+duration 11.256
+file '/Users/shadrackaddo/Desktop/projects/junior graphic/production/generated_videos/images/cached_0487043fcad84f15.clean.png'
+duration 11.256
+file '/Users/shadrackaddo/Desktop/projects/junior graphic/production/generated_videos/images/cached_c321c395239fb156.clean.png'
+duration 11.256
+file '/Users/shadrackaddo/Desktop/projects/junior graphic/production/generated_videos/images/cached_8bde8e28b199e9b6.clean.png'
+duration 11.256
+file '/Users/shadrackaddo/Desktop/projects/junior graphic/production/generated_videos/images/cached_d3cf81f0d406b9bc.clean.png'
+duration 11.256
+file '/Users/shadrackaddo/Desktop/projects/junior graphic/production/generated_videos/images/cached_b5554a1dcab6a2b6.clean.png'
+duration 11.256
+file '/Users/shadrackaddo/Desktop/projects/junior graphic/production/generated_videos/images/cached_c711e665a97aced9.clean.png'
+duration 11.256
+file '/Users/shadrackaddo/Desktop/projects/junior graphic/production/generated_videos/images/clean_fallback_99.png'
+duration 11.256
+file '/Users/shadrackaddo/Desktop/projects/junior graphic/production/generated_videos/images/clean_fallback_99.png'
