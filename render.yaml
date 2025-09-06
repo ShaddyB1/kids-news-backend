@@ -3,20 +3,20 @@ services:
     name: kids-news-backend
     env: python
     plan: starter
-    buildCommand: "pip install -r requirements.txt"
-    startCommand: "gunicorn legacy_development.flask_backend:app --chdir /opt/render/project/src --bind 0.0.0.0:$PORT --workers 2"
+    buildCommand: "pip install -r production/requirements.txt"
+    startCommand: "cd production && gunicorn backend_api:app --bind 0.0.0.0:$PORT --workers 2"
     envVars:
       - key: PORT
         value: 10000
-      - key: ADMIN_SHARED_SECRET
+      - key: JWT_SECRET_KEY
+        generateValue: true
+      - key: FLASK_ENV
+        value: "production"
+      - key: ELEVENLABS_API_KEY
         sync: false
-      - key: EMAIL_USER
+      - key: LEONARDO_API_KEY
         sync: false
-      - key: EMAIL_PASSWORD
+      - key: NEWS_API_KEY
         sync: false
-      - key: SELECTION_PORTAL_URL
-        value: "https://kids-news-backend.onrender.com/admin/weekly"
-      - key: PODCAST_SITE_URL
-        value: "https://kids-news-backend.onrender.com"
 
 
