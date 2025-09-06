@@ -255,6 +255,15 @@ def allowed_file(filename: str) -> bool:
 
 # API Routes
 
+@app.route('/', methods=['GET'])
+def root():
+    """Root endpoint for testing"""
+    return jsonify({
+        'message': 'Junior News Digest API is running',
+        'version': '1.0.0',
+        'endpoints': ['/health', '/api/articles', '/api/videos']
+    })
+
 @app.route('/health', methods=['GET'])
 def health_check():
     """Health check endpoint"""
