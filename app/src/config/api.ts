@@ -14,11 +14,9 @@ interface ApiConfig {
 const isDevelopment = __DEV__;
 
 export const API_CONFIG: ApiConfig = {
-  // Use local backend for now
-  baseUrl: 'http://localhost:5002',
-  // baseUrl: isDevelopment 
-  //   ? 'http://localhost:5002' // Local development
-  //   : 'https://kids-news-backend.onrender.com', // Production on Render
+  // Use live backend for all environments
+  baseUrl: 'https://kids-news-backend.onrender.com',
+  // Always use production backend for consistency and editorial updates
   
   timeout: 10000, // 10 seconds
   retryAttempts: 3,

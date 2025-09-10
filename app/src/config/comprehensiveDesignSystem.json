@@ -1,0 +1,433 @@
+{
+  "metadata": {
+    "name": "Kids Story App Design System",
+    "version": "2.0",
+    "description": "Comprehensive design system for children's educational content app based on visual analysis",
+    "targetAge": "6-12 years"
+  },
+  "colorPalette": {
+    "primary": {
+      "orange": "#FF8A65",
+      "coral": "#FF6B6B", 
+      "warmOrange": "#FFA726"
+    },
+    "secondary": {
+      "teal": "#4DB6AC",
+      "mint": "#66BB6A",
+      "skyBlue": "#64B5F6",
+      "lavender": "#BA68C8"
+    },
+    "backgrounds": {
+      "cream": "#FFF8E1",
+      "lightPeach": "#FFF3E0",
+      "softWhite": "#FFFFFF",
+      "gradientStart": "#FFE0B2",
+      "gradientEnd": "#FFF8E1"
+    },
+    "text": {
+      "primary": "#5D4037",
+      "secondary": "#8D6E63",
+      "light": "#A1887F",
+      "white": "#FFFFFF"
+    },
+    "accents": {
+      "success": "#66BB6A",
+      "warning": "#FFB74D",
+      "info": "#64B5F6",
+      "error": "#EF5350"
+    },
+    "categoryColors": {
+      "animals": "#66BB6A",
+      "science": "#4DB6AC", 
+      "space": "#BA68C8",
+      "adventure": "#FFB74D",
+      "magic": "#E1BEE7",
+      "heroes": "#81C784",
+      "fantasy": "#F48FB1"
+    }
+  },
+  "typography": {
+    "fontFamily": {
+      "primary": "System",
+      "rounded": "San Francisco Rounded",
+      "playful": "Comic Sans MS"
+    },
+    "sizes": {
+      "hero": 32,
+      "title": 24,
+      "subtitle": 20,
+      "body": 16,
+      "caption": 14,
+      "small": 12
+    },
+    "weights": {
+      "light": "300",
+      "regular": "400", 
+      "medium": "500",
+      "semibold": "600",
+      "bold": "700"
+    },
+    "lineHeights": {
+      "tight": 1.2,
+      "normal": 1.4,
+      "relaxed": 1.6,
+      "loose": 1.8
+    }
+  },
+  "spacing": {
+    "xs": 4,
+    "sm": 8,
+    "md": 16,
+    "lg": 24,
+    "xl": 32,
+    "xxl": 48,
+    "xxxl": 64
+  },
+  "borderRadius": {
+    "small": 8,
+    "medium": 16,
+    "large": 24,
+    "xlarge": 32,
+    "round": 50
+  },
+  "shadows": {
+    "soft": {
+      "shadowColor": "#FF8A65",
+      "shadowOffset": {"width": 0, "height": 4},
+      "shadowOpacity": 0.15,
+      "shadowRadius": 12,
+      "elevation": 5
+    },
+    "medium": {
+      "shadowColor": "#000000",
+      "shadowOffset": {"width": 0, "height": 6},
+      "shadowOpacity": 0.1,
+      "shadowRadius": 16,
+      "elevation": 8
+    },
+    "strong": {
+      "shadowColor": "#FF6B6B",
+      "shadowOffset": {"width": 0, "height": 8},
+      "shadowOpacity": 0.2,
+      "shadowRadius": 20,
+      "elevation": 10
+    }
+  },
+  "components": {
+    "buttons": {
+      "primary": {
+        "backgroundColor": "#FF8A65",
+        "borderRadius": 24,
+        "paddingVertical": 16,
+        "paddingHorizontal": 32,
+        "minHeight": 48,
+        "textColor": "#FFFFFF",
+        "fontSize": 18,
+        "fontWeight": "bold",
+        "shadow": "soft",
+        "pressedOpacity": 0.8
+      },
+      "secondary": {
+        "backgroundColor": "#64B5F6",
+        "borderRadius": 24,
+        "paddingVertical": 14,
+        "paddingHorizontal": 28,
+        "minHeight": 44,
+        "textColor": "#FFFFFF",
+        "fontSize": 16,
+        "fontWeight": "600",
+        "shadow": "soft"
+      },
+      "play": {
+        "backgroundColor": "#FF6B6B",
+        "borderRadius": 30,
+        "width": 60,
+        "height": 60,
+        "alignItems": "center",
+        "justifyContent": "center",
+        "shadow": "medium"
+      },
+      "small": {
+        "backgroundColor": "#4DB6AC",
+        "borderRadius": 16,
+        "paddingVertical": 8,
+        "paddingHorizontal": 16,
+        "minHeight": 32,
+        "fontSize": 14,
+        "fontWeight": "600"
+      }
+    },
+    "cards": {
+      "story": {
+        "backgroundColor": "#FFFFFF",
+        "borderRadius": 24,
+        "padding": 20,
+        "marginBottom": 16,
+        "shadow": "soft",
+        "minHeight": 200
+      },
+      "category": {
+        "backgroundColor": "#FFFFFF",
+        "borderRadius": 20,
+        "padding": 16,
+        "alignItems": "center",
+        "minWidth": 80,
+        "minHeight": 80,
+        "shadow": "soft"
+      },
+      "video": {
+        "backgroundColor": "#FFFFFF",
+        "borderRadius": 16,
+        "padding": 16,
+        "flexDirection": "row",
+        "alignItems": "center",
+        "shadow": "soft",
+        "minHeight": 80
+      },
+      "progress": {
+        "backgroundColor": "#FFF3E0",
+        "borderRadius": 20,
+        "padding": 24,
+        "alignItems": "center",
+        "shadow": "soft"
+      }
+    },
+    "illustrations": {
+      "mascot": {
+        "size": 80,
+        "marginBottom": 16,
+        "character": "🦉"
+      },
+      "storyThumbnail": {
+        "width": "100%",
+        "height": 120,
+        "borderRadius": 16,
+        "marginBottom": 12,
+        "backgroundColor": "#FFF3E0"
+      },
+      "categoryIcon": {
+        "width": 48,
+        "height": 48,
+        "borderRadius": 24,
+        "alignItems": "center",
+        "justifyContent": "center",
+        "marginBottom": 8
+      }
+    },
+    "navigation": {
+      "tabBar": {
+        "backgroundColor": "#FFFFFF",
+        "borderRadius": 32,
+        "paddingVertical": 8,
+        "paddingHorizontal": 4,
+        "marginHorizontal": 16,
+        "marginBottom": 16,
+        "shadow": "soft",
+        "height": 70
+      },
+      "tab": {
+        "flex": 1,
+        "alignItems": "center",
+        "paddingVertical": 8,
+        "borderRadius": 24
+      },
+      "activeTab": {
+        "backgroundColor": "#FFF3E0"
+      },
+      "tabIcon": {
+        "fontSize": 24,
+        "marginBottom": 4
+      },
+      "tabLabel": {
+        "fontSize": 12,
+        "fontWeight": "600"
+      }
+    },
+    "search": {
+      "container": {
+        "backgroundColor": "#FFFFFF",
+        "borderRadius": 24,
+        "paddingHorizontal": 20,
+        "paddingVertical": 14,
+        "flexDirection": "row",
+        "alignItems": "center",
+        "shadow": "soft",
+        "minHeight": 48
+      },
+      "icon": {
+        "fontSize": 20,
+        "marginRight": 12,
+        "color": "#8D6E63"
+      },
+      "input": {
+        "flex": 1,
+        "fontSize": 16,
+        "fontWeight": "500",
+        "color": "#5D4037"
+      }
+    },
+    "badges": {
+      "breaking": {
+        "backgroundColor": "#FF6B6B",
+        "paddingHorizontal": 12,
+        "paddingVertical": 4,
+        "borderRadius": 50,
+        "alignSelf": "flex-start"
+      },
+      "trending": {
+        "backgroundColor": "#66BB6A",
+        "paddingHorizontal": 12,
+        "paddingVertical": 4,
+        "borderRadius": 50,
+        "alignSelf": "flex-start"
+      },
+      "new": {
+        "backgroundColor": "#64B5F6",
+        "paddingHorizontal": 12,
+        "paddingVertical": 4,
+        "borderRadius": 50,
+        "alignSelf": "flex-start"
+      }
+    },
+    "speechBubble": {
+      "backgroundColor": "#FFFFFF",
+      "borderRadius": 16,
+      "paddingHorizontal": 16,
+      "paddingVertical": 12,
+      "maxWidth": 280,
+      "shadow": "soft",
+      "position": "relative"
+    },
+    "progressBar": {
+      "backgroundColor": "#FFF3E0",
+      "height": 8,
+      "borderRadius": 4,
+      "overflow": "hidden"
+    },
+    "progressFill": {
+      "backgroundColor": "#FF8A65",
+      "height": "100%",
+      "borderRadius": 4
+    }
+  },
+  "layouts": {
+    "screen": {
+      "flex": 1,
+      "backgroundColor": "#FFF8E1"
+    },
+    "container": {
+      "paddingHorizontal": 16,
+      "paddingTop": 16
+    },
+    "header": {
+      "flexDirection": "row",
+      "justifyContent": "space-between",
+      "alignItems": "center",
+      "paddingHorizontal": 16,
+      "paddingTop": 16,
+      "paddingBottom": 8
+    },
+    "content": {
+      "flex": 1,
+      "paddingHorizontal": 0
+    },
+    "section": {
+      "marginBottom": 24
+    },
+    "row": {
+      "flexDirection": "row",
+      "alignItems": "center"
+    },
+    "center": {
+      "alignItems": "center",
+      "justifyContent": "center"
+    }
+  },
+  "animations": {
+    "spring": {
+      "tension": 300,
+      "friction": 20
+    },
+    "timing": {
+      "duration": 300,
+      "easing": "ease-out"
+    },
+    "bounce": {
+      "bounciness": 8,
+      "speed": 12
+    }
+  },
+  "iconMapping": {
+    "categories": {
+      "animals": "🐾",
+      "science": "🔬", 
+      "space": "🚀",
+      "adventure": "🗺️",
+      "magic": "✨",
+      "heroes": "🦸‍♂️",
+      "fantasy": "🧚‍♀️",
+      "nature": "🌱",
+      "ocean": "🌊"
+    },
+    "actions": {
+      "play": "▶️",
+      "pause": "⏸️",
+      "like": "❤️",
+      "bookmark": "🔖",
+      "share": "📤",
+      "download": "📥",
+      "search": "🔍",
+      "home": "🏠",
+      "profile": "👤",
+      "settings": "⚙️"
+    },
+    "emotions": {
+      "happy": "😊",
+      "excited": "🤩",
+      "curious": "🤔",
+      "surprised": "😮",
+      "proud": "😎"
+    }
+  },
+  "contentStructure": {
+    "storyCard": {
+      "illustration": "top",
+      "badges": "topLeft",
+      "category": "belowIllustration", 
+      "title": "prominent",
+      "summary": "supporting",
+      "actions": "bottom",
+      "readTime": "bottomLeft",
+      "playButton": "bottomRight"
+    },
+    "homeScreen": {
+      "header": "greeting + notification",
+      "mascot": "character + speech bubble",
+      "search": "prominent search bar",
+      "categories": "horizontal scroll",
+      "quickActions": "prominent buttons",
+      "stories": "vertical list",
+      "funFact": "bottom section"
+    },
+    "videoScreen": {
+      "header": "title + mascot",
+      "videoList": "vertical cards",
+      "playButton": "prominent on each card",
+      "duration": "visible metadata"
+    }
+  },
+  "responsiveBreakpoints": {
+    "small": 320,
+    "medium": 375,
+    "large": 414,
+    "xlarge": 480
+  },
+  "accessibility": {
+    "minTouchTarget": 44,
+    "contrastRatio": 4.5,
+    "fontSize": {
+      "minimum": 14,
+      "comfortable": 16
+    }
+  }
+}

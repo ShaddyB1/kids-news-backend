@@ -1,0 +1,278 @@
+{
+  "designSystemName": "Kids Friendly News App Design System",
+  "version": "1.0.0",
+  "targetAudience": "Children aged 6-12",
+  
+  "colorPalette": {
+    "primary": {
+      "orange": "#FF8A65",
+      "brightOrange": "#FF7043",
+      "coral": "#FF6B6B",
+      "warmOrange": "#FFB74D"
+    },
+    "secondary": {
+      "skyBlue": "#64B5F6",
+      "lightBlue": "#81C784",
+      "mint": "#4DB6AC",
+      "lavender": "#BA68C8"
+    },
+    "backgrounds": {
+      "cream": "#FFF8E1",
+      "lightPeach": "#FFF3E0",
+      "softYellow": "#FFFDE7",
+      "paleBlue": "#E3F2FD",
+      "lightPink": "#FCE4EC"
+    },
+    "neutrals": {
+      "darkBrown": "#5D4037",
+      "mediumBrown": "#8D6E63",
+      "lightGray": "#ECEFF1",
+      "white": "#FFFFFF"
+    },
+    "accents": {
+      "brightGreen": "#66BB6A",
+      "sunYellow": "#FFEB3B",
+      "hotPink": "#EC407A",
+      "purple": "#AB47BC"
+    }
+  },
+  
+  "typography": {
+    "fontFamilies": {
+      "primary": "Nunito",
+      "secondary": "Comic Neue",
+      "fallback": "system-ui, -apple-system, sans-serif"
+    },
+    "fontSizes": {
+      "hero": 28,
+      "title": 24,
+      "subtitle": 20,
+      "body": 16,
+      "caption": 14,
+      "small": 12
+    },
+    "fontWeights": {
+      "regular": 400,
+      "medium": 600,
+      "bold": 700,
+      "extraBold": 800
+    },
+    "characteristics": {
+      "rounded": true,
+      "playful": true,
+      "highReadability": true,
+      "childFriendly": true
+    }
+  },
+  
+  "spacing": {
+    "base": 8,
+    "xs": 4,
+    "sm": 8,
+    "md": 16,
+    "lg": 24,
+    "xl": 32,
+    "xxl": 48,
+    "generous": true,
+    "breathingRoom": true
+  },
+  
+  "borderRadius": {
+    "small": 12,
+    "medium": 16,
+    "large": 24,
+    "extraLarge": 32,
+    "pill": 50,
+    "characteristic": "Very rounded, soft, bubble-like"
+  },
+  
+  "shadows": {
+    "soft": {
+      "shadowColor": "#000",
+      "shadowOffset": { "width": 0, "height": 2 },
+      "shadowOpacity": 0.1,
+      "shadowRadius": 8
+    },
+    "medium": {
+      "shadowColor": "#000",
+      "shadowOffset": { "width": 0, "height": 4 },
+      "shadowOpacity": 0.15,
+      "shadowRadius": 12
+    },
+    "playful": {
+      "shadowColor": "#FF8A65",
+      "shadowOffset": { "width": 0, "height": 3 },
+      "shadowOpacity": 0.2,
+      "shadowRadius": 10
+    }
+  },
+  
+  "components": {
+    "buttons": {
+      "primary": {
+        "backgroundColor": "#FF8A65",
+        "borderRadius": 25,
+        "paddingVertical": 12,
+        "paddingHorizontal": 24,
+        "shadowEnabled": true,
+        "textColor": "#FFFFFF",
+        "fontSize": 16,
+        "fontWeight": "bold",
+        "characteristics": ["rounded", "chunky", "tactile"]
+      },
+      "playButton": {
+        "backgroundColor": "#FF6B6B",
+        "shape": "circle",
+        "size": 60,
+        "iconColor": "#FFFFFF",
+        "shadowEnabled": true,
+        "characteristics": ["prominent", "inviting", "action-oriented"]
+      }
+    },
+    
+    "cards": {
+      "content": {
+        "backgroundColor": "#FFFFFF",
+        "borderRadius": 20,
+        "padding": 16,
+        "shadowEnabled": true,
+        "borderWidth": 0,
+        "characteristics": ["soft", "floating", "approachable"]
+      },
+      "story": {
+        "backgroundColor": "gradient",
+        "gradientColors": ["#FFF8E1", "#FFF3E0"],
+        "borderRadius": 24,
+        "padding": 20,
+        "imageRadius": 16,
+        "characteristics": ["warm", "inviting", "story-like"]
+      }
+    },
+    
+    "navigation": {
+      "tabBar": {
+        "backgroundColor": "#FFFFFF",
+        "borderRadius": 25,
+        "height": 70,
+        "shadowEnabled": true,
+        "iconSize": 24,
+        "activeColor": "#FF8A65",
+        "inactiveColor": "#8D6E63",
+        "characteristics": ["floating", "pill-shaped", "accessible"]
+      }
+    },
+    
+    "illustrations": {
+      "style": "cartoon",
+      "characteristics": [
+        "rounded shapes",
+        "soft edges",
+        "bright colors",
+        "friendly faces",
+        "simple forms",
+        "expressive"
+      ],
+      "placement": ["headers", "empty states", "onboarding", "backgrounds"],
+      "animalCharacters": true,
+      "humanCharacters": true,
+      "abstractShapes": true
+    }
+  },
+  
+  "layoutPrinciples": {
+    "spacing": "generous",
+    "hierarchy": "clear and simple",
+    "touchTargets": "large (minimum 44px)",
+    "contentDensity": "low to medium",
+    "visualComplexity": "simplified",
+    "characteristics": [
+      "finger-friendly",
+      "clear visual hierarchy",
+      "reduced cognitive load",
+      "playful but not overwhelming"
+    ]
+  },
+  
+  "iconography": {
+    "style": "rounded",
+    "strokeWidth": "medium to thick",
+    "fillStyle": "filled with soft outlines",
+    "size": "larger than adult apps",
+    "characteristics": [
+      "simple",
+      "recognizable",
+      "colorful",
+      "friendly"
+    ]
+  },
+  
+  "interactions": {
+    "feedback": {
+      "haptic": "gentle",
+      "visual": "bouncy animations",
+      "audio": "optional cheerful sounds"
+    },
+    "animations": {
+      "duration": "slightly slower",
+      "easing": "bouncy, playful",
+      "characteristics": ["delightful", "not overwhelming", "clear purpose"]
+    }
+  },
+  
+  "accessibility": {
+    "contrast": "high contrast ratios",
+    "textSize": "larger default sizes",
+    "touchTargets": "minimum 44px",
+    "simplicity": "reduced complexity",
+    "readability": "clear, simple language"
+  },
+  
+  "contentPresentation": {
+    "images": {
+      "style": "cartoon illustrations",
+      "borderRadius": "rounded",
+      "aspectRatio": "varied, story-appropriate",
+      "characteristics": ["colorful", "engaging", "child-appropriate"]
+    },
+    "text": {
+      "lineHeight": 1.5,
+      "paragraphSpacing": "generous",
+      "characteristics": ["easy to read", "age-appropriate", "engaging"]
+    }
+  },
+  
+  "specialElements": {
+    "characters": {
+      "mascot": {
+        "style": "friendly cartoon animal or child",
+        "placement": "welcome screens, empty states, guidance",
+        "characteristics": ["approachable", "helpful", "consistent"]
+      }
+    },
+    "badges": {
+      "achievement": {
+        "shape": "circular or star",
+        "colors": "bright and celebratory",
+        "size": "prominent",
+        "characteristics": ["rewarding", "motivating", "fun"]
+      }
+    },
+    "progressIndicators": {
+      "style": "visual and colorful",
+      "shape": "rounded progress bars or step indicators",
+      "characteristics": ["encouraging", "clear", "motivating"]
+    }
+  },
+  
+  "designPhilosophy": {
+    "core": "Safe, engaging, and developmentally appropriate",
+    "principles": [
+      "Simplicity over complexity",
+      "Delight without overwhelm",
+      "Clear navigation and feedback",
+      "Age-appropriate content presentation",
+      "Encouraging exploration",
+      "Building confidence through clear success states"
+    ]
+  }
+}

@@ -903,7 +903,7 @@ if __name__ == '__main__':
     automation_scheduler.start()
     
     # Run the Flask app
-    port = int(os.getenv('PORT', 5000))
+    port = int(os.getenv('PORT', 5002))
     debug = os.getenv('FLASK_ENV') == 'development'
     
     logger.info("🚀 Starting Junior News Digest Integrated Backend")
