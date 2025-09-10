@@ -1,0 +1,474 @@
+{
+  "metadata": {
+    "name": "Quiz App Design System",
+    "version": "3.0",
+    "description": "Modern quiz/learning app design system with gamification elements",
+    "targetAge": "6-12 years",
+    "inspiration": "Educational quiz apps with badges, coins, and achievements"
+  },
+  "colorPalette": {
+    "primary": {
+      "blue": "#4A90E2",
+      "lightBlue": "#87CEEB",
+      "darkBlue": "#2C5282"
+    },
+    "secondary": {
+      "pink": "#FF69B4",
+      "coral": "#FF6B85",
+      "purple": "#9B59B6",
+      "teal": "#20B2AA"
+    },
+    "backgrounds": {
+      "primary": "#F8FAFF",
+      "secondary": "#FFFFFF",
+      "gradient": {
+        "start": "#E3F2FD",
+        "end": "#BBDEFB"
+      },
+      "cardBackground": "#FFFFFF"
+    },
+    "text": {
+      "primary": "#2C3E50",
+      "secondary": "#7F8C8D",
+      "light": "#BDC3C7",
+      "white": "#FFFFFF",
+      "accent": "#3498DB"
+    },
+    "gamification": {
+      "gold": "#FFD700",
+      "silver": "#C0C0C0",
+      "bronze": "#CD7F32",
+      "diamond": "#B9F2FF",
+      "platinum": "#E5E4E2",
+      "coins": "#FFA500"
+    },
+    "achievements": {
+      "blue": "#4A90E2",
+      "green": "#2ECC71",
+      "orange": "#F39C12",
+      "red": "#E74C3C",
+      "purple": "#9B59B6",
+      "pink": "#FF69B4"
+    }
+  },
+  "typography": {
+    "fontFamily": {
+      "primary": "SF Pro Display",
+      "secondary": "SF Pro Text",
+      "rounded": "SF Pro Rounded"
+    },
+    "sizes": {
+      "heroTitle": 28,
+      "title": 22,
+      "subtitle": 18,
+      "body": 16,
+      "caption": 14,
+      "small": 12,
+      "coins": 20
+    },
+    "weights": {
+      "light": "300",
+      "regular": "400",
+      "medium": "500",
+      "semibold": "600",
+      "bold": "700",
+      "heavy": "800"
+    },
+    "lineHeights": {
+      "tight": 1.2,
+      "normal": 1.4,
+      "relaxed": 1.6
+    }
+  },
+  "spacing": {
+    "xs": 4,
+    "sm": 8,
+    "md": 12,
+    "lg": 16,
+    "xl": 20,
+    "xxl": 24,
+    "xxxl": 32,
+    "huge": 48
+  },
+  "borderRadius": {
+    "small": 8,
+    "medium": 12,
+    "large": 16,
+    "xlarge": 20,
+    "round": 50,
+    "circle": "50%"
+  },
+  "shadows": {
+    "subtle": {
+      "shadowColor": "#000000",
+      "shadowOffset": {"width": 0, "height": 2},
+      "shadowOpacity": 0.05,
+      "shadowRadius": 4,
+      "elevation": 2
+    },
+    "soft": {
+      "shadowColor": "#4A90E2",
+      "shadowOffset": {"width": 0, "height": 4},
+      "shadowOpacity": 0.1,
+      "shadowRadius": 8,
+      "elevation": 4
+    },
+    "medium": {
+      "shadowColor": "#000000",
+      "shadowOffset": {"width": 0, "height": 6},
+      "shadowOpacity": 0.1,
+      "shadowRadius": 12,
+      "elevation": 6
+    },
+    "strong": {
+      "shadowColor": "#4A90E2",
+      "shadowOffset": {"width": 0, "height": 8},
+      "shadowOpacity": 0.15,
+      "shadowRadius": 16,
+      "elevation": 8
+    }
+  },
+  "components": {
+    "userProfile": {
+      "container": {
+        "backgroundColor": "#FFFFFF",
+        "borderRadius": 20,
+        "padding": 20,
+        "shadow": "medium"
+      },
+      "avatar": {
+        "size": 80,
+        "borderRadius": 40,
+        "borderWidth": 3,
+        "borderColor": "#4A90E2"
+      },
+      "name": {
+        "fontSize": 22,
+        "fontWeight": "bold",
+        "color": "#2C3E50",
+        "marginTop": 12
+      },
+      "coins": {
+        "fontSize": 20,
+        "fontWeight": "bold",
+        "color": "#4A90E2",
+        "marginTop": 4
+      },
+      "badges": {
+        "container": {
+          "flexDirection": "row",
+          "flexWrap": "wrap",
+          "marginTop": 16,
+          "gap": 8
+        },
+        "badge": {
+          "width": 40,
+          "height": 40,
+          "borderRadius": 20,
+          "alignItems": "center",
+          "justifyContent": "center",
+          "shadow": "subtle"
+        }
+      }
+    },
+    "gameCard": {
+      "container": {
+        "backgroundColor": "#FFFFFF",
+        "borderRadius": 16,
+        "padding": 16,
+        "margin": 8,
+        "shadow": "soft",
+        "minHeight": 120
+      },
+      "illustration": {
+        "width": "100%",
+        "height": 80,
+        "borderRadius": 12,
+        "marginBottom": 12,
+        "alignItems": "center",
+        "justifyContent": "center"
+      },
+      "title": {
+        "fontSize": 16,
+        "fontWeight": "semibold",
+        "color": "#2C3E50",
+        "textAlign": "center"
+      },
+      "subtitle": {
+        "fontSize": 14,
+        "fontWeight": "regular",
+        "color": "#7F8C8D",
+        "textAlign": "center",
+        "marginTop": 4
+      },
+      "playButton": {
+        "backgroundColor": "#4A90E2",
+        "borderRadius": 20,
+        "paddingHorizontal": 16,
+        "paddingVertical": 8,
+        "alignSelf": "center",
+        "marginTop": 12
+      }
+    },
+    "categoryGrid": {
+      "container": {
+        "flexDirection": "row",
+        "flexWrap": "wrap",
+        "paddingHorizontal": 16,
+        "gap": 12
+      },
+      "categoryCard": {
+        "backgroundColor": "#FFFFFF",
+        "borderRadius": 16,
+        "padding": 16,
+        "alignItems": "center",
+        "minWidth": 100,
+        "minHeight": 100,
+        "shadow": "soft"
+      },
+      "icon": {
+        "width": 48,
+        "height": 48,
+        "borderRadius": 24,
+        "alignItems": "center",
+        "justifyContent": "center",
+        "marginBottom": 8
+      },
+      "label": {
+        "fontSize": 14,
+        "fontWeight": "medium",
+        "color": "#2C3E50",
+        "textAlign": "center"
+      }
+    },
+    "coinSystem": {
+      "container": {
+        "flexDirection": "row",
+        "alignItems": "center",
+        "backgroundColor": "#FFF8DC",
+        "borderRadius": 20,
+        "paddingHorizontal": 16,
+        "paddingVertical": 8,
+        "shadow": "subtle"
+      },
+      "icon": {
+        "fontSize": 20,
+        "marginRight": 8
+      },
+      "amount": {
+        "fontSize": 18,
+        "fontWeight": "bold",
+        "color": "#FF8C00"
+      },
+      "buyButton": {
+        "backgroundColor": "#4A90E2",
+        "borderRadius": 16,
+        "paddingHorizontal": 12,
+        "paddingVertical": 6,
+        "marginLeft": 8
+      }
+    },
+    "achievementBadge": {
+      "container": {
+        "width": 60,
+        "height": 60,
+        "borderRadius": 30,
+        "alignItems": "center",
+        "justifyContent": "center",
+        "shadow": "medium"
+      },
+      "icon": {
+        "fontSize": 24
+      },
+      "label": {
+        "fontSize": 10,
+        "fontWeight": "medium",
+        "color": "#2C3E50",
+        "textAlign": "center",
+        "marginTop": 4
+      }
+    },
+    "progressBar": {
+      "container": {
+        "backgroundColor": "#E8E8E8",
+        "height": 8,
+        "borderRadius": 4,
+        "overflow": "hidden"
+      },
+      "fill": {
+        "height": "100%",
+        "borderRadius": 4,
+        "backgroundColor": "#4A90E2"
+      }
+    },
+    "buttons": {
+      "primary": {
+        "backgroundColor": "#4A90E2",
+        "borderRadius": 24,
+        "paddingVertical": 16,
+        "paddingHorizontal": 32,
+        "shadow": "soft"
+      },
+      "secondary": {
+        "backgroundColor": "#FFFFFF",
+        "borderRadius": 24,
+        "paddingVertical": 16,
+        "paddingHorizontal": 32,
+        "borderWidth": 2,
+        "borderColor": "#4A90E2",
+        "shadow": "subtle"
+      },
+      "play": {
+        "backgroundColor": "#FF69B4",
+        "borderRadius": 50,
+        "width": 60,
+        "height": 60,
+        "alignItems": "center",
+        "justifyContent": "center",
+        "shadow": "medium"
+      },
+      "close": {
+        "backgroundColor": "#FF6B85",
+        "borderRadius": 50,
+        "width": 40,
+        "height": 40,
+        "alignItems": "center",
+        "justifyContent": "center"
+      }
+    },
+    "navigation": {
+      "tabBar": {
+        "backgroundColor": "#FFFFFF",
+        "borderRadius": 25,
+        "paddingVertical": 8,
+        "paddingHorizontal": 8,
+        "marginHorizontal": 16,
+        "marginBottom": 16,
+        "shadow": "medium",
+        "height": 60
+      },
+      "tab": {
+        "flex": 1,
+        "alignItems": "center",
+        "paddingVertical": 8,
+        "borderRadius": 20
+      },
+      "activeTab": {
+        "backgroundColor": "#4A90E2"
+      },
+      "tabIcon": {
+        "fontSize": 20,
+        "marginBottom": 2
+      },
+      "tabLabel": {
+        "fontSize": 12,
+        "fontWeight": "medium"
+      }
+    }
+  },
+  "layouts": {
+    "screen": {
+      "flex": 1,
+      "backgroundColor": "#F8FAFF"
+    },
+    "header": {
+      "flexDirection": "row",
+      "justifyContent": "space-between",
+      "alignItems": "center",
+      "paddingHorizontal": 16,
+      "paddingTop": 16,
+      "paddingBottom": 8
+    },
+    "content": {
+      "flex": 1,
+      "paddingHorizontal": 0
+    },
+    "section": {
+      "marginBottom": 24
+    },
+    "grid": {
+      "flexDirection": "row",
+      "flexWrap": "wrap",
+      "justifyContent": "space-between",
+      "paddingHorizontal": 16
+    },
+    "center": {
+      "alignItems": "center",
+      "justifyContent": "center"
+    }
+  },
+  "iconMapping": {
+    "categories": {
+      "drawing": "🎨",
+      "shapes": "🔷",
+      "fruits": "🍎",
+      "colors": "🌈",
+      "animals": "🐾",
+      "puzzles": "🧩",
+      "sports": "⚽",
+      "birds": "🐦",
+      "coloring": "🖍️",
+      "words": "📝"
+    },
+    "achievements": {
+      "bronze": "🥉",
+      "silver": "🥈", 
+      "gold": "🥇",
+      "diamond": "💎",
+      "platinum": "⭐"
+    },
+    "actions": {
+      "play": "▶️",
+      "pause": "⏸️",
+      "close": "❌",
+      "buy": "🛒",
+      "star": "⭐",
+      "coin": "🪙",
+      "trophy": "🏆"
+    }
+  },
+  "gamification": {
+    "coinValues": {
+      "starter": 100,
+      "medium": 500,
+      "large": 1000
+    },
+    "badgeTypes": [
+      "beginner",
+      "intermediate", 
+      "advanced",
+      "expert",
+      "master"
+    ],
+    "achievementColors": [
+      "#4A90E2",
+      "#2ECC71", 
+      "#F39C12",
+      "#E74C3C",
+      "#9B59B6",
+      "#FF69B4"
+    ]
+  },
+  "animations": {
+    "coinFlip": {
+      "duration": 800,
+      "type": "spring"
+    },
+    "badgeAppear": {
+      "duration": 600,
+      "type": "bounce"
+    },
+    "cardPress": {
+      "scale": 0.95,
+      "duration": 150
+    }
+  },
+  "accessibility": {
+    "minTouchTarget": 44,
+    "contrastRatio": 4.5,
+    "fontSize": {
+      "minimum": 14,
+      "comfortable": 16
+    }
+  }
+}

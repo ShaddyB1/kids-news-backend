@@ -10,93 +10,93 @@ import {
   StatusBar, 
   FlatList,
   Dimensions,
-  ImageBackground
+  LinearGradient
 } from 'react-native';
 
-// Import comprehensive design system
-import { DS, Colors, Typography, Spacing, Components, Layouts, Icons } from './src/config/comprehensiveDesignSystem';
+// Import quiz app design system
+import { QuizDS, QuizColors, QuizTypo, QuizSpacing, QuizComponents, QuizShadows, QuizIcons } from './src/config/quizAppDesignSystem';
 
 // Import API hooks
 import { useArticles, useVideos } from './src/hooks/useApi';
 
 const { width: screenWidth } = Dimensions.get('window');
 
-// Enhanced Character Mascot Component
-const EnhancedMascot: React.FC<{ 
-  message: string; 
-  character?: string; 
-  emotion?: string;
-}> = ({ message, character = '🦉', emotion = 'happy' }) => (
-  <View style={styles.mascotContainer}>
-    <View style={styles.mascotCharacter}>
-      <Text style={styles.mascotEmoji}>{character}</Text>
-      <Text style={styles.emotionIndicator}>{Icons.emotions[emotion]}</Text>
+// User Profile Component (based on quiz app)
+const UserProfile: React.FC = () => (
+  <View style={styles.userProfileContainer}>
+    <View style={styles.userAvatar}>
+      <Text style={styles.userAvatarText}>👦</Text>
     </View>
-    <View style={styles.enhancedSpeechBubble}>
-      <Text style={styles.speechText}>{message}</Text>
-      <View style={styles.speechTail} />
+    <View style={styles.userInfo}>
+      <Text style={styles.userName}>Young Explorer</Text>
+      <View style={styles.coinsContainer}>
+        <Text style={styles.coinIcon}>🪙</Text>
+        <Text style={styles.coinAmount}>12000</Text>
+      </View>
+    </View>
+    <View style={styles.badgesContainer}>
+      <View style={[styles.achievementBadge, { backgroundColor: QuizColors.achievements.blue }]}>
+        <Text style={styles.badgeIcon}>🏆</Text>
+      </View>
+      <View style={[styles.achievementBadge, { backgroundColor: QuizColors.achievements.green }]}>
+        <Text style={styles.badgeIcon}>⭐</Text>
+      </View>
+      <View style={[styles.achievementBadge, { backgroundColor: QuizColors.achievements.orange }]}>
+        <Text style={styles.badgeIcon}>🎯</Text>
+      </View>
     </View>
   </View>
 );
 
-// Enhanced Story Card Component
-const EnhancedStoryCard: React.FC<{ 
+// Game Card Component (for stories)
+const GameCard: React.FC<{ 
   article: any;
   onPress: () => void;
 }> = ({ article, onPress }) => {
   const getCategoryIcon = (category: string) => {
-    return Icons.categories[category?.toLowerCase()] || Icons.categories.animals;
+    return QuizIcons.categories[category?.toLowerCase()] || QuizIcons.categories.animals;
   };
 
   const getCategoryColor = (category: string) => {
-    return Colors.categoryColors[category?.toLowerCase()] || Colors.primary.orange;
+    const colors = QuizDS.gamification.achievementColors;
+    const index = Math.abs(category?.charCodeAt(0) || 0) % colors.length;
+    return colors[index];
   };
 
   return (
-    <TouchableOpacity style={styles.enhancedStoryCard} onPress={onPress}>
-      {/* Story Illustration */}
-      <View style={[styles.storyIllustration, { backgroundColor: Colors.backgrounds.lightPeach }]}>
-        <Text style={styles.storyIllustrationIcon}>{getCategoryIcon(article.category)}</Text>
+    <TouchableOpacity style={styles.gameCard} onPress={onPress}>
+      <View style={[styles.gameCardIllustration, { backgroundColor: getCategoryColor(article.category) }]}>
+        <Text style={styles.gameCardIcon}>{getCategoryIcon(article.category)}</Text>
         
         {/* Badges */}
-        <View style={styles.badgesContainer}>
-          {article.is_breaking && (
-            <View style={[styles.badge, { backgroundColor: Colors.accents.error }]}>
-              <Text style={styles.badgeText}>🔥 Breaking</Text>
-            </View>
-          )}
-          {article.is_trending && (
-            <View style={[styles.badge, { backgroundColor: Colors.accents.success }]}>
-              <Text style={styles.badgeText}>📈 Hot</Text>
-            </View>
-          )}
-        </View>
+        {(article.is_breaking || article.is_trending) && (
+          <View style={styles.gameCardBadges}>
+            {article.is_breaking && (
+              <View style={[styles.gameCardBadge, { backgroundColor: QuizColors.secondary.coral }]}>
+                <Text style={styles.gameCardBadgeText}>🔥</Text>
+              </View>
+            )}
+            {article.is_trending && (
+              <View style={[styles.gameCardBadge, { backgroundColor: QuizColors.achievements.green }]}>
+                <Text style={styles.gameCardBadgeText}>📈</Text>
+              </View>
+            )}
+          </View>
+        )}
       </View>
 
-      {/* Content */}
-      <View style={styles.storyContent}>
-        {/* Category */}
-        <View style={[styles.categoryChip, { backgroundColor: getCategoryColor(article.category) }]}>
-          <Text style={styles.categoryChipText}>
-            {getCategoryIcon(article.category)} {article.category}
-          </Text>
-        </View>
-
-        {/* Title */}
-        <Text style={styles.storyTitle} numberOfLines={2}>
+      <View style={styles.gameCardContent}>
+        <Text style={styles.gameCardTitle} numberOfLines={2}>
           {article.title}
         </Text>
-
-        {/* Summary */}
-        <Text style={styles.storySummary} numberOfLines={3}>
+        <Text style={styles.gameCardSubtitle} numberOfLines={2}>
           {article.summary}
         </Text>
-
-        {/* Footer */}
-        <View style={styles.storyFooter}>
-          <Text style={styles.readTime}>⏱️ {article.read_time || '3 min'}</Text>
-          <TouchableOpacity style={styles.enhancedPlayButton}>
-            <Text style={styles.playButtonText}>▶️</Text>
+        
+        <View style={styles.gameCardFooter}>
+          <Text style={styles.gameCardTime}>⏱️ {article.read_time || '3 min'}</Text>
+          <TouchableOpacity style={styles.gameCardPlayButton}>
+            <Text style={styles.gameCardPlayIcon}>▶️</Text>
           </TouchableOpacity>
         </View>
       </View>
@@ -104,90 +104,95 @@ const EnhancedStoryCard: React.FC<{
   );
 };
 
-// Enhanced Category Selector
-const EnhancedCategorySelector: React.FC<{
+// Category Grid Component
+const CategoryGrid: React.FC<{
   selectedCategory: string;
   onCategorySelect: (category: string) => void;
 }> = ({ selectedCategory, onCategorySelect }) => {
   const categories = [
-    { id: 'all', name: 'All Stories', icon: '🌟', color: Colors.primary.orange },
-    { id: 'animals', name: 'Animals', icon: '🐾', color: Colors.categoryColors.animals },
-    { id: 'science', name: 'Science', icon: '🔬', color: Colors.categoryColors.science },
-    { id: 'space', name: 'Space', icon: '🚀', color: Colors.categoryColors.space },
-    { id: 'adventure', name: 'Adventure', icon: '🗺️', color: Colors.categoryColors.adventure },
-    { id: 'magic', name: 'Magic', icon: '✨', color: Colors.categoryColors.magic },
+    { id: 'all', name: 'All', icon: '🌟', color: QuizColors.primary.blue },
+    { id: 'animals', name: 'Animals', icon: '🐾', color: QuizColors.achievements.green },
+    { id: 'science', name: 'Science', icon: '🔬', color: QuizColors.achievements.purple },
+    { id: 'space', name: 'Space', icon: '🚀', color: QuizColors.achievements.orange },
+    { id: 'sports', name: 'Sports', icon: '⚽', color: QuizColors.secondary.teal },
+    { id: 'education', name: 'Learning', icon: '📚', color: QuizColors.secondary.pink },
   ];
 
   return (
-    <ScrollView 
-      horizontal 
-      showsHorizontalScrollIndicator={false}
-      contentContainerStyle={styles.categoriesScrollContainer}
-    >
+    <View style={styles.categoryGrid}>
       {categories.map((category) => (
         <TouchableOpacity
           key={category.id}
           style={[
-            styles.enhancedCategoryCard,
+            styles.categoryCard,
             selectedCategory === category.id && [
               styles.activeCategoryCard,
-              { backgroundColor: category.color }
+              { borderColor: category.color, borderWidth: 3 }
             ]
           ]}
           onPress={() => onCategorySelect(category.id)}
         >
           <View style={[
-            styles.categoryIconContainer,
-            selectedCategory === category.id && styles.activeCategoryIcon
+            styles.categoryIcon,
+            { backgroundColor: category.color + '20' }
           ]}>
-            <Text style={styles.categoryIcon}>{category.icon}</Text>
+            <Text style={styles.categoryIconText}>{category.icon}</Text>
           </View>
           <Text style={[
-            styles.categoryName,
-            selectedCategory === category.id && styles.activeCategoryName
+            styles.categoryLabel,
+            selectedCategory === category.id && { color: category.color, fontWeight: 'bold' }
           ]}>
             {category.name}
           </Text>
         </TouchableOpacity>
       ))}
-    </ScrollView>
+    </View>
   );
 };
 
+// Coin Display Component
+const CoinDisplay: React.FC = () => (
+  <View style={styles.coinDisplay}>
+    <Text style={styles.coinDisplayIcon}>🪙</Text>
+    <Text style={styles.coinDisplayAmount}>100</Text>
+    <TouchableOpacity style={styles.coinBuyButton}>
+      <Text style={styles.coinBuyText}>Buy</Text>
+    </TouchableOpacity>
+  </View>
+);
+
 // Enhanced Bottom Navigation
-const EnhancedBottomNav: React.FC<{ 
+const QuizBottomNav: React.FC<{ 
   activeTab: string; 
   onTabPress: (tab: string) => void;
 }> = ({ activeTab, onTabPress }) => {
   const tabs = [
-    { id: 'home', label: 'Home', icon: '🏠', activeIcon: '🏡' },
-    { id: 'videos', label: 'Videos', icon: '📹', activeIcon: '🎬' },
-    { id: 'bookmarks', label: 'Library', icon: '📚', activeIcon: '📖' },
-    { id: 'account', label: 'Profile', icon: '👤', activeIcon: '👦' },
+    { id: 'home', label: 'Home', icon: '🏠' },
+    { id: 'videos', label: 'Videos', icon: '📹' },
+    { id: 'library', label: 'Library', icon: '📚' },
+    { id: 'profile', label: 'Profile', icon: '👤' },
   ];
 
   return (
-    <View style={styles.bottomNavContainer}>
-      <View style={styles.enhancedTabBar}>
+    <View style={styles.quizTabBarContainer}>
+      <View style={styles.quizTabBar}>
         {tabs.map((tab) => {
           const isActive = activeTab === tab.id;
           return (
             <TouchableOpacity
               key={tab.id}
-              style={[styles.enhancedTab, isActive && styles.activeTab]}
+              style={[styles.quizTab, isActive && styles.activeQuizTab]}
               onPress={() => onTabPress(tab.id)}
             >
-              <View style={[
-                styles.tabIconWrapper,
-                isActive && styles.activeTabIcon
-              ]}>
-                <Text style={styles.tabIcon}>
-                  {isActive ? tab.activeIcon : tab.icon}
-                </Text>
-              </View>
               <Text style={[
-                styles.tabLabel,
-                isActive && styles.activeTabLabel
+                styles.quizTabIcon,
+                isActive && { color: QuizColors.text.white }
+              ]}>
+                {tab.icon}
+              </Text>
+              <Text style={[
+                styles.quizTabLabel,
+                isActive ? { color: QuizColors.text.white } : { color: QuizColors.text.secondary }
               ]}>
                 {tab.label}
               </Text>
@@ -234,128 +239,89 @@ export default function App() {
     setActiveTab('home');
   };
 
-  // Home Screen
+  // Home Screen with Quiz App Design
   const renderHomeScreen = () => (
     <ScrollView style={styles.content} showsVerticalScrollIndicator={false}>
-      {/* Enhanced Header */}
-      <View style={styles.enhancedHeader}>
-        <View>
-          <Text style={styles.greetingText}>Good morning! 🌅</Text>
-          <Text style={styles.userNameText}>Young Explorer</Text>
-        </View>
-        <TouchableOpacity style={styles.notificationButton}>
-          <Text style={styles.notificationIcon}>🔔</Text>
-          <View style={styles.notificationDot} />
-        </TouchableOpacity>
+      {/* Header with User Profile */}
+      <View style={styles.header}>
+        <UserProfile />
+        <CoinDisplay />
       </View>
 
-      {/* Enhanced Mascot */}
-      <EnhancedMascot 
-        message="Ready to discover amazing stories today?" 
-        character="🦉" 
-        emotion="excited"
-      />
+      {/* Greeting Section */}
+      <View style={styles.greetingSection}>
+        <Text style={styles.greetingTitle}>Good Afternoon! 🌅</Text>
+        <Text style={styles.greetingSubtitle}>Ready for today's learning adventure?</Text>
+      </View>
 
-      {/* Enhanced Search */}
+      {/* Search Bar */}
       <View style={styles.searchSection}>
-        <View style={styles.enhancedSearchBar}>
+        <View style={styles.quizSearchBar}>
           <Text style={styles.searchIcon}>🔍</Text>
           <TextInput
             style={styles.searchInput}
-            placeholder="What adventure shall we explore?"
-            placeholderTextColor={Colors.text.secondary}
+            placeholder="What would you like to learn?"
+            placeholderTextColor={QuizColors.text.secondary}
             value={searchText}
             onChangeText={setSearchText}
           />
-          <TouchableOpacity style={styles.voiceSearchButton}>
-            <Text style={styles.voiceIcon}>🎤</Text>
-          </TouchableOpacity>
         </View>
       </View>
 
       {/* Categories */}
       <View style={styles.section}>
-        <Text style={styles.sectionTitle}>Choose Your Adventure 🎯</Text>
-        <EnhancedCategorySelector
+        <Text style={styles.sectionTitle}>Choose Your Topic 🎯</Text>
+        <CategoryGrid
           selectedCategory={selectedCategory}
           onCategorySelect={setSelectedCategory}
         />
       </View>
 
-      {/* Quick Actions */}
-      <View style={styles.section}>
-        <Text style={styles.sectionTitle}>Quick Adventures 🚀</Text>
-        <View style={styles.quickActionsGrid}>
-          <TouchableOpacity style={[styles.quickActionCard, { backgroundColor: Colors.secondary.mint }]}>
-            <Text style={styles.quickActionIcon}>🧩</Text>
-            <Text style={styles.quickActionText}>Daily Quiz</Text>
-          </TouchableOpacity>
-          <TouchableOpacity style={[styles.quickActionCard, { backgroundColor: Colors.secondary.skyBlue }]}>
-            <Text style={styles.quickActionIcon}>🎬</Text>
-            <Text style={styles.quickActionText}>Watch Videos</Text>
-          </TouchableOpacity>
-          <TouchableOpacity style={[styles.quickActionCard, { backgroundColor: Colors.secondary.lavender }]}>
-            <Text style={styles.quickActionIcon}>📚</Text>
-            <Text style={styles.quickActionText}>My Library</Text>
-          </TouchableOpacity>
-          <TouchableOpacity style={[styles.quickActionCard, { backgroundColor: Colors.primary.coral }]}>
-            <Text style={styles.quickActionIcon}>🏆</Text>
-            <Text style={styles.quickActionText}>Achievements</Text>
-          </TouchableOpacity>
-        </View>
-      </View>
-
-      {/* Stories */}
+      {/* Stories Section */}
       <View style={styles.section}>
         <View style={styles.sectionHeader}>
           <Text style={styles.sectionTitle}>
-            {selectedCategory === 'all' ? 'Latest Adventures' : `${selectedCategory} Stories`} 📖
+            {selectedCategory === 'all' ? 'Latest Stories' : `${selectedCategory} Stories`} 📖
           </Text>
           <TouchableOpacity>
-            <Text style={styles.seeAllText}>See all</Text>
+            <Text style={styles.seeAllText}>See All</Text>
           </TouchableOpacity>
         </View>
         
         {articlesLoading && (
           <View style={styles.loadingContainer}>
-            <Text style={styles.loadingText}>🔄 Loading amazing stories...</Text>
+            <Text style={styles.loadingText}>🔄 Loading stories...</Text>
           </View>
         )}
         
         {articlesError && (
           <View style={styles.errorContainer}>
-            <Text style={styles.errorText}>😅 Oops! Let's try again</Text>
+            <Text style={styles.errorText}>😅 Oops! Something went wrong</Text>
             <TouchableOpacity style={styles.retryButton} onPress={refetchArticles}>
               <Text style={styles.retryButtonText}>🔄 Try Again</Text>
             </TouchableOpacity>
           </View>
         )}
         
-        {!articlesLoading && !articlesError && filteredArticles.length > 0 && (
-          filteredArticles.map((article, index) => (
-            <EnhancedStoryCard
-              key={`${article.id}-${index}`}
-              article={article}
-              onPress={() => handleArticlePress(article)}
-            />
-          ))
-        )}
+        <View style={styles.gameCardsContainer}>
+          {!articlesLoading && !articlesError && filteredArticles.length > 0 && (
+            filteredArticles.slice(0, 6).map((article, index) => (
+              <GameCard
+                key={`${article.id}-${index}`}
+                article={article}
+                onPress={() => handleArticlePress(article)}
+              />
+            ))
+          )}
+        </View>
 
         {!articlesLoading && !articlesError && filteredArticles.length === 0 && (
           <View style={styles.emptyContainer}>
             <Text style={styles.emptyIcon}>🌟</Text>
             <Text style={styles.emptyText}>No stories found!</Text>
-            <Text style={styles.emptySubtext}>Try a different category or search term</Text>
+            <Text style={styles.emptySubtext}>Try selecting a different category</Text>
           </View>
         )}
-      </View>
-
-      {/* Fun Fact */}
-      <View style={styles.funFactCard}>
-        <Text style={styles.funFactTitle}>🎉 Amazing Fact!</Text>
-        <Text style={styles.funFactText}>
-          Did you know that octopuses have three hearts? Two pump blood to their gills, and one pumps blood to the rest of their body! 🐙
-        </Text>
       </View>
 
       {/* Bottom Spacing */}
@@ -366,19 +332,17 @@ export default function App() {
   // Videos Screen
   const renderVideosScreen = () => (
     <ScrollView style={styles.content} showsVerticalScrollIndicator={false}>
-      <View style={styles.enhancedHeader}>
-        <Text style={styles.screenTitle}>🎬 Amazing Videos</Text>
+      <View style={styles.header}>
+        <Text style={styles.screenTitle}>📹 Amazing Videos</Text>
       </View>
 
-      <EnhancedMascot 
-        message="Let's watch some incredible videos together!" 
-        character="🎭" 
-        emotion="excited"
-      />
+      <View style={styles.greetingSection}>
+        <Text style={styles.greetingSubtitle}>Watch and learn with fun videos!</Text>
+      </View>
 
       {videosLoading && (
         <View style={styles.loadingContainer}>
-          <Text style={styles.loadingText}>🔄 Loading awesome videos...</Text>
+          <Text style={styles.loadingText}>🔄 Loading videos...</Text>
         </View>
       )}
 
@@ -398,24 +362,20 @@ export default function App() {
   // Other Screens
   const renderOtherScreen = (screenName: string, icon: string) => (
     <View style={styles.centerContent}>
-      <EnhancedMascot 
-        message={`${screenName} coming soon! 🚧`} 
-        character={icon} 
-        emotion="curious"
-      />
+      <Text style={styles.comingSoonIcon}>{icon}</Text>
       <Text style={styles.comingSoonTitle}>{screenName}</Text>
-      <Text style={styles.comingSoonText}>We're working hard to bring you amazing features!</Text>
-      <Text style={styles.comingSoonEmoji}>✨</Text>
+      <Text style={styles.comingSoonText}>Coming soon with amazing features!</Text>
+      <TouchableOpacity style={styles.comingSoonButton}>
+        <Text style={styles.comingSoonButtonText}>Stay Tuned ✨</Text>
+      </TouchableOpacity>
     </View>
   );
 
   const renderCurrentScreen = () => {
     if (selectedArticle) {
-      // Article detail screen would go here
       return renderOtherScreen('Article Detail', '📖');
     }
     if (selectedVideo) {
-      // Video player screen would go here
       return renderOtherScreen('Video Player', '🎬');
     }
 
@@ -424,9 +384,9 @@ export default function App() {
         return renderHomeScreen();
       case 'videos':
         return renderVideosScreen();
-      case 'bookmarks':
+      case 'library':
         return renderOtherScreen('Library', '📚');
-      case 'account':
+      case 'profile':
         return renderOtherScreen('Profile', '👤');
       default:
         return renderHomeScreen();
@@ -435,10 +395,10 @@ export default function App() {
 
   return (
     <SafeAreaView style={styles.container}>
-      <StatusBar barStyle="dark-content" backgroundColor={Colors.backgrounds.cream} />
+      <StatusBar barStyle="dark-content" backgroundColor={QuizColors.backgrounds.primary} />
       {renderCurrentScreen()}
       {!selectedArticle && !selectedVideo && (
-        <EnhancedBottomNav activeTab={activeTab} onTabPress={setActiveTab} />
+        <QuizBottomNav activeTab={activeTab} onTabPress={setActiveTab} />
       )}
     </SafeAreaView>
   );
@@ -447,7 +407,7 @@ export default function App() {
 const styles = StyleSheet.create({
   container: {
     flex: 1,
-    backgroundColor: Colors.backgrounds.cream,
+    backgroundColor: QuizColors.backgrounds.primary,
   },
   content: {
     flex: 1,
@@ -456,466 +416,409 @@ const styles = StyleSheet.create({
     flex: 1,
     justifyContent: 'center',
     alignItems: 'center',
-    paddingHorizontal: Spacing.lg,
+    paddingHorizontal: QuizSpacing.xl,
   },
 
-  // Enhanced Header
-  enhancedHeader: {
+  // Header & User Profile
+  header: {
     flexDirection: 'row',
     justifyContent: 'space-between',
     alignItems: 'center',
-    paddingHorizontal: Spacing.md,
-    paddingTop: Spacing.md,
-    paddingBottom: Spacing.sm,
+    paddingHorizontal: QuizSpacing.lg,
+    paddingTop: QuizSpacing.lg,
+    paddingBottom: QuizSpacing.md,
   },
-  greetingText: {
-    fontSize: Typography.sizes.body,
-    fontWeight: Typography.weights.medium,
-    color: Colors.text.secondary,
-  },
-  userNameText: {
-    fontSize: Typography.sizes.title,
-    fontWeight: Typography.weights.bold,
-    color: Colors.text.primary,
-    marginTop: 4,
-  },
-  screenTitle: {
-    fontSize: Typography.sizes.title,
-    fontWeight: Typography.weights.bold,
-    color: Colors.text.primary,
-  },
-  notificationButton: {
-    backgroundColor: Colors.primary.orange,
-    borderRadius: 22,
-    width: 44,
-    height: 44,
-    alignItems: 'center',
-    justifyContent: 'center',
-    ...DS.shadows.soft,
-    position: 'relative',
-  },
-  notificationIcon: {
-    fontSize: 20,
-  },
-  notificationDot: {
-    position: 'absolute',
-    top: 8,
-    right: 8,
-    width: 8,
-    height: 8,
-    borderRadius: 4,
-    backgroundColor: Colors.accents.error,
-  },
-
-  // Enhanced Mascot
-  mascotContainer: {
-    alignItems: 'center',
-    marginVertical: Spacing.md,
-    paddingHorizontal: Spacing.md,
-  },
-  mascotCharacter: {
-    position: 'relative',
-    marginBottom: Spacing.sm,
-  },
-  mascotEmoji: {
-    fontSize: 64,
-  },
-  emotionIndicator: {
-    position: 'absolute',
-    bottom: -4,
-    right: -4,
-    fontSize: 20,
-  },
-  enhancedSpeechBubble: {
-    backgroundColor: Colors.backgrounds.softWhite,
-    borderRadius: DS.borderRadius.medium,
-    paddingHorizontal: Spacing.md,
-    paddingVertical: Spacing.sm,
-    maxWidth: screenWidth - 64,
-    ...DS.shadows.soft,
-    position: 'relative',
-  },
-  speechText: {
-    fontSize: Typography.sizes.body,
-    fontWeight: Typography.weights.medium,
-    color: Colors.text.primary,
-    textAlign: 'center',
-    lineHeight: Typography.lineHeights.relaxed * Typography.sizes.body,
-  },
-  speechTail: {
-    position: 'absolute',
-    top: -8,
-    alignSelf: 'center',
-    width: 0,
-    height: 0,
-    borderLeftWidth: 8,
-    borderRightWidth: 8,
-    borderBottomWidth: 8,
-    borderLeftColor: 'transparent',
-    borderRightColor: 'transparent',
-    borderBottomColor: Colors.backgrounds.softWhite,
-  },
-
-  // Enhanced Search
-  searchSection: {
-    paddingHorizontal: Spacing.md,
-    marginBottom: Spacing.lg,
-  },
-  enhancedSearchBar: {
+  userProfileContainer: {
     flexDirection: 'row',
     alignItems: 'center',
-    backgroundColor: Colors.backgrounds.softWhite,
-    borderRadius: DS.borderRadius.large,
-    paddingHorizontal: Spacing.md,
-    paddingVertical: Spacing.sm,
-    ...DS.shadows.soft,
+    flex: 1,
+  },
+  userAvatar: {
+    width: 50,
+    height: 50,
+    borderRadius: 25,
+    backgroundColor: QuizColors.primary.blue,
+    alignItems: 'center',
+    justifyContent: 'center',
+    marginRight: QuizSpacing.md,
+    ...QuizShadows.soft,
+  },
+  userAvatarText: {
+    fontSize: 24,
+  },
+  userInfo: {
+    flex: 1,
+  },
+  userName: {
+    fontSize: QuizTypo.sizes.title,
+    fontWeight: QuizTypo.weights.bold,
+    color: QuizColors.text.primary,
+  },
+  coinsContainer: {
+    flexDirection: 'row',
+    alignItems: 'center',
+    marginTop: 2,
+  },
+  coinIcon: {
+    fontSize: 16,
+    marginRight: 4,
+  },
+  coinAmount: {
+    fontSize: QuizTypo.sizes.body,
+    fontWeight: QuizTypo.weights.bold,
+    color: QuizColors.primary.blue,
+  },
+  badgesContainer: {
+    flexDirection: 'row',
+    gap: QuizSpacing.sm,
+  },
+  achievementBadge: {
+    width: 35,
+    height: 35,
+    borderRadius: 17.5,
+    alignItems: 'center',
+    justifyContent: 'center',
+    ...QuizShadows.subtle,
+  },
+  badgeIcon: {
+    fontSize: 16,
+  },
+
+  // Coin Display
+  coinDisplay: {
+    flexDirection: 'row',
+    alignItems: 'center',
+    backgroundColor: '#FFF8DC',
+    borderRadius: QuizDS.borderRadius.large,
+    paddingHorizontal: QuizSpacing.md,
+    paddingVertical: QuizSpacing.sm,
+    ...QuizShadows.subtle,
+  },
+  coinDisplayIcon: {
+    fontSize: 18,
+    marginRight: QuizSpacing.sm,
+  },
+  coinDisplayAmount: {
+    fontSize: QuizTypo.sizes.body,
+    fontWeight: QuizTypo.weights.bold,
+    color: '#FF8C00',
+    marginRight: QuizSpacing.sm,
+  },
+  coinBuyButton: {
+    backgroundColor: QuizColors.primary.blue,
+    borderRadius: QuizDS.borderRadius.medium,
+    paddingHorizontal: QuizSpacing.md,
+    paddingVertical: 4,
+  },
+  coinBuyText: {
+    fontSize: QuizTypo.sizes.caption,
+    fontWeight: QuizTypo.weights.bold,
+    color: QuizColors.text.white,
+  },
+
+  // Greeting Section
+  greetingSection: {
+    paddingHorizontal: QuizSpacing.lg,
+    marginBottom: QuizSpacing.xl,
+  },
+  greetingTitle: {
+    fontSize: QuizTypo.sizes.heroTitle,
+    fontWeight: QuizTypo.weights.bold,
+    color: QuizColors.text.primary,
+    marginBottom: QuizSpacing.xs,
+  },
+  greetingSubtitle: {
+    fontSize: QuizTypo.sizes.body,
+    fontWeight: QuizTypo.weights.medium,
+    color: QuizColors.text.secondary,
+  },
+  screenTitle: {
+    fontSize: QuizTypo.sizes.heroTitle,
+    fontWeight: QuizTypo.weights.bold,
+    color: QuizColors.text.primary,
+  },
+
+  // Search
+  searchSection: {
+    paddingHorizontal: QuizSpacing.lg,
+    marginBottom: QuizSpacing.xl,
+  },
+  quizSearchBar: {
+    flexDirection: 'row',
+    alignItems: 'center',
+    backgroundColor: QuizColors.backgrounds.secondary,
+    borderRadius: QuizDS.borderRadius.large,
+    paddingHorizontal: QuizSpacing.lg,
+    paddingVertical: QuizSpacing.md,
+    ...QuizShadows.soft,
   },
   searchIcon: {
-    fontSize: 20,
-    marginRight: Spacing.sm,
-    color: Colors.text.secondary,
+    fontSize: 18,
+    marginRight: QuizSpacing.md,
+    color: QuizColors.text.secondary,
   },
   searchInput: {
     flex: 1,
-    fontSize: Typography.sizes.body,
-    fontWeight: Typography.weights.medium,
-    color: Colors.text.primary,
-  },
-  voiceSearchButton: {
-    backgroundColor: Colors.primary.orange,
-    borderRadius: 16,
-    width: 32,
-    height: 32,
-    alignItems: 'center',
-    justifyContent: 'center',
-  },
-  voiceIcon: {
-    fontSize: 16,
+    fontSize: QuizTypo.sizes.body,
+    fontWeight: QuizTypo.weights.medium,
+    color: QuizColors.text.primary,
   },
 
   // Sections
   section: {
-    marginBottom: Spacing.lg,
+    marginBottom: QuizSpacing.xl,
   },
   sectionHeader: {
     flexDirection: 'row',
     justifyContent: 'space-between',
     alignItems: 'center',
-    paddingHorizontal: Spacing.md,
-    marginBottom: Spacing.md,
+    paddingHorizontal: QuizSpacing.lg,
+    marginBottom: QuizSpacing.lg,
   },
   sectionTitle: {
-    fontSize: Typography.sizes.subtitle,
-    fontWeight: Typography.weights.bold,
-    color: Colors.text.primary,
+    fontSize: QuizTypo.sizes.title,
+    fontWeight: QuizTypo.weights.bold,
+    color: QuizColors.text.primary,
   },
   seeAllText: {
-    fontSize: Typography.sizes.caption,
-    fontWeight: Typography.weights.medium,
-    color: Colors.primary.orange,
+    fontSize: QuizTypo.sizes.caption,
+    fontWeight: QuizTypo.weights.medium,
+    color: QuizColors.primary.blue,
   },
 
-  // Enhanced Categories
-  categoriesScrollContainer: {
-    paddingHorizontal: Spacing.md,
-    gap: Spacing.sm,
+  // Category Grid
+  categoryGrid: {
+    flexDirection: 'row',
+    flexWrap: 'wrap',
+    paddingHorizontal: QuizSpacing.lg,
+    gap: QuizSpacing.md,
+    justifyContent: 'space-between',
   },
-  enhancedCategoryCard: {
-    backgroundColor: Colors.backgrounds.softWhite,
-    borderRadius: DS.borderRadius.medium,
-    paddingHorizontal: Spacing.md,
-    paddingVertical: Spacing.sm,
+  categoryCard: {
+    backgroundColor: QuizColors.backgrounds.secondary,
+    borderRadius: QuizDS.borderRadius.large,
+    padding: QuizSpacing.lg,
     alignItems: 'center',
-    marginRight: Spacing.sm,
-    minWidth: 80,
-    ...DS.shadows.soft,
+    width: (screenWidth - (QuizSpacing.lg * 2) - (QuizSpacing.md * 2)) / 3,
+    minHeight: 90,
+    ...QuizShadows.soft,
   },
   activeCategoryCard: {
     transform: [{ scale: 1.05 }],
   },
-  categoryIconContainer: {
+  categoryIcon: {
     width: 40,
     height: 40,
     borderRadius: 20,
-    backgroundColor: Colors.backgrounds.lightPeach,
     alignItems: 'center',
     justifyContent: 'center',
-    marginBottom: Spacing.xs,
+    marginBottom: QuizSpacing.sm,
   },
-  activeCategoryIcon: {
-    backgroundColor: Colors.backgrounds.softWhite,
-  },
-  categoryIcon: {
+  categoryIconText: {
     fontSize: 20,
   },
-  categoryName: {
-    fontSize: Typography.sizes.small,
-    fontWeight: Typography.weights.medium,
-    color: Colors.text.primary,
+  categoryLabel: {
+    fontSize: QuizTypo.sizes.caption,
+    fontWeight: QuizTypo.weights.medium,
+    color: QuizColors.text.primary,
     textAlign: 'center',
   },
-  activeCategoryName: {
-    color: Colors.backgrounds.softWhite,
-    fontWeight: Typography.weights.bold,
-  },
 
-  // Quick Actions
-  quickActionsGrid: {
+  // Game Cards
+  gameCardsContainer: {
     flexDirection: 'row',
     flexWrap: 'wrap',
-    paddingHorizontal: Spacing.md,
-    gap: Spacing.sm,
+    paddingHorizontal: QuizSpacing.lg,
+    gap: QuizSpacing.md,
+    justifyContent: 'space-between',
   },
-  quickActionCard: {
-    flex: 1,
-    minWidth: (screenWidth - 64) / 2 - 8,
-    backgroundColor: Colors.primary.orange,
-    borderRadius: DS.borderRadius.medium,
-    paddingVertical: Spacing.md,
-    alignItems: 'center',
-    ...DS.shadows.soft,
-  },
-  quickActionIcon: {
-    fontSize: 32,
-    marginBottom: Spacing.xs,
-  },
-  quickActionText: {
-    fontSize: Typography.sizes.caption,
-    fontWeight: Typography.weights.bold,
-    color: Colors.text.white,
-  },
-
-  // Enhanced Story Cards
-  enhancedStoryCard: {
-    backgroundColor: Colors.backgrounds.softWhite,
-    borderRadius: DS.borderRadius.large,
-    marginHorizontal: Spacing.md,
-    marginBottom: Spacing.md,
+  gameCard: {
+    backgroundColor: QuizColors.backgrounds.secondary,
+    borderRadius: QuizDS.borderRadius.large,
+    width: (screenWidth - (QuizSpacing.lg * 2) - QuizSpacing.md) / 2,
+    ...QuizShadows.soft,
     overflow: 'hidden',
-    ...DS.shadows.soft,
   },
-  storyIllustration: {
-    height: 140,
+  gameCardIllustration: {
+    height: 100,
     alignItems: 'center',
     justifyContent: 'center',
     position: 'relative',
   },
-  storyIllustrationIcon: {
-    fontSize: 48,
+  gameCardIcon: {
+    fontSize: 32,
   },
-  badgesContainer: {
+  gameCardBadges: {
     position: 'absolute',
-    top: Spacing.sm,
-    left: Spacing.sm,
+    top: QuizSpacing.sm,
+    left: QuizSpacing.sm,
     flexDirection: 'row',
-    gap: Spacing.xs,
+    gap: QuizSpacing.xs,
   },
-  badge: {
-    paddingHorizontal: Spacing.sm,
-    paddingVertical: 4,
-    borderRadius: 50,
+  gameCardBadge: {
+    borderRadius: QuizDS.borderRadius.small,
+    paddingHorizontal: QuizSpacing.sm,
+    paddingVertical: 2,
   },
-  badgeText: {
-    fontSize: Typography.sizes.small,
-    fontWeight: Typography.weights.bold,
-    color: Colors.text.white,
+  gameCardBadgeText: {
+    fontSize: 12,
   },
-  storyContent: {
-    padding: Spacing.md,
+  gameCardContent: {
+    padding: QuizSpacing.md,
   },
-  categoryChip: {
-    alignSelf: 'flex-start',
-    paddingHorizontal: Spacing.sm,
-    paddingVertical: 4,
-    borderRadius: 50,
-    marginBottom: Spacing.sm,
+  gameCardTitle: {
+    fontSize: QuizTypo.sizes.subtitle,
+    fontWeight: QuizTypo.weights.bold,
+    color: QuizColors.text.primary,
+    marginBottom: QuizSpacing.xs,
+    lineHeight: QuizTypo.lineHeights.tight * QuizTypo.sizes.subtitle,
   },
-  categoryChipText: {
-    fontSize: Typography.sizes.small,
-    fontWeight: Typography.weights.bold,
-    color: Colors.text.white,
+  gameCardSubtitle: {
+    fontSize: QuizTypo.sizes.caption,
+    fontWeight: QuizTypo.weights.regular,
+    color: QuizColors.text.secondary,
+    marginBottom: QuizSpacing.md,
+    lineHeight: QuizTypo.lineHeights.normal * QuizTypo.sizes.caption,
   },
-  storyTitle: {
-    fontSize: Typography.sizes.subtitle,
-    fontWeight: Typography.weights.bold,
-    color: Colors.text.primary,
-    marginBottom: Spacing.sm,
-    lineHeight: Typography.lineHeights.normal * Typography.sizes.subtitle,
-  },
-  storySummary: {
-    fontSize: Typography.sizes.body,
-    fontWeight: Typography.weights.regular,
-    color: Colors.text.secondary,
-    lineHeight: Typography.lineHeights.relaxed * Typography.sizes.body,
-    marginBottom: Spacing.md,
-  },
-  storyFooter: {
+  gameCardFooter: {
     flexDirection: 'row',
     justifyContent: 'space-between',
     alignItems: 'center',
   },
-  readTime: {
-    fontSize: Typography.sizes.caption,
-    fontWeight: Typography.weights.medium,
-    color: Colors.text.secondary,
+  gameCardTime: {
+    fontSize: QuizTypo.sizes.small,
+    fontWeight: QuizTypo.weights.medium,
+    color: QuizColors.text.secondary,
   },
-  enhancedPlayButton: {
-    backgroundColor: Colors.primary.coral,
-    borderRadius: 20,
-    width: 40,
-    height: 40,
+  gameCardPlayButton: {
+    backgroundColor: QuizColors.secondary.pink,
+    borderRadius: 15,
+    width: 30,
+    height: 30,
     alignItems: 'center',
     justifyContent: 'center',
-    ...DS.shadows.soft,
   },
-  playButtonText: {
-    fontSize: 16,
+  gameCardPlayIcon: {
+    fontSize: 12,
   },
 
-  // Enhanced Bottom Navigation
-  bottomNavContainer: {
-    paddingHorizontal: Spacing.md,
-    paddingBottom: Spacing.md,
-    backgroundColor: Colors.backgrounds.cream,
+  // Bottom Navigation
+  quizTabBarContainer: {
+    paddingHorizontal: QuizSpacing.lg,
+    paddingBottom: QuizSpacing.lg,
+    backgroundColor: QuizColors.backgrounds.primary,
   },
-  enhancedTabBar: {
+  quizTabBar: {
     flexDirection: 'row',
-    backgroundColor: Colors.backgrounds.softWhite,
-    borderRadius: DS.borderRadius.xlarge,
-    paddingVertical: Spacing.sm,
-    paddingHorizontal: 4,
-    ...DS.shadows.soft,
-    height: 70,
+    backgroundColor: QuizColors.backgrounds.secondary,
+    borderRadius: 25,
+    paddingVertical: QuizSpacing.sm,
+    paddingHorizontal: QuizSpacing.sm,
+    ...QuizShadows.medium,
+    height: 60,
   },
-  enhancedTab: {
+  quizTab: {
     flex: 1,
     alignItems: 'center',
-    paddingVertical: Spacing.sm,
-    borderRadius: DS.borderRadius.large,
-  },
-  activeTab: {
-    backgroundColor: Colors.backgrounds.lightPeach,
-  },
-  tabIconWrapper: {
-    width: 40,
-    height: 40,
+    paddingVertical: QuizSpacing.sm,
     borderRadius: 20,
-    alignItems: 'center',
-    justifyContent: 'center',
-    marginBottom: 4,
   },
-  activeTabIcon: {
-    backgroundColor: Colors.primary.orange,
-    ...DS.shadows.soft,
+  activeQuizTab: {
+    backgroundColor: QuizColors.primary.blue,
   },
-  tabIcon: {
-    fontSize: 20,
+  quizTabIcon: {
+    fontSize: 18,
+    marginBottom: 2,
   },
-  tabLabel: {
-    fontSize: Typography.sizes.small,
-    fontWeight: Typography.weights.medium,
-    color: Colors.text.secondary,
-  },
-  activeTabLabel: {
-    fontSize: Typography.sizes.caption,
-    fontWeight: Typography.weights.bold,
-    color: Colors.text.primary,
+  quizTabLabel: {
+    fontSize: QuizTypo.sizes.small,
+    fontWeight: QuizTypo.weights.medium,
   },
 
   // States
   loadingContainer: {
     alignItems: 'center',
-    paddingVertical: Spacing.xl,
+    paddingVertical: QuizSpacing.huge,
   },
   loadingText: {
-    fontSize: Typography.sizes.body,
-    fontWeight: Typography.weights.medium,
-    color: Colors.text.secondary,
+    fontSize: QuizTypo.sizes.body,
+    fontWeight: QuizTypo.weights.medium,
+    color: QuizColors.text.secondary,
   },
   errorContainer: {
     alignItems: 'center',
-    paddingVertical: Spacing.xl,
-    paddingHorizontal: Spacing.md,
+    paddingVertical: QuizSpacing.huge,
+    paddingHorizontal: QuizSpacing.lg,
   },
   errorText: {
-    fontSize: Typography.sizes.body,
-    fontWeight: Typography.weights.medium,
-    color: Colors.text.secondary,
+    fontSize: QuizTypo.sizes.body,
+    fontWeight: QuizTypo.weights.medium,
+    color: QuizColors.text.secondary,
     textAlign: 'center',
-    marginBottom: Spacing.md,
+    marginBottom: QuizSpacing.lg,
   },
   retryButton: {
-    backgroundColor: Colors.primary.orange,
-    borderRadius: DS.borderRadius.large,
-    paddingHorizontal: Spacing.lg,
-    paddingVertical: Spacing.sm,
+    backgroundColor: QuizColors.primary.blue,
+    borderRadius: QuizDS.borderRadius.large,
+    paddingHorizontal: QuizSpacing.xl,
+    paddingVertical: QuizSpacing.md,
   },
   retryButtonText: {
-    fontSize: Typography.sizes.body,
-    fontWeight: Typography.weights.bold,
-    color: Colors.text.white,
+    fontSize: QuizTypo.sizes.body,
+    fontWeight: QuizTypo.weights.bold,
+    color: QuizColors.text.white,
   },
   emptyContainer: {
     alignItems: 'center',
-    paddingVertical: Spacing.xl,
+    paddingVertical: QuizSpacing.huge,
   },
   emptyIcon: {
     fontSize: 48,
-    marginBottom: Spacing.sm,
+    marginBottom: QuizSpacing.lg,
   },
   emptyText: {
-    fontSize: Typography.sizes.subtitle,
-    fontWeight: Typography.weights.bold,
-    color: Colors.text.primary,
-    marginBottom: Spacing.xs,
+    fontSize: QuizTypo.sizes.title,
+    fontWeight: QuizTypo.weights.bold,
+    color: QuizColors.text.primary,
+    marginBottom: QuizSpacing.xs,
   },
   emptySubtext: {
-    fontSize: Typography.sizes.body,
-    fontWeight: Typography.weights.regular,
-    color: Colors.text.secondary,
+    fontSize: QuizTypo.sizes.body,
+    fontWeight: QuizTypo.weights.regular,
+    color: QuizColors.text.secondary,
     textAlign: 'center',
-  },
-
-  // Fun Fact
-  funFactCard: {
-    backgroundColor: Colors.backgrounds.lightPeach,
-    borderRadius: DS.borderRadius.large,
-    padding: Spacing.lg,
-    marginHorizontal: Spacing.md,
-    marginBottom: Spacing.xl,
-    ...DS.shadows.soft,
-  },
-  funFactTitle: {
-    fontSize: Typography.sizes.subtitle,
-    fontWeight: Typography.weights.bold,
-    color: Colors.text.primary,
-    marginBottom: Spacing.sm,
-  },
-  funFactText: {
-    fontSize: Typography.sizes.body,
-    fontWeight: Typography.weights.regular,
-    color: Colors.text.secondary,
-    lineHeight: Typography.lineHeights.relaxed * Typography.sizes.body,
   },
 
   // Coming Soon
+  comingSoonIcon: {
+    fontSize: 64,
+    marginBottom: QuizSpacing.xl,
+  },
   comingSoonTitle: {
-    fontSize: Typography.sizes.hero,
-    fontWeight: Typography.weights.bold,
-    color: Colors.text.primary,
-    marginBottom: Spacing.md,
+    fontSize: QuizTypo.sizes.heroTitle,
+    fontWeight: QuizTypo.weights.bold,
+    color: QuizColors.text.primary,
+    marginBottom: QuizSpacing.lg,
     textAlign: 'center',
   },
   comingSoonText: {
-    fontSize: Typography.sizes.body,
-    fontWeight: Typography.weights.medium,
-    color: Colors.text.secondary,
-    marginBottom: Spacing.md,
+    fontSize: QuizTypo.sizes.body,
+    fontWeight: QuizTypo.weights.medium,
+    color: QuizColors.text.secondary,
+    marginBottom: QuizSpacing.xl,
     textAlign: 'center',
-    lineHeight: Typography.lineHeights.relaxed * Typography.sizes.body,
+    lineHeight: QuizTypo.lineHeights.relaxed * QuizTypo.sizes.body,
   },
-  comingSoonEmoji: {
-    fontSize: 48,
-    textAlign: 'center',
+  comingSoonButton: {
+    backgroundColor: QuizColors.primary.blue,
+    borderRadius: QuizDS.borderRadius.large,
+    paddingHorizontal: QuizSpacing.xl,
+    paddingVertical: QuizSpacing.lg,
+    ...QuizShadows.soft,
+  },
+  comingSoonButtonText: {
+    fontSize: QuizTypo.sizes.body,
+    fontWeight: QuizTypo.weights.bold,
+    color: QuizColors.text.white,
   },
 });
