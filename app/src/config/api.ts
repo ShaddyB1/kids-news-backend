@@ -14,11 +14,11 @@ interface ApiConfig {
 const isDevelopment = __DEV__;
 
 export const API_CONFIG: ApiConfig = {
-  // Use local backend for testing
+  // Use network IP for mobile device access
   baseUrl: 'http://192.168.1.69:5002',
-  // Local backend for development and testing
+  // Network accessible backend for mobile testing
   
-  timeout: 10000, // 10 seconds
+  timeout: 15000, // 15 seconds - increased for mobile networks
   retryAttempts: 3,
   retryDelay: 1000, // 1 second
 };

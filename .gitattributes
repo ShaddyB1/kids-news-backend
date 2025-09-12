@@ -1,0 +1,45 @@
+# Auto detect text files and perform LF normalization
+* text=auto
+
+# Custom for Visual Studio
+*.cs     diff=csharp
+
+# Standard to msysgit
+*.doc	 diff=astextplain
+*.DOC	 diff=astextplain
+*.docx diff=astextplain
+*.DOCX diff=astextplain
+*.dot  diff=astextplain
+*.DOT  diff=astextplain
+*.pdf  diff=astextplain
+*.PDF	 diff=astextplain
+*.rtf	 diff=astextplain
+*.RTF	 diff=astextplain
+
+# Archive files
+*.zip binary
+*.tar.gz binary
+*.rar binary
+
+# Media files
+*.mp4 binary
+*.mov binary
+*.avi binary
+*.mp3 binary
+*.wav binary
+*.jpg binary
+*.jpeg binary
+*.png binary
+*.gif binary
+*.ico binary
+
+# Exclude from archives
+cleanup.sh export-ignore
+test_*.js export-ignore
+*.log export-ignore
+.env export-ignore
+.env.* export-ignore
+node_modules/ export-ignore
+.expo/ export-ignore
+__pycache__/ export-ignore
+*.pyc export-ignore

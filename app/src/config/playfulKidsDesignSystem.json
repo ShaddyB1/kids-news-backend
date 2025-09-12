@@ -1,0 +1,328 @@
+{
+  "name": "Playful Kids Learning Design System",
+  "description": "A vibrant, playful design system for children's educational app with giraffe mascot",
+  "colors": {
+    "primary": {
+      "orange": "#FFA500",
+      "yellow": "#FFD700",
+      "amber": "#FFC107",
+      "tangerine": "#FF8C00"
+    },
+    "secondary": {
+      "peach": "#FFDAB9",
+      "cream": "#FFF8DC",
+      "lightYellow": "#FFFFE0",
+      "beige": "#F5E6D3"
+    },
+    "accent": {
+      "coral": "#FF6B6B",
+      "mint": "#4ECDC4",
+      "skyBlue": "#87CEEB",
+      "lavender": "#E6E6FA",
+      "pink": "#FFB6C1",
+      "green": "#90EE90"
+    },
+    "ui": {
+      "background": "#FFF5E6",
+      "surface": "#FFFFFF",
+      "surfaceAlt": "#FFF9F0",
+      "border": "#FFE4CC",
+      "divider": "#FFEEDD"
+    },
+    "text": {
+      "primary": "#4A4A4A",
+      "secondary": "#757575",
+      "tertiary": "#9E9E9E",
+      "onPrimary": "#FFFFFF",
+      "onAccent": "#FFFFFF"
+    },
+    "status": {
+      "success": "#4CAF50",
+      "warning": "#FF9800",
+      "error": "#F44336",
+      "info": "#2196F3"
+    }
+  },
+  "typography": {
+    "fontFamily": {
+      "primary": "Nunito",
+      "secondary": "Quicksand",
+      "display": "Fredoka One"
+    },
+    "sizes": {
+      "xs": 10,
+      "sm": 12,
+      "md": 14,
+      "lg": 16,
+      "xl": 18,
+      "xxl": 22,
+      "xxxl": 28,
+      "display": 36
+    },
+    "weights": {
+      "regular": "400",
+      "medium": "500",
+      "semibold": "600",
+      "bold": "700",
+      "extrabold": "800"
+    },
+    "lineHeights": {
+      "tight": 1.2,
+      "normal": 1.5,
+      "relaxed": 1.75
+    }
+  },
+  "spacing": {
+    "xxs": 2,
+    "xs": 4,
+    "sm": 8,
+    "md": 12,
+    "lg": 16,
+    "xl": 20,
+    "xxl": 24,
+    "xxxl": 32,
+    "huge": 48
+  },
+  "borderRadius": {
+    "xs": 4,
+    "sm": 8,
+    "md": 12,
+    "lg": 16,
+    "xl": 20,
+    "xxl": 24,
+    "round": 50,
+    "pill": 100
+  },
+  "shadows": {
+    "xs": {
+      "shadowColor": "#000",
+      "shadowOffset": { "width": 0, "height": 1 },
+      "shadowOpacity": 0.05,
+      "shadowRadius": 2,
+      "elevation": 1
+    },
+    "sm": {
+      "shadowColor": "#000",
+      "shadowOffset": { "width": 0, "height": 2 },
+      "shadowOpacity": 0.08,
+      "shadowRadius": 4,
+      "elevation": 2
+    },
+    "md": {
+      "shadowColor": "#000",
+      "shadowOffset": { "width": 0, "height": 4 },
+      "shadowOpacity": 0.1,
+      "shadowRadius": 6,
+      "elevation": 4
+    },
+    "lg": {
+      "shadowColor": "#000",
+      "shadowOffset": { "width": 0, "height": 6 },
+      "shadowOpacity": 0.12,
+      "shadowRadius": 8,
+      "elevation": 6
+    },
+    "xl": {
+      "shadowColor": "#000",
+      "shadowOffset": { "width": 0, "height": 8 },
+      "shadowOpacity": 0.15,
+      "shadowRadius": 12,
+      "elevation": 8
+    }
+  },
+  "components": {
+    "card": {
+      "default": {
+        "backgroundColor": "#FFFFFF",
+        "borderRadius": 20,
+        "padding": 16,
+        "borderWidth": 0,
+        "shadow": "md"
+      },
+      "elevated": {
+        "backgroundColor": "#FFFFFF",
+        "borderRadius": 24,
+        "padding": 20,
+        "borderWidth": 0,
+        "shadow": "lg"
+      },
+      "outlined": {
+        "backgroundColor": "#FFFFFF",
+        "borderRadius": 20,
+        "padding": 16,
+        "borderWidth": 2,
+        "borderColor": "#FFE4CC",
+        "shadow": "sm"
+      }
+    },
+    "button": {
+      "primary": {
+        "backgroundColor": "#FFA500",
+        "borderRadius": 25,
+        "paddingVertical": 14,
+        "paddingHorizontal": 24,
+        "shadow": "md"
+      },
+      "secondary": {
+        "backgroundColor": "#FFD700",
+        "borderRadius": 25,
+        "paddingVertical": 14,
+        "paddingHorizontal": 24,
+        "shadow": "sm"
+      },
+      "accent": {
+        "backgroundColor": "#FF6B6B",
+        "borderRadius": 25,
+        "paddingVertical": 12,
+        "paddingHorizontal": 20,
+        "shadow": "sm"
+      },
+      "ghost": {
+        "backgroundColor": "transparent",
+        "borderRadius": 20,
+        "paddingVertical": 10,
+        "paddingHorizontal": 16,
+        "borderWidth": 2,
+        "borderColor": "#FFA500"
+      }
+    },
+    "input": {
+      "default": {
+        "backgroundColor": "#FFFFFF",
+        "borderRadius": 16,
+        "paddingVertical": 12,
+        "paddingHorizontal": 16,
+        "borderWidth": 2,
+        "borderColor": "#FFE4CC",
+        "fontSize": 16
+      },
+      "search": {
+        "backgroundColor": "#FFFFFF",
+        "borderRadius": 25,
+        "paddingVertical": 12,
+        "paddingHorizontal": 20,
+        "borderWidth": 0,
+        "shadow": "sm",
+        "fontSize": 16
+      }
+    },
+    "avatar": {
+      "small": {
+        "width": 40,
+        "height": 40,
+        "borderRadius": 20
+      },
+      "medium": {
+        "width": 56,
+        "height": 56,
+        "borderRadius": 28
+      },
+      "large": {
+        "width": 80,
+        "height": 80,
+        "borderRadius": 40
+      }
+    },
+    "badge": {
+      "default": {
+        "backgroundColor": "#FF6B6B",
+        "borderRadius": 12,
+        "paddingVertical": 4,
+        "paddingHorizontal": 8,
+        "fontSize": 10
+      },
+      "notification": {
+        "backgroundColor": "#F44336",
+        "borderRadius": 10,
+        "minWidth": 20,
+        "height": 20,
+        "fontSize": 11
+      }
+    },
+    "chip": {
+      "default": {
+        "backgroundColor": "#FFF9F0",
+        "borderRadius": 16,
+        "paddingVertical": 6,
+        "paddingHorizontal": 12,
+        "borderWidth": 1,
+        "borderColor": "#FFE4CC"
+      },
+      "selected": {
+        "backgroundColor": "#FFA500",
+        "borderRadius": 16,
+        "paddingVertical": 6,
+        "paddingHorizontal": 12,
+        "borderWidth": 0
+      }
+    },
+    "navigation": {
+      "tabBar": {
+        "backgroundColor": "#FFFFFF",
+        "borderTopWidth": 0,
+        "height": 70,
+        "borderRadius": 30,
+        "marginHorizontal": 10,
+        "marginBottom": 10,
+        "shadow": "lg"
+      },
+      "tabItem": {
+        "active": {
+          "color": "#FFA500",
+          "backgroundColor": "#FFF5E6"
+        },
+        "inactive": {
+          "color": "#9E9E9E",
+          "backgroundColor": "transparent"
+        }
+      }
+    },
+    "mascot": {
+      "giraffe": {
+        "primaryColor": "#FFD700",
+        "secondaryColor": "#FFA500",
+        "spotColor": "#FF8C00",
+        "size": {
+          "small": 60,
+          "medium": 100,
+          "large": 150
+        }
+      }
+    }
+  },
+  "animations": {
+    "duration": {
+      "fast": 200,
+      "normal": 300,
+      "slow": 500
+    },
+    "easing": {
+      "easeIn": "ease-in",
+      "easeOut": "ease-out",
+      "easeInOut": "ease-in-out",
+      "spring": "spring"
+    }
+  },
+  "layout": {
+    "containerPadding": 20,
+    "screenPadding": 16,
+    "cardSpacing": 12,
+    "listSpacing": 10,
+    "gridColumns": 2,
+    "aspectRatios": {
+      "card": 1.2,
+      "thumbnail": 1.5,
+      "hero": 0.6
+    }
+  },
+  "icons": {
+    "size": {
+      "xs": 16,
+      "sm": 20,
+      "md": 24,
+      "lg": 28,
+      "xl": 32
+    },
+    "style": "rounded"
+  }
+}

@@ -25,9 +25,10 @@ from typing import List, Dict, Optional, Any
 import sqlite3
 import logging
 from dataclasses import dataclass, asdict
-from flask import Flask, request, jsonify, send_file, render_template_string, redirect, url_for, flash, session
+from flask import Flask, request, jsonify, send_file, send_from_directory, render_template_string, redirect, url_for, flash, session
 from flask_cors import CORS
 from werkzeug.utils import secure_filename
+from thumbnail_api import thumbnail_bp
 import jwt
 from dotenv import load_dotenv
 
@@ -52,6 +53,9 @@ CORS(app, resources={
     r"/api/*": {"origins": "*"},
     r"/editorial/*": {"origins": "*"}
 })
+
+# Register thumbnail blueprint
+app.register_blueprint(thumbnail_bp)
 
 # Configuration
 JWT_SECRET = os.getenv('JWT_SECRET_KEY', 'your-secret-key-here')
@@ -766,6 +770,93 @@ def get_videos():
     except Exception as e:
         logger.error(f"Error fetching videos: {e}")
         return jsonify({'success': False, 'videos': [], 'total': 0})
+
+@app.route('/api/articles/<article_id>/quiz', methods=['GET'])
+def get_article_quiz(article_id):
+    """Get quiz for a specific article"""
+    try:
+        conn = sqlite3.connect(db_manager.db_path)
+        cursor = conn.cursor()
+        
+        cursor.execute('''
+            SELECT id, title, questions, total_questions, created_date
+            FROM quizzes 
+            WHERE article_id = ?
+        ''', (article_id,))
+        
+        quiz_row = cursor.fetchone()
+        
+        if not quiz_row:
+            conn.close()
+            return jsonify({'success': False, 'error': 'Quiz not found'}), 404
+        
+        quiz_id, title, questions_json, total_questions, created_date = quiz_row
+        questions = json.loads(questions_json)
+        
+        conn.close()
+        
+        return jsonify({
+            'success': True,
+            'quiz': {
+                'id': quiz_id,
+                'article_id': article_id,
+                'title': title,
+                'questions': questions,
+                'total_questions': total_questions,
+                'created_date': created_date
+            }
+        })
+        
+    except Exception as e:
+        logger.error(f"Error fetching quiz: {e}")
+        return jsonify({'success': False, 'error': str(e)}), 500
+
+@app.route('/api/generate/quiz', methods=['POST'])
+def generate_quiz():
+    """Generate quiz for an article"""
+    try:
+        data = request.get_json()
+        article_id = data.get('article_id')
+        
+        if not article_id:
+            return jsonify({'success': False, 'error': 'article_id required'}), 400
+        
+        # Import and run quiz generation
+        import sys
+        import os
+        sys.path.append(os.path.dirname(__file__))
+        from generate_quiz import generate_quiz_for_article
+        
+        quiz_id = generate_quiz_for_article(article_id)
+        
+        if quiz_id:
+            return jsonify({
+                'success': True,
+                'quiz_id': quiz_id,
+                'message': 'Quiz generated successfully'
+            })
+        else:
+            return jsonify({'success': False, 'error': 'Failed to generate quiz'}), 500
+            
+    except Exception as e:
+        logger.error(f"Error generating quiz: {e}")
+        return jsonify({'success': False, 'error': str(e)}), 500
+
+@app.route('/videos/<filename>')
+def serve_video(filename):
+    """Serve video files"""
+    try:
+        return send_from_directory('videos', filename)
+    except FileNotFoundError:
+        return jsonify({'error': 'Video not found'}), 404
+
+@app.route('/thumbnails/<filename>')
+def serve_thumbnail(filename):
+    """Serve thumbnail files"""
+    try:
+        return send_from_directory('thumbnails', filename)
+    except FileNotFoundError:
+        return jsonify({'error': 'Thumbnail not found'}), 404
 
 # Editorial Portal Routes
 @app.route('/editorial/')

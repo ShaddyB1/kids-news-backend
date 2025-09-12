@@ -1,5 +1,5 @@
-import { Audio } from 'expo-av';
-import { Sound } from 'expo-av/build/Audio';
+import { Audio } from 'expo-audio';
+import { Sound } from 'expo-audio';
 
 export class AudioService {
   private static instance: AudioService;

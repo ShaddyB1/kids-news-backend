@@ -9,7 +9,7 @@ import {
   Dimensions,
   ScrollView,
 } from 'react-native';
-import { Video, ResizeMode } from 'expo-av';
+import { VideoView, useVideoPlayer } from 'expo-video';
 import { DarkDS, getDarkSpacing, getDarkFontSize, getDarkBorderRadius, getDarkShadow, getDarkCategoryColor } from '../../config/darkNewsDesignSystem';
 
 const { width: screenWidth, height: screenHeight } = Dimensions.get('window');

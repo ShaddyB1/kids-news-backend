@@ -1,0 +1,43 @@
+{
+  "name": "junior-news-digest",
+  "version": "1.0.0",
+  "description": "A kid-friendly news app that makes current events accessible and engaging for children aged 6-12",
+  "main": "index.js",
+  "scripts": {
+    "start": "cd app && npm start",
+    "start:backend": "cd backend && python integrated_backend.py",
+    "install:all": "cd app && npm install && cd ../backend && pip install -r requirements.txt",
+    "clean": "./cleanup.sh",
+    "test": "cd app && npm test",
+    "build": "cd app && npx expo build",
+    "dev": "concurrently \"npm run start:backend\" \"npm start\""
+  },
+  "repository": {
+    "type": "git",
+    "url": "git+https://github.com/yourusername/junior-news-digest.git"
+  },
+  "keywords": [
+    "react-native",
+    "expo",
+    "kids",
+    "news",
+    "education",
+    "mobile",
+    "typescript",
+    "python",
+    "flask"
+  ],
+  "author": "Junior News Digest Team",
+  "license": "MIT",
+  "bugs": {
+    "url": "https://github.com/yourusername/junior-news-digest/issues"
+  },
+  "homepage": "https://github.com/yourusername/junior-news-digest#readme",
+  "devDependencies": {
+    "concurrently": "^8.2.2"
+  },
+  "engines": {
+    "node": ">=18.0.0",
+    "npm": ">=8.0.0"
+  }
+}

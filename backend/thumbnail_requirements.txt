@@ -1,0 +1,19 @@
+# Thumbnail Generation Dependencies
+Pillow>=10.0.0
+requests>=2.31.0
+python-dotenv>=1.0.0
+
+# Optional AI Image Generation APIs
+# Uncomment the ones you want to use:
+
+# OpenAI (DALL-E 3)
+# openai>=1.0.0
+
+# Leonardo.ai
+# leonardo-ai>=1.0.0
+
+# Stability AI
+# stability-sdk>=0.8.0
+
+# Unsplash (stock photos)
+# unsplash>=1.0.0

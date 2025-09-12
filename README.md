@@ -1,312 +1,136 @@
-# 📰 Junior News Digest
-## Complete News App with Automated Editorial Workflow
+# Junior News Digest
 
-A comprehensive news application designed for children ages 6-12, featuring automated content generation, editorial workflow management, and a beautiful React Native app.
+[![License: MIT](https://img.shields.io/badge/License-MIT-yellow.svg)](https://opensource.org/licenses/MIT)
+[![Expo](https://img.shields.io/badge/Expo-54.0.0-blue.svg)](https://expo.dev/)
+[![React Native](https://img.shields.io/badge/React%20Native-0.81.4-blue.svg)](https://reactnative.dev/)
+[![Python](https://img.shields.io/badge/Python-3.12+-green.svg)](https://python.org/)
 
-## 🏗️ **Project Structure**
+> A kid-friendly news app that makes current events accessible and engaging for children aged 6-12.
+
+## What does this thing do?
+
+Junior News Digest is a React Native mobile application designed to deliver age-appropriate news content to children. The app features:
+
+- **Interactive News Stories**: Real news adapted for kids with engaging visuals and simple language
+- **Video Content**: Animated story videos with professional narration
+- **Educational Quizzes**: Interactive quizzes to reinforce learning
+- **Beautiful UI**: Playful, kid-friendly design system with bright colors and fun animations
+- **Thumbnail Generation**: AI-powered thumbnail creation for visual appeal
+- **Backend API**: Complete content management system with automated workflows
+
+The app transforms complex world events into digestible, educational content that helps children understand the world around them while maintaining a positive, hopeful tone.
+
+## Installation Instructions
+
+### Prerequisites
+
+- Node.js 18+ and npm
+- Python 3.12+
+- Expo CLI (`npm install -g @expo/cli`)
+- iOS Simulator (for iOS development) or Android Studio (for Android development)
+
+### Quick Start
+
+1. **Clone the repository**
+   ```bash
+   git clone https://github.com/yourusername/junior-news-digest.git
+   cd junior-news-digest
+   ```
+
+2. **Install dependencies**
+   ```bash
+   # Install app dependencies
+   cd app
+   npm install
+   
+   # Install backend dependencies
+   cd ../backend
+   pip install -r requirements.txt
+   ```
+
+3. **Set up environment variables**
+   ```bash
+   # Copy environment template
+   cp .env.example .env
+   # Edit .env with your API keys
+   ```
+
+4. **Start the backend**
+   ```bash
+   cd backend
+   python integrated_backend.py
+   ```
+
+5. **Start the mobile app**
+   ```bash
+   cd app
+   npx expo start
+   ```
+
+6. **Scan QR code** with Expo Go app on your phone or press `i` for iOS simulator
+
+### Development Setup
+
+For detailed development setup, see [CONTRIBUTING.md](CONTRIBUTING.md).
+
+## How do I contribute?
+
+We welcome contributions! Please see our [Contributing Guidelines](CONTRIBUTING.md) for details on:
+
+- Code style and standards
+- Pull request process
+- Issue reporting
+- Security considerations
+
+**Security Issues**: Please report security vulnerabilities privately to [security@example.com](mailto:security@example.com). See [SECURITY.md](SECURITY.md) for more information.
+
+## Project Structure
 
 ```
 junior-news-digest/
-├── backend/           # Integrated backend with API + Editorial System
-│   ├── integrated_backend.py      # Main backend with automation
-│   ├── add_content.py             # Content management tools
-│   ├── editorial_workflow.py      # Editorial workflow system
-│   ├── weekly_scheduler.py        # Automation scheduler
-│   ├── requirements.txt           # Python dependencies
-│   └── docs/                      # Backend documentation
-├── app/               # React Native Application
-│   ├── src/                       # Source code
-│   ├── App.tsx                    # Main app component
-│   ├── package.json               # App dependencies
-│   └── assets/                    # App assets
-├── assets/            # Shared Media Assets
-│   ├── OFFICIAL_JUNIOR_NEWS_DIGEST_LOGO.png
-│   └── generated_videos/          # Generated content
-├── deployment/        # Deployment Configuration
-│   ├── render.yaml               # Render deployment config
-│   └── deployment_guide.md       # Deployment instructions
-├── docs/              # Documentation
-│   ├── CONTENT_MANAGEMENT_GUIDE.md
-│   ├── EDITORIAL_WORKFLOW_GUIDE.md
-│   └── API_DOCUMENTATION.md
-└── archive/           # Archived Development Files
+├── app/                    # React Native mobile application
+│   ├── src/
+│   │   ├── screens/       # App screens and components
+│   │   ├── config/        # Design systems and configuration
+│   │   └── services/      # API and utility services
+│   └── package.json
+├── backend/               # Python Flask backend
+│   ├── integrated_backend.py
+│   ├── thumbnail_generator.py
+│   └── requirements.txt
+├── assets/               # Images, videos, and static content
+├── docs/                # Documentation
+└── deployment/          # Deployment configurations
 ```
 
-## 🚀 **Quick Start**
+## Features
 
-### **1. Backend Setup**
-```bash
-cd backend
+- 📱 **Cross-platform**: iOS and Android support
+- 🎨 **Beautiful Design**: Custom playful design system
+- 🎥 **Video Content**: AI-generated story videos
+- 🖼️ **Smart Thumbnails**: AI-powered thumbnail generation
+- 📚 **Educational**: Age-appropriate content with quizzes
+- 🔄 **Automated**: Backend content management system
+- 🌐 **API-First**: RESTful API for content delivery
 
-# Install dependencies
-pip3 install -r requirements.txt
+## Technology Stack
 
-# Start integrated backend (API + Editorial Portal + Automation)
-python3 integrated_backend.py
-```
+- **Frontend**: React Native, Expo, TypeScript
+- **Backend**: Python, Flask, SQLite
+- **AI Services**: OpenAI DALL-E, Leonardo.ai, Stability AI
+- **Video**: FFmpeg, ElevenLabs TTS
+- **Deployment**: Render, Netlify
 
-**Backend will be available at:**
-- 📱 **API**: http://localhost:5000/api/
-- 📝 **Editorial Portal**: http://localhost:5000/editorial/
-- 🔍 **Health Check**: http://localhost:5000/api/health
+## License
 
-### **2. App Setup**
-```bash
-cd app
+This project is licensed under the MIT License - see the [LICENSE](LICENSE) file for details.
 
-# Install dependencies
-npm install
+## Support
 
-# Start development server
-npx expo start
-```
-
-### **3. Access Editorial Portal**
-Visit http://localhost:5000/editorial/ to:
-- 📝 Review candidate stories
-- ✅ Approve/reject content
-- 🔄 Process approved stories
-- 📅 Manage weekly schedule
-
-## ⚙️ **Automated Editorial Workflow**
-
-### **Weekly Schedule**
-- **Sunday 9:00 AM**: Generate 15-20 candidate stories
-- **Monday 8:00 AM**: Publish 1/3 of approved content
-- **Wednesday 8:00 AM**: Publish 1/3 of approved content  
-- **Friday 8:00 AM**: Publish 1/3 of approved content
-
-### **Editorial Process**
-1. **Story Generation**: AI generates candidate stories
-2. **Editorial Review**: Review stories via web portal
-3. **Content Processing**: Approved stories become articles
-4. **Automated Publishing**: Content published on schedule
-
-## 🎯 **Key Features**
-
-### **Backend Features**
-- ✅ **RESTful API** for mobile app
-- 📝 **Editorial Portal** for content management
-- 🤖 **Automated Story Generation** 
-- ⏰ **Background Automation** scheduler
-- 🗄️ **SQLite Database** with full schema
-- 📊 **Real-time Status** monitoring
-- 🔐 **JWT Authentication** ready
-
-### **App Features**
-- 📱 **React Native** with Expo SDK 53
-- 🌓 **Dark/Light Themes** with persistence
-- 🎥 **Video Player** integration
-- 📰 **Article Reader** with quizzes
-- 🔍 **Search & Categories** 
-- 👤 **User Profiles** and bookmarks
-- 📊 **Real-time Data** from backend API
-
-### **Editorial Features**
-- 📝 **Web-based Review Portal**
-- 🎯 **Priority-based Story Ranking**
-- ✅ **One-click Approve/Reject**
-- 📝 **Editor Notes** and feedback
-- 📅 **Weekly Content Scheduling**
-- 📊 **Progress Tracking** dashboard
-
-## 🔧 **Development**
-
-### **Backend Development**
-```bash
-cd backend
-
-# Generate candidate stories
-python3 editorial_workflow.py generate-candidates --count 20
-
-# Start review portal only
-python3 editorial_workflow.py review-portal
-
-# Process approved stories
-python3 editorial_workflow.py process-approved
-
-# Check automation status
-python3 weekly_scheduler.py --overview
-```
-
-### **App Development**
-```bash
-cd app
-
-# Start development server
-npx expo start
-
-# Run on iOS simulator
-npx expo run:ios
-
-# Run on Android
-npx expo run:android
-
-# Build for production
-npx expo build
-```
-
-### **Content Management**
-```bash
-cd backend
-
-# Add single article
-python3 add_content.py add-article --title "Amazing Discovery" --content "..." --category science
-
-# Add single video
-python3 add_content.py add-video --title "Cool Video" --url "video.mp4" --description "..."
-
-# Bulk load content
-python3 bulk_content_loader.py --sample-articles 10 --sample-videos 5
-
-# List current content
-python3 add_content.py list-articles
-python3 add_content.py list-videos
-```
-
-## 🌐 **Production Deployment**
-
-### **Deploy to Render**
-1. **Push to GitHub**:
-   ```bash
-   git add .
-   git commit -m "Deploy integrated backend"
-   git push origin main
-   ```
-
-2. **Render Auto-deploys** using `deployment/render.yaml`
-
-3. **Access Production**:
-   - API: https://kids-news-backend.onrender.com/api/
-   - Editorial: https://kids-news-backend.onrender.com/editorial/
-
-### **App Store Deployment**
-```bash
-cd app
-
-# Build for iOS
-eas build --platform ios
-
-# Build for Android  
-eas build --platform android
-
-# Submit to stores
-eas submit --platform all
-```
-
-## 📊 **API Endpoints**
-
-### **Public API**
-- `GET /api/health` - Health check
-- `GET /api/articles` - Get all articles
-- `GET /api/videos` - Get all videos
-- `GET /api/articles/{id}` - Get specific article
-
-### **Editorial API**
-- `GET /editorial/` - Editorial portal
-- `POST /editorial/generate` - Generate candidates
-- `POST /editorial/review-story` - Review story
-- `POST /editorial/process-approved` - Process stories
-
-## 🔍 **Monitoring & Analytics**
-
-### **Health Monitoring**
-```bash
-# Check backend health
-curl https://kids-news-backend.onrender.com/api/health
-
-# Check editorial status
-curl https://kids-news-backend.onrender.com/editorial/api/status
-```
-
-### **Database Monitoring**
-```bash
-cd backend
-
-# Check database status
-python3 -c "from integrated_backend import db_manager; print('Database OK')"
-
-# View database contents
-sqlite3 junior_news_integrated.db ".tables"
-```
-
-## 🛠️ **Troubleshooting**
-
-### **Common Issues**
-
-**Backend Won't Start:**
-```bash
-# Check dependencies
-pip3 install -r backend/requirements.txt
-
-# Check port availability
-lsof -i :5000
-
-# Check logs
-tail -f backend/backend.log
-```
-
-**App Won't Connect:**
-```bash
-# Update API URL in app/src/config/api.ts
-# Restart Metro bundler
-cd app && npx expo start --clear
-```
-
-**Editorial Portal Not Loading:**
-```bash
-# Check if backend is running
-curl http://localhost:5000/editorial/
-
-# Clear browser cache
-# Check browser console for errors
-```
-
-## 📚 **Documentation**
-
-- 📖 **[Content Management Guide](docs/CONTENT_MANAGEMENT_GUIDE.md)** - How to add articles and videos
-- 📝 **[Editorial Workflow Guide](docs/EDITORIAL_WORKFLOW_GUIDE.md)** - Complete editorial process
-- 🚀 **[Deployment Guide](docs/RENDER_DEPLOY_GUIDE.md)** - Production deployment
-- 🔧 **[API Documentation](docs/API_DOCUMENTATION.md)** - Complete API reference
-
-## 🤝 **Contributing**
-
-1. Fork the repository
-2. Create feature branch (`git checkout -b feature/amazing-feature`)
-3. Commit changes (`git commit -m 'Add amazing feature'`)
-4. Push to branch (`git push origin feature/amazing-feature`)
-5. Open Pull Request
-
-## 📄 **License**
-
-This project is licensed under the MIT License - see the LICENSE file for details.
-
-## 🎉 **Success Metrics**
-
-### **Current Status**
-- ✅ **Backend**: Fully integrated with automation
-- ✅ **App**: Production-ready React Native app
-- ✅ **Editorial**: Complete workflow system
-- ✅ **Deployment**: Ready for Render/App Store
-- ✅ **Documentation**: Comprehensive guides
-- ✅ **Testing**: Sample data and workflows
-
-### **Production Ready Features**
-- 🔄 **Automated Content Generation**
-- 📝 **Editorial Review System** 
-- 📱 **Mobile App** with real data
-- 🌐 **Cloud Deployment** configuration
-- 📊 **Monitoring & Analytics** tools
-- 🔐 **Security & Authentication** ready
+- 📧 Email: support@example.com
+- 🐛 Issues: [GitHub Issues](https://github.com/yourusername/junior-news-digest/issues)
+- 📖 Documentation: [Wiki](https://github.com/yourusername/junior-news-digest/wiki)
 
 ---
 
-**Your Junior News Digest is now a complete, production-ready system! 🚀**
-
-**Next Steps:**
-1. 🌐 Deploy backend to Render
-2. 📱 Deploy app to App Stores  
-3. 📝 Start editorial workflow
-4. 📊 Monitor and optimize
-
-**Need Help?** Check the documentation in the `docs/` folder or open an issue!
+Made with ❤️ for curious young minds

@@ -1,5 +1,4 @@
-import { Video } from 'expo-av';
-import { AVPlaybackStatus } from 'expo-av';
+import { VideoView, useVideoPlayer } from 'expo-video';
 
 export interface VideoConfig {
   shouldPlay?: boolean;

@@ -1,0 +1,91 @@
+{
+  "openai_api_key": "",
+  "leonardo_api_key": "",
+  "stability_api_key": "",
+  "unsplash_api_key": "",
+  "preferred_provider": "dalle3",
+  "fallback_to_stock": true,
+  "generate_placeholder": true,
+  "thumbnail_size": {
+    "width": 400,
+    "height": 300
+  },
+  "quality": 85,
+  "providers": {
+    "dalle3": {
+      "enabled": true,
+      "model": "dall-e-3",
+      "size": "1024x1024",
+      "quality": "standard",
+      "style": "natural"
+    },
+    "leonardo": {
+      "enabled": true,
+      "width": 1024,
+      "height": 1024,
+      "guidance_scale": 7,
+      "scheduler": "LEONARDO"
+    },
+    "stability": {
+      "enabled": true,
+      "model": "stable-diffusion-xl-1024-v1-0",
+      "cfg_scale": 7,
+      "steps": 30
+    },
+    "unsplash": {
+      "enabled": true,
+      "orientation": "landscape",
+      "per_page": 1
+    }
+  },
+  "categories": {
+    "environment": {
+      "color": [34, 139, 34],
+      "emoji": "🌱",
+      "keywords": ["environment", "climate", "trees", "ocean", "recycling", "green", "earth", "planet"],
+      "visual_elements": ["trees", "ocean", "earth", "green nature", "recycling symbols", "clean water"]
+    },
+    "science": {
+      "color": [70, 130, 180],
+      "emoji": "🔬",
+      "keywords": ["science", "discovery", "research", "experiment", "robot", "technology", "invention"],
+      "visual_elements": ["laboratory", "microscope", "robots", "space", "experiments", "scientists"]
+    },
+    "health": {
+      "color": [255, 165, 0],
+      "emoji": "🍎",
+      "keywords": ["health", "food", "garden", "nutrition", "exercise", "wellness", "healthy"],
+      "visual_elements": ["fresh vegetables", "garden", "healthy food", "exercise", "smiling kids"]
+    },
+    "sports": {
+      "color": [220, 20, 60],
+      "emoji": "⚽",
+      "keywords": ["sports", "athletes", "games", "team", "competition", "fitness", "play"],
+      "visual_elements": ["sports equipment", "playing field", "team spirit", "athletes", "medals"]
+    },
+    "education": {
+      "color": [138, 43, 226],
+      "emoji": "📚",
+      "keywords": ["school", "students", "learning", "education", "classroom", "teacher"],
+      "visual_elements": ["school building", "books", "classroom", "students learning", "teacher"]
+    },
+    "community": {
+      "color": [255, 20, 147],
+      "emoji": "🤝",
+      "keywords": ["community", "helping", "volunteer", "charity", "friends", "together"],
+      "visual_elements": ["people helping", "diverse group", "hands together", "community center"]
+    },
+    "animals": {
+      "color": [255, 140, 0],
+      "emoji": "🐾",
+      "keywords": ["animals", "pets", "wildlife", "nature", "creatures", "butterfly", "ocean life"],
+      "visual_elements": ["cute animals", "wildlife", "pets", "nature scenes", "animal friends"]
+    },
+    "general": {
+      "color": [72, 61, 139],
+      "emoji": "📰",
+      "keywords": ["news", "story", "update", "information"],
+      "visual_elements": ["newspaper", "megaphone", "information", "news"]
+    }
+  }
+}
