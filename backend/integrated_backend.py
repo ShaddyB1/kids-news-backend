@@ -699,9 +699,50 @@ def health_check():
         'automation': 'running' if automation_scheduler.running else 'stopped'
     })
 
-@app.route('/api/articles', methods=['GET'])
-def get_articles():
-    """Get all articles"""
+@app.route('/api/articles', methods=['GET', 'POST'])
+def handle_articles():
+    """Get all articles or create new article"""
+    if request.method == 'POST':
+        try:
+            data = request.get_json()
+            
+            # Validate required fields
+            required_fields = ['title', 'content', 'summary', 'category']
+            for field in required_fields:
+                if field not in data:
+                    return jsonify({'error': f'Missing required field: {field}'}), 400
+            
+            # Insert article into database
+            conn = sqlite3.connect(db_manager.db_path)
+            cursor = conn.cursor()
+            
+            article_id = data.get('id', f"story_{datetime.now().strftime('%Y%m%d_%H%M%S')}")
+            cursor.execute('''
+                INSERT INTO articles (id, title, content, summary, category, 
+                                    image_url, video_url, thumbnail_url, created_at)
+                VALUES (?, ?, ?, ?, ?, ?, ?, ?, datetime('now'))
+            ''', (
+                article_id,
+                data['title'],
+                data['content'],
+                data['summary'],
+                data['category'],
+                data.get('image_url'),
+                data.get('video_url'),
+                data.get('thumbnail_url')
+            ))
+            
+            conn.commit()
+            conn.close()
+            
+            logger.info(f"Article created successfully: {data['title']}")
+            return jsonify({'success': True, 'id': article_id, 'message': 'Article created successfully'}), 201
+            
+        except Exception as e:
+            logger.error(f"Error creating article: {e}")
+            return jsonify({'error': 'Failed to create article'}), 500
+    
+    # GET method
     try:
         conn = sqlite3.connect(db_manager.db_path)
         cursor = conn.cursor()
@@ -736,8 +777,49 @@ def get_articles():
         logger.error(f"Error fetching articles: {e}")
         return jsonify({'success': False, 'error': str(e)}), 500
 
-@app.route('/api/videos', methods=['GET'])
-def get_videos():
+@app.route('/api/videos', methods=['GET', 'POST'])
+def handle_videos():
+    """Get all videos or create new video"""
+    if request.method == 'POST':
+        try:
+            data = request.get_json()
+            
+            # Validate required fields
+            required_fields = ['title', 'file_path']
+            for field in required_fields:
+                if field not in data:
+                    return jsonify({'error': f'Missing required field: {field}'}), 400
+            
+            # Insert video into database
+            conn = sqlite3.connect(db_manager.db_path)
+            cursor = conn.cursor()
+            
+            video_id = data.get('id', f"video_{datetime.now().strftime('%Y%m%d_%H%M%S')}")
+            cursor.execute('''
+                INSERT INTO videos (id, title, description, file_path, thumbnail_path, 
+                                  duration, status, upload_date)
+                VALUES (?, ?, ?, ?, ?, ?, ?, datetime('now'))
+            ''', (
+                video_id,
+                data['title'],
+                data.get('description', ''),
+                data['file_path'],
+                data.get('thumbnail_path'),
+                data.get('duration', '00:00'),
+                data.get('status', 'active')
+            ))
+            
+            conn.commit()
+            conn.close()
+            
+            logger.info(f"Video created successfully: {data['title']}")
+            return jsonify({'success': True, 'id': video_id, 'message': 'Video created successfully'}), 201
+            
+        except Exception as e:
+            logger.error(f"Error creating video: {e}")
+            return jsonify({'error': 'Failed to create video'}), 500
+    
+    # GET method
     """Get all videos"""
     try:
         conn = sqlite3.connect(db_manager.db_path)
@@ -771,9 +853,51 @@ def get_videos():
         logger.error(f"Error fetching videos: {e}")
         return jsonify({'success': False, 'videos': [], 'total': 0})
 
-@app.route('/api/articles/<article_id>/quiz', methods=['GET'])
-def get_article_quiz(article_id):
-    """Get quiz for a specific article"""
+@app.route('/api/articles/<article_id>/quiz', methods=['GET', 'POST'])
+def handle_article_quiz(article_id):
+    """Get or create quiz for a specific article"""
+    if request.method == 'POST':
+        try:
+            data = request.get_json()
+            
+            # Validate required fields
+            required_fields = ['questions']
+            for field in required_fields:
+                if field not in data:
+                    return jsonify({'error': f'Missing required field: {field}'}), 400
+            
+            # Insert quiz into database
+            conn = sqlite3.connect(db_manager.db_path)
+            cursor = conn.cursor()
+            
+            # Create quizzes table if it doesn't exist
+            cursor.execute('''
+                CREATE TABLE IF NOT EXISTS quizzes (
+                    id TEXT PRIMARY KEY,
+                    article_id TEXT,
+                    questions TEXT,
+                    created_at TIMESTAMP DEFAULT CURRENT_TIMESTAMP,
+                    FOREIGN KEY (article_id) REFERENCES articles (id)
+                )
+            ''')
+            
+            quiz_id = f"quiz_{article_id}"
+            cursor.execute('''
+                INSERT OR REPLACE INTO quizzes (id, article_id, questions)
+                VALUES (?, ?, ?)
+            ''', (quiz_id, article_id, json.dumps(data['questions'])))
+            
+            conn.commit()
+            conn.close()
+            
+            logger.info(f"Quiz created for article: {article_id}")
+            return jsonify({'success': True, 'id': quiz_id, 'message': 'Quiz created successfully'}), 201
+            
+        except Exception as e:
+            logger.error(f"Error creating quiz: {e}")
+            return jsonify({'error': 'Failed to create quiz'}), 500
+    
+    # GET method
     try:
         conn = sqlite3.connect(db_manager.db_path)
         cursor = conn.cursor()
@@ -985,6 +1109,41 @@ def initialize_sample_data():
         
     except Exception as e:
         logger.error(f"Error initializing sample data: {e}")
+
+# Video interaction endpoints
+@app.route('/api/videos/<video_id>/like', methods=['POST'])
+def handle_video_like(video_id):
+    """Handle video like/unlike"""
+    try:
+        data = request.get_json()
+        liked = data.get('liked', False)
+        
+        # In a real app, you would update user preferences or interaction table
+        # For now, we'll just return success
+        logger.info(f"Video {video_id} {'liked' if liked else 'unliked'}")
+        return jsonify({'success': True, 'liked': liked})
+        
+    except Exception as e:
+        logger.error(f"Error handling video like: {e}")
+        return jsonify({'error': 'Failed to update like status'}), 500
+
+
+@app.route('/api/videos/<video_id>/bookmark', methods=['POST'])
+def handle_video_bookmark(video_id):
+    """Handle video bookmark/unbookmark"""
+    try:
+        data = request.get_json()
+        bookmarked = data.get('bookmarked', False)
+        
+        # In a real app, you would update user bookmarks table
+        # For now, we'll just return success
+        logger.info(f"Video {video_id} {'bookmarked' if bookmarked else 'unbookmarked'}")
+        return jsonify({'success': True, 'bookmarked': bookmarked})
+        
+    except Exception as e:
+        logger.error(f"Error handling video bookmark: {e}")
+        return jsonify({'error': 'Failed to update bookmark status'}), 500
+
 
 if __name__ == '__main__':
     # Initialize sample data

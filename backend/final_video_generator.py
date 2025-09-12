@@ -16,6 +16,8 @@ import time
 import io
 import numpy as np
 import shutil
+import re
+import random
 
 load_dotenv()
 logging.basicConfig(level=logging.INFO)
@@ -32,89 +34,238 @@ class FinalVideoGenerator:
         (self.output_dir / "audio").mkdir(exist_ok=True)
         (self.output_dir / "final").mkdir(exist_ok=True)
         
-        # Official logo path
+        # Official logo path - look in backend directory first, then root
         self.official_logo = Path("junior_news_digest_official_logo.png")
+        if not self.official_logo.exists():
+            # Try looking in the parent directory (root)
+            self.official_logo = Path("../OFFICIAL_JUNIOR_NEWS_DIGEST_LOGO.png")
+        
+        # If still not found, try absolute paths
+        if not self.official_logo.exists():
+            backend_logo = Path(__file__).parent / "junior_news_digest_official_logo.png"
+            logger.info(f"🔍 Trying backend logo: {backend_logo} (exists: {backend_logo.exists()})")
+            if backend_logo.exists():
+                self.official_logo = backend_logo
+                logger.info("✅ Found backend logo")
+            else:
+                root_logo = Path(__file__).parent.parent / "OFFICIAL_JUNIOR_NEWS_DIGEST_LOGO.png"
+                logger.info(f"🔍 Trying root logo: {root_logo} (exists: {root_logo.exists()})")
+                if root_logo.exists():
+                    self.official_logo = root_logo
+                    logger.info("✅ Found root logo")
+
+    def check_grammar_and_improve(self, text: str) -> str:
+        """Basic grammar checking and improvement for scripts"""
+        # Fix common issues
+        text = re.sub(r'\s+', ' ', text)  # Remove extra spaces
+        text = re.sub(r'([.!?])\s*([a-z])', r'\1 \2', text)  # Fix spacing after punctuation
+        text = re.sub(r'([a-z])([A-Z])', r'\1. \2', text)  # Add periods before capital letters
+        text = re.sub(r'\s+([.!?])', r'\1', text)  # Remove spaces before punctuation
+        text = text.strip()
+        
+        # Ensure proper sentence structure
+        sentences = text.split('. ')
+        improved_sentences = []
+        
+        for sentence in sentences:
+            sentence = sentence.strip()
+            if not sentence:
+                continue
+                
+            # Capitalize first letter
+            if sentence and sentence[0].islower():
+                sentence = sentence[0].upper() + sentence[1:]
+            
+            # Ensure sentence ends with punctuation
+            if sentence and not sentence[-1] in '.!?':
+                sentence += '.'
+                
+            improved_sentences.append(sentence)
+        
+        return '. '.join(improved_sentences)
+
+    def create_detailed_impact_description(self, title: str, content: str) -> str:
+        """Create detailed description of what kids did and their impact"""
+        # Extract key details from content
+        details = []
+        
+        # Look for specific numbers and achievements
+        numbers = re.findall(r'\d+[,\d]*(?:\s*(?:trees|pounds|miles|hours|days|weeks|months|years|students|kids|children|people|families|schools|communities|animals|species|projects|inventions|devices|programs|initiatives|events|activities|workshops|classes|awards|recognition|companies|organizations|governments|scientists|engineers|doctors|teachers|parents|adults))?', content, re.IGNORECASE)
+        
+        # Look for specific actions
+        actions = re.findall(r'(?:created|built|designed|invented|organized|started|planted|cleaned|helped|taught|learned|worked|collaborated|developed|implemented|established|launched|founded|initiated|coordinated|managed|led|inspired|motivated|encouraged|supported|assisted|contributed|participated|volunteered|donated|fundraised|raised|collected|gathered|assembled|constructed|manufactured|produced|generated|created|made|achieved|accomplished|completed|finished|succeeded|won|earned|gained|obtained|received|secured|established|founded|launched|started|began|initiated|commenced)', content, re.IGNORECASE)
+        
+        # Look for impact words
+        impacts = re.findall(r'(?:helped|saved|protected|improved|enhanced|benefited|assisted|supported|inspired|motivated|encouraged|taught|educated|informed|raised awareness|spread|promoted|advanced|developed|strengthened|built|created|established|founded|launched|started|initiated|commenced|began|achieved|accomplished|completed|succeeded|won|earned|gained|obtained|received|secured|established|founded|launched|started|began|initiated|commenced)', content, re.IGNORECASE)
+        
+        return {
+            'numbers': numbers[:5],  # Top 5 numbers
+            'actions': list(set(actions))[:8],  # Top 8 unique actions
+            'impacts': list(set(impacts))[:6]  # Top 6 unique impacts
+        }
+
+    def extract_story_elements(self, title: str, content: str) -> dict:
+        """Extract key elements from the story for adaptive script generation"""
+        # Extract location
+        location_patterns = [
+            r'in\s+([A-Z][a-z]+(?:\s+[A-Z][a-z]+)*)',
+            r'from\s+([A-Z][a-z]+(?:\s+[A-Z][a-z]+)*)',
+            r'at\s+([A-Z][a-z]+(?:\s+[A-Z][a-z]+)*)',
+            r'([A-Z][a-z]+(?:\s+[A-Z][a-z]+)*)\s+students',
+            r'([A-Z][a-z]+(?:\s+[A-Z][a-z]+)*)\s+kids'
+        ]
+        
+        location = "their community"
+        for pattern in location_patterns:
+            match = re.search(pattern, title + " " + content, re.IGNORECASE)
+            if match:
+                location = match.group(1)
+                break
+        
+        # Extract main action/achievement
+        action_words = re.findall(r'(?:created|built|designed|invented|organized|started|planted|cleaned|helped|taught|learned|worked|collaborated|developed|implemented|established|launched|founded|initiated|coordinated|managed|led|inspired|motivated|encouraged|supported|assisted|contributed|participated|volunteered|donated|fundraised|raised|collected|gathered|assembled|constructed|manufactured|produced|generated|made|achieved|accomplished|completed|finished|succeeded|won|earned|gained|obtained|received|secured)', content, re.IGNORECASE)
+        
+        # Extract numbers and quantities
+        numbers = re.findall(r'\d+[,\d]*(?:\s*(?:trees|pounds|miles|hours|days|weeks|months|years|students|kids|children|people|families|schools|communities|animals|species|projects|inventions|devices|programs|initiatives|events|activities|workshops|classes|awards|recognition|companies|organizations|governments|scientists|engineers|doctors|teachers|parents|adults))?', content, re.IGNORECASE)
+        
+        # Extract impact words
+        impact_words = re.findall(r'(?:helped|saved|protected|improved|enhanced|benefited|assisted|supported|inspired|motivated|encouraged|taught|educated|informed|raised awareness|spread|promoted|advanced|developed|strengthened|built|created|established|founded|launched|started|initiated|commenced|began|achieved|accomplished|completed|succeeded|won|earned|gained|obtained|received|secured)', content, re.IGNORECASE)
+        
+        # Determine story category based on content
+        category = "general"
+        if any(word in content.lower() for word in ['environment', 'climate', 'trees', 'ocean', 'planet', 'green', 'solar', 'recycling', 'pollution']):
+            category = "environment"
+        elif any(word in content.lower() for word in ['technology', 'robot', 'invented', 'device', 'computer', 'digital', 'app', 'software']):
+            category = "technology"
+        elif any(word in content.lower() for word in ['health', 'food', 'nutrition', 'garden', 'exercise', 'medicine', 'doctor', 'hospital']):
+            category = "health"
+        elif any(word in content.lower() for word in ['sports', 'team', 'competition', 'athlete', 'game', 'tournament']):
+            category = "sports"
+        
+        return {
+            'location': location,
+            'main_actions': list(set(action_words))[:5],
+            'numbers': numbers[:5],
+            'impacts': list(set(impact_words))[:5],
+            'category': category
+        }
+
+    def create_adaptive_script(self, title: str, content: str) -> str:
+        """Create an adaptive script that responds to the actual story content"""
+        elements = self.extract_story_elements(title, content)
+        
+        # Create dynamic introduction based on story elements
+        intro_templates = [
+            f"Welcome to Junior News Digest! I'm so excited to share today's incredible story with you.",
+            f"Welcome to Junior News Digest! I have the most inspiring story to share with you today.",
+            f"Welcome to Junior News Digest! Today's story is going to amaze you.",
+            f"Welcome to Junior News Digest! I'm thrilled to tell you about today's amazing story.",
+            f"Welcome to Junior News Digest! Do I have an incredible story for you today!"
+        ]
+        
+        intro = random.choice(intro_templates)
+        
+        # Create story-specific content
+        story_intro = f"Today we're learning about young people in {elements['location']} who are making a real difference in their community and the world."
+        
+        # Extract the core story content (first 400 characters)
+        core_content = content[:400] + "..." if len(content) > 400 else content
+        
+        # Create impact description based on actual story elements
+        if elements['main_actions']:
+            action_desc = f"What makes this story so remarkable is how these students {', '.join(elements['main_actions'][:3])} to create real change."
+        else:
+            action_desc = "What makes this story so remarkable is how these students took action to create real change."
+        
+        # Add specific details if numbers are available
+        if elements['numbers']:
+            numbers_desc = f"The results are impressive - {', '.join(elements['numbers'][:2])} and counting!"
+        else:
+            numbers_desc = "The results speak for themselves - these kids are proving that age is just a number when it comes to making a difference."
+        
+        # Create category-specific impact description
+        impact_descriptions = {
+            "environment": "This project is helping protect our planet and inspiring other communities to take environmental action.",
+            "technology": "This innovation is solving real problems and showing how technology can make the world better.",
+            "health": "This initiative is helping people live healthier lives and teaching important lessons about wellness.",
+            "sports": "This achievement is bringing people together and showing the power of teamwork and determination.",
+            "general": "This project is making a positive impact and inspiring others to take action in their own communities."
+        }
+        
+        impact_desc = impact_descriptions.get(elements['category'], impact_descriptions['general'])
+        
+        # Create adaptive closing
+        closing_templates = [
+            "These young people show us that anyone can make a difference, no matter how old they are. Their creativity and hard work inspire everyone around them to take action and help others.",
+            "These kids demonstrate that you don't have to be an adult to change the world. You just need a great idea and the courage to make it happen!",
+            "These students prove that when young people put their minds to something, they can literally change the world. What problem do you see that you could help solve?",
+            "These young leaders show us that age is just a number when it comes to making a difference. Their dedication and creativity inspire everyone around them.",
+            "These amazing kids are proving that the future is in good hands. Their innovative thinking and collaborative spirit inspire us all."
+        ]
+        
+        closing = random.choice(closing_templates)
+        
+        # Create final inspiration
+        inspiration_templates = [
+            "Isn't it incredible how young minds can solve such important problems? You could be the next young person to help make the world better!",
+            "Isn't it amazing how young people can create such powerful solutions? You could be the next young innovator to solve an important problem!",
+            "Isn't it wonderful how young people can unite entire communities? You could be the next young leader to bring your community together!",
+            "Isn't it incredible how young minds can create such advanced solutions? You could be the next young inventor to create something amazing!",
+            "Isn't it amazing how young people can make such a big difference for our planet? You could be the next young environmental hero to help save our world!"
+        ]
+        
+        inspiration = random.choice(inspiration_templates)
+        
+        # Create final message
+        final_messages = [
+            "Keep dreaming big, keep learning, and remember - you're never too young to make a difference.",
+            "Keep thinking creatively, keep collaborating, and remember - you're never too young to change the world.",
+            "Keep caring, keep leading, and remember - you're never too young to make your community better.",
+            "Keep inventing, keep exploring, and remember - you're never too young to change the world with technology.",
+            "Keep protecting, keep caring, and remember - you're never too young to help save our planet."
+        ]
+        
+        final_message = random.choice(final_messages)
+        
+        # Assemble the script
+        script = f"""
+        {intro}
+        
+        {story_intro}
+        Are you ready to hear about these amazing kids and what they accomplished?
+        
+        {core_content}
+        
+        {action_desc}
+        They didn't just have an idea - they took action and made it happen through hard work and determination.
+        Their teachers, families, and entire community are amazed by what they've achieved together.
+        {numbers_desc}
+        {impact_desc}
+        
+        {closing}
+        
+        {inspiration}
+        
+        {final_message}
+        
+        Thanks for joining us on Junior News Digest. Until next time, stay curious!
+        """
+        
+        # Apply grammar checking
+        script = self.check_grammar_and_improve(script)
+        
+        return script
 
     def create_natural_conversational_script(self, title: str, content: str) -> str:
-        """Create more natural, conversational script"""
-        
-        if "robot" in title.lower() and "ocean" in title.lower():
-            script = """
-            Welcome to Junior News Digest! I'm so excited to share today's amazing story with you.
-            
-            Today we're diving deep into the ocean to meet some incredible young inventors. 
-            Are you ready for an underwater adventure?
-            
-            These amazing students created something that's helping save our oceans right now. 
-            They built a robot that looks just like a whale, and it's cleaning up plastic waste!
-            
-            This robot swims around collecting tiny pieces of plastic that could hurt sea animals like dolphins and turtles.
-            And guess what? It runs on solar power, so it's completely clean and green.
-            
-            Since this whale robot started working, it's already cleaned up thousands of pounds of plastic.
-            That means safer, cleaner homes for all our ocean friends.
-            
-            Isn't it incredible how young minds can solve such big problems?
-            You could be the next young inventor to help save our planet!
-            
-            Keep dreaming big, keep learning, and remember - you're never too young to make a difference.
-            
-            Thanks for joining us on Junior News Digest. Until next time, stay curious!
-            """
-        
-        elif "solar" in title.lower() and "bus" in title.lower():
-            script = """
-            Welcome to Junior News Digest! Do I have the coolest story for you today!
-            
-            Imagine riding to school in a bus that's powered by sunshine. 
-            Sounds like science fiction, right? Well, it's totally real!
-            
-            Students at a school in California worked with engineers to design the most amazing school bus ever.
-            It has solar panels right on the roof that turn sunlight into electricity.
-            
-            This bus is whisper quiet, creates zero pollution, and even charges tablets while you ride.
-            Plus, it makes so much extra energy that it can power the whole school's computers!
-            
-            The kids who helped design it say riding it feels like being in a spaceship from the future.
-            And the best part? Other schools are now building their own solar buses too.
-            
-            These students proved that when kids put their minds to something, they can literally change the world.
-            Maybe your school could be next!
-            
-            Keep thinking of ways to help our planet. Your ideas matter more than you know.
-            
-            That's all for today's Junior News Digest. Keep being awesome!
-            """
-        
-        elif "inventor" in title.lower():
-            script = """
-            Welcome to Junior News Digest! Today's story is going to blow your mind.
-            
-            I want you to meet four of the most amazing young inventors on our planet.
-            Each one saw a problem in their community and decided to do something about it.
-            
-            First, there's Emma from Canada. She noticed her grandma had trouble hearing conversations.
-            So she invented smart glasses that show spoken words as text. Now grandma never misses a word!
-            
-            Then there's Marcus from Kenya. He saw families walking miles just to get clean water.
-            So he built a portable water filter that's now helping over 500 families every day.
-            
-            Priya from India created a friendly robot companion that helps elderly people remember to take their medicine and even tells jokes to make them smile.
-            
-            And Diego from Mexico invented solar street lights that also provide WiFi and phone charging for his whole community.
-            
-            These kids didn't wait for adults to solve these problems. They became the solution.
-            And you know what? You could be next.
-            
-            What problem do you see that you could help solve? Start dreaming, start building!
-            
-            Thanks for watching Junior News Digest. Remember, great ideas come from curious minds like yours!
-            """
-        
-        return script.strip()
+        """Create more natural, conversational script with variety and detailed impact"""
+        return self.create_adaptive_script(title, content)
 
     def use_consistent_logo(self) -> str:
         """Use the official Junior News Digest logo as first scene"""
+        logger.info(f"🔍 Checking logo: {self.official_logo}")
+        logger.info(f"🔍 Logo exists: {self.official_logo.exists()}")
+        logger.info(f"🔍 Logo absolute: {self.official_logo.absolute()}")
+        
         if self.official_logo.exists():
             # Copy official logo to images directory
             logo_path = self.output_dir / "images" / "official_logo_scene_00.png"
@@ -123,6 +274,7 @@ class FinalVideoGenerator:
             return str(logo_path)
         else:
             # Create fallback logo if original not found
+            logger.info("⚠️ Official logo not found, creating fallback")
             return self.create_fallback_logo()
 
     def create_fallback_logo(self) -> str:
@@ -241,11 +393,80 @@ class FinalVideoGenerator:
             "Bright optimistic future with young change-makers, empowering message, vibrant illustration"
         ]
 
+    def extract_illustration_keywords(self, script: str, scene_num: int) -> str:
+        """Extract key words from script to create relevant illustration prompts"""
+        # Split script into sentences for scene-based prompts
+        sentences = script.split('. ')
+        total_sentences = len(sentences)
+        
+        # Calculate which part of the script this scene represents
+        if scene_num == 0:
+            # First scene - focus on introduction and setting
+            relevant_text = ' '.join(sentences[:2]) if len(sentences) >= 2 else sentences[0]
+        elif scene_num == 1:
+            # Second scene - focus on the main story
+            start_idx = max(0, total_sentences // 4)
+            end_idx = min(total_sentences, start_idx + 3)
+            relevant_text = ' '.join(sentences[start_idx:end_idx])
+        elif scene_num == 2:
+            # Third scene - focus on actions and achievements
+            start_idx = max(0, total_sentences // 2)
+            end_idx = min(total_sentences, start_idx + 3)
+            relevant_text = ' '.join(sentences[start_idx:end_idx])
+        elif scene_num == 3:
+            # Fourth scene - focus on impact and results
+            start_idx = max(0, int(total_sentences * 0.7))
+            end_idx = min(total_sentences, start_idx + 3)
+            relevant_text = ' '.join(sentences[start_idx:end_idx])
+        else:
+            # Later scenes - focus on inspiration and future
+            start_idx = max(0, int(total_sentences * 0.8))
+            relevant_text = ' '.join(sentences[start_idx:])
+        
+        # Extract key visual elements
+        visual_keywords = []
+        
+        # Extract locations and settings
+        location_words = re.findall(r'\b(?:school|community|garden|beach|ocean|forest|city|town|village|park|playground|laboratory|workshop|classroom|library|hospital|farm|field|mountain|river|lake|desert|island|coast|shoreline|urban|rural|indoor|outdoor)\b', relevant_text, re.IGNORECASE)
+        visual_keywords.extend(location_words[:2])
+        
+        # Extract activities and actions
+        action_words = re.findall(r'\b(?:planting|cleaning|building|creating|inventing|learning|teaching|helping|working|playing|studying|experimenting|collaborating|organizing|leading|inspiring|protecting|saving|healing|growing|developing|designing|constructing|assembling|collecting|gathering|sharing|celebrating|achieving|accomplishing)\b', relevant_text, re.IGNORECASE)
+        visual_keywords.extend(action_words[:2])
+        
+        # Extract objects and tools
+        object_words = re.findall(r'\b(?:trees|plants|flowers|vegetables|fruits|tools|equipment|machines|devices|computers|tablets|books|materials|supplies|instruments|vehicles|robots|solar panels|recycling bins|garden tools|scientific equipment|art supplies|sports equipment|musical instruments|cameras|microscopes|telescopes|magnifying glasses|lab coats|safety gear|uniforms|badges|awards|trophies|certificates)\b', relevant_text, re.IGNORECASE)
+        visual_keywords.extend(object_words[:2])
+        
+        # Extract people and groups
+        people_words = re.findall(r'\b(?:students|kids|children|young people|teens|teenagers|youth|volunteers|teachers|mentors|scientists|engineers|doctors|artists|inventors|leaders|team|group|community|family|friends|classmates|peers|adults|professionals|experts|guests|visitors|audience|crowd|participants)\b', relevant_text, re.IGNORECASE)
+        visual_keywords.extend(people_words[:2])
+        
+        # Extract emotions and expressions
+        emotion_words = re.findall(r'\b(?:happy|excited|proud|determined|focused|concentrated|joyful|enthusiastic|motivated|inspired|confident|successful|accomplished|satisfied|grateful|thankful|hopeful|optimistic|positive|cheerful|smiling|laughing|celebrating|high-fiving|clapping|applauding)\b', relevant_text, re.IGNORECASE)
+        visual_keywords.extend(emotion_words[:1])
+        
+        # Remove duplicates and limit to most relevant
+        unique_keywords = list(dict.fromkeys(visual_keywords))[:6]
+        
+        # Create a descriptive prompt
+        if unique_keywords:
+            base_prompt = f"Children and young people {', '.join(unique_keywords[:3])}"
+            if len(unique_keywords) > 3:
+                base_prompt += f" with {', '.join(unique_keywords[3:])}"
+        else:
+            base_prompt = "Children and young people working together on a positive project"
+        
+        return base_prompt
+
     def generate_watermark_free_illustration(self, prompt: str, scene_num: int) -> str:
         """Generate illustration and automatically remove watermarks"""
         
+        # Extract key words from the script for more relevant illustrations
+        script_keywords = self.extract_illustration_keywords(prompt, scene_num)
+        
         # Enhanced prompt for maximum quality and clean design
-        enhanced_prompt = f"{prompt}, extremely bright and vibrant, high contrast, colorful children's book illustration, pixar animation style, professional quality, 4k, clean design, no watermarks, no text overlays"
+        enhanced_prompt = f"{script_keywords}, extremely bright and vibrant, high contrast, colorful children's book illustration, pixar animation style, professional quality, 4k, clean design, no watermarks, no text overlays"
         
         # Try multiple seeds to get watermark-free images
         for seed in range(scene_num + 300, scene_num + 310):
