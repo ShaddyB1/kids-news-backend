@@ -106,7 +106,6 @@ junior-news-digest/
 ## Features
 
 - 📱 **Cross-platform**: iOS and Android support
-- 🎨 **Beautiful Design**: Custom playful design system
 - 🎥 **Video Content**: AI-generated story videos
 - 🖼️ **Smart Thumbnails**: AI-powered thumbnail generation
 - 📚 **Educational**: Age-appropriate content with quizzes
@@ -151,7 +150,7 @@ This project is licensed under the MIT License - see the [LICENSE](LICENSE) file
 
 ## Support
 
-- 📧 Email: support@example.com
+- 📧 Email: aaddoshadrack@gmail.com
 - 🐛 Issues: [GitHub Issues](https://github.com/yourusername/junior-news-digest/issues)
 - 📖 Documentation: [Wiki](https://github.com/yourusername/junior-news-digest/wiki)
 
