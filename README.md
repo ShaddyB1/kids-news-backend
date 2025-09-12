@@ -39,8 +39,8 @@ The app transforms complex world events into digestible, educational content tha
 
 2. **Install dependencies**
    ```bash
-   # Install app dependencies
-   cd app
+   # Install frontend dependencies
+   cd frontend
    npm install
    
    # Install backend dependencies
@@ -63,7 +63,7 @@ The app transforms complex world events into digestible, educational content tha
 
 5. **Start the mobile app**
    ```bash
-   cd app
+   cd frontend
    npx expo start
    ```
 
@@ -112,6 +112,30 @@ junior-news-digest/
 - 📚 **Educational**: Age-appropriate content with quizzes
 - 🔄 **Automated**: Backend content management system
 - 🌐 **API-First**: RESTful API for content delivery
+
+## Project Structure
+
+```
+junior-news-digest/
+├── frontend/             # React Native mobile application
+│   ├── src/             # Main source code
+│   │   ├── components/  # Reusable React components
+│   │   ├── screens/     # App screens and pages
+│   │   ├── services/    # API and utility services
+│   │   └── config/      # Design systems and configuration
+│   └── package.json
+├── backend/             # Python Flask backend API
+│   ├── integrated_backend.py
+│   ├── thumbnail_generator.py
+│   └── requirements.txt
+├── content/             # Media assets and generated content
+├── scripts/             # Utility and automation scripts
+├── docs/                # All documentation
+├── deployment/          # Deployment configurations
+└── archive/             # Legacy and archived files
+```
+
+For detailed structure information, see [PROJECT_STRUCTURE.md](PROJECT_STRUCTURE.md).
 
 ## Technology Stack
 
