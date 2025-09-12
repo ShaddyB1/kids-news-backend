@@ -1167,3 +1167,4 @@ if __name__ == '__main__':
         # Clean shutdown
         automation_scheduler.stop()
         logger.info("Backend shutdown complete")
+# Force new deployment - Fri Sep 12 16:02:47 PDT 2025
